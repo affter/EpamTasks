@@ -7,7 +7,7 @@ namespace TestTask
 {
     class Sort
     {
-       public static void QSort(int[] array, int first, int last)
+        public static void QSort(int[] array, int first, int last)
         {
             int temp;
             int x = array[first + (last - first) / 2];

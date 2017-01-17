@@ -27,14 +27,5 @@ namespace TestTask
             else
                 return false;
         }
-        public static void Main()
-        {
-            int[] TestArray = { 3, 4, 65, 1, -5, -239, 33 };
-            Sort.QSort(TestArray, 0, TestArray.Length - 1);
-            Console.WriteLine(Contains(TestArray, 3));
-            Console.WriteLine(Contains(TestArray, 124));
-            Console.WriteLine(Contains(TestArray, 64));
-            Console.ReadKey();
-        }
     }
 }
