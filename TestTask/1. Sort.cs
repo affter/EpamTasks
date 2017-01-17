@@ -7,6 +7,10 @@ namespace TestTask
 {
     class Sort
     {
+        public static void QuickSort(int[] array)
+        {
+            QSort(array, 0, array.Length - 1);
+        }
         public static void QSort(int[] array, int first, int last)
         {
             int temp;
