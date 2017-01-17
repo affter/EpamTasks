@@ -60,7 +60,7 @@ namespace TestTask
             Console.WriteLine("Sum of numbers divisible by 3 or 5 from 1 to 1000 is " + Sequence.Sum());
             Next();
 
-            Console.WriteLine("Task 4: Finder");
+            Console.WriteLine("Task 5: Finder");
             int[] duplicateArray = { 2, 5, 3, 8, 0, 5, 2, 0, 8 };
             Console.WriteLine("Array: 2 5 3 8 0 5 2 0 8");
             Console.WriteLine("Unique number in this array is " + Finder.FindUnique(duplicateArray));

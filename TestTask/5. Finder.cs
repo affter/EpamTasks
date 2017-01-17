@@ -17,7 +17,7 @@ namespace TestTask
                 else
                     set.Add(i);
             }
-            return set.Max();
+            return set.First();
         }
     }
 }
