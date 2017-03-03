@@ -12,7 +12,7 @@ namespace Task01_08
             {
                 for (int j = 0; j < array.GetUpperBound(1); j++)
                 {
-                    for (int k = 0; k < array.GetUpperBound(3); k++)
+                    for (int k = 0; k < array.GetUpperBound(2); k++)
                     {
                         array[i, j, k] = rand.Next(-50, 50);
                     }
@@ -26,7 +26,7 @@ namespace Task01_08
             {
                 for (int j = 0; j < array.GetUpperBound(1); j++)
                 {
-                    for (int k = 0; k < array.GetUpperBound(3); k++)
+                    for (int k = 0; k < array.GetUpperBound(2); k++)
                     {
                         if (array[i, j, k] > 0)
                         {
