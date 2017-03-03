@@ -7,9 +7,10 @@ namespace Task01_07
 {
     class Program
     {
+        static Random rand = new Random();
         static int[] GenerateArray(int n)
         {
-            Random rand = new Random();
+            
             int[] array = new int[n];
             for (int i = 0; i < n; i++)
             {
@@ -47,9 +48,9 @@ namespace Task01_07
         }
         public static void QuickSort(int[] array)
         {
-            QSort(array, 0, array.Length - 1);
+            QuickSort(array, 0, array.Length - 1);
         }
-        public static void QSort(int[] array, int first, int last)
+        public static void QuickSort(int[] array, int first, int last)
         {
             int temp;
             int x = array[first + (last - first) / 2];
@@ -69,9 +70,9 @@ namespace Task01_07
                 }
             }
             if (i < last)
-                QSort(array, i, last);
+                QuickSort(array, i, last);
             if (first < j)
-                QSort(array, first, j);
+                QuickSort(array, first, j);
         }
         static void Main(string[] args)
         {

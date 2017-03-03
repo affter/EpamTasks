@@ -18,7 +18,8 @@ namespace Task01_06
         }
 
         static void Main(string[] args)
-        {
+        {  
+            // TODO: Fix index binding
             ConsoleKeyInfo input;
             Types type = new Types();
             while (true)

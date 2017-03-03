@@ -8,6 +8,7 @@ namespace Task01_01
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
             int a, b;
@@ -27,7 +28,8 @@ namespace Task01_01
                     Console.WriteLine("Некорректный ввод.");
             }
             while (b <= 0);
-            Console.WriteLine($"Площадь прямоугольника S = {a * b}");
+            Rectangle rect = new Rectangle(a, b);
+            Console.WriteLine($"Площадь прямоугольника S = {rect.Area}");
         }
     }
 }
