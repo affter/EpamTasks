@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Task01_07
 {
-    class Program
+    internal class Program
     {
-        static Random rand = new Random();
-        static int[] GenerateArray(int n)
+        private static Random rand = new Random();
+
+        private static int[] GenerateArray(int n)
         {
-            
             int[] array = new int[n];
             for (int i = 0; i < n; i++)
             {
@@ -18,7 +15,8 @@ namespace Task01_07
             }
             return array;
         }
-        static void WriteArray(int[] array)
+
+        private static void WriteArray(int[] array)
         {
             for (int i = 0; i < array.Length; i++)
             {
@@ -26,7 +24,8 @@ namespace Task01_07
             }
             Console.WriteLine();
         }
-        static int Min(int[] array)
+
+        private static int Min(int[] array)
         {
             int min = array[0];
             for (int i = 1; i < array.Length; i++)
@@ -36,7 +35,8 @@ namespace Task01_07
             }
             return min;
         }
-        static int Max(int[] array)
+
+        private static int Max(int[] array)
         {
             int max = array[0];
             for (int i = 1; i < array.Length; i++)
@@ -46,10 +46,12 @@ namespace Task01_07
             }
             return max;
         }
+
         public static void QuickSort(int[] array)
         {
             QuickSort(array, 0, array.Length - 1);
         }
+
         public static void QuickSort(int[] array, int first, int last)
         {
             int temp;
@@ -74,7 +76,8 @@ namespace Task01_07
             if (first < j)
                 QuickSort(array, first, j);
         }
-        static void Main(string[] args)
+
+        private static void Main(string[] args)
         {
             int[] array = GenerateArray(20);
             Console.WriteLine("Сгенерированный массив:");

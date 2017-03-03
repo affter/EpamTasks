@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task01_06
 {
-    class Program
+    internal class Program
     {
         [Flags]
-        enum Types : byte
+        private enum Types : byte
         {
             None = 0,
             Bold = 1,
@@ -17,8 +13,8 @@ namespace Task01_06
             Underline = 4,
         }
 
-        static void Main(string[] args)
-        {  
+        private static void Main(string[] args)
+        {
             // TODO: Fix index binding
             ConsoleKeyInfo input;
             Types type = new Types();
@@ -39,16 +35,19 @@ namespace Task01_06
                     case '1':
                         type ^= Types.Bold;
                         break;
+
                     case '2':
                         type ^= Types.Italic;
                         break;
+
                     case '3':
                         type ^= Types.Underline;
                         break;
+
                     default:
                         Console.WriteLine("Некорректный ввод!");
                         break;
-                }           
+                }
             }
         }
     }

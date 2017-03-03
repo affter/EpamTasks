@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task01_03
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             int N;
             do
@@ -23,7 +19,6 @@ namespace Task01_03
                 Console.Write(new string(' ', N - i));
                 Console.WriteLine(new string('*', 2 * i - 1));
             }
-
         }
     }
 }
