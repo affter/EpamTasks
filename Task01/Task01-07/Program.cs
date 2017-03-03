@@ -6,47 +6,6 @@ namespace Task01_07
     {
         private static Random rand = new Random();
 
-        private static int[] GenerateArray(int n)
-        {
-            int[] array = new int[n];
-            for (int i = 0; i < n; i++)
-            {
-                array[i] = rand.Next(-100, 100);
-            }
-            return array;
-        }
-
-        private static void WriteArray(int[] array)
-        {
-            for (int i = 0; i < array.Length; i++)
-            {
-                Console.Write($"{array[i]} ");
-            }
-            Console.WriteLine();
-        }
-
-        private static int Min(int[] array)
-        {
-            int min = array[0];
-            for (int i = 1; i < array.Length; i++)
-            {
-                if (array[i] < min)
-                    min = array[i];
-            }
-            return min;
-        }
-
-        private static int Max(int[] array)
-        {
-            int max = array[0];
-            for (int i = 1; i < array.Length; i++)
-            {
-                if (array[i] > max)
-                    max = array[i];
-            }
-            return max;
-        }
-
         public static void QuickSort(int[] array)
         {
             QuickSort(array, 0, array.Length - 1);
@@ -55,13 +14,21 @@ namespace Task01_07
         public static void QuickSort(int[] array, int first, int last)
         {
             int temp;
-            int x = array[first + (last - first) / 2];
+            int x = array[first + ((last - first) / 2)];
             int i = first;
             int j = last;
             while (i <= j)
             {
-                while (array[i] < x) i++;
-                while (array[j] > x) j--;
+                while (array[i] < x)
+                {
+                    i++;
+                }      
+                             
+                while (array[j] > x)
+                {
+                    j--;
+                }
+
                 if (i <= j)
                 {
                     temp = array[i];
@@ -71,10 +38,65 @@ namespace Task01_07
                     j--;
                 }
             }
+
             if (i < last)
+            {
                 QuickSort(array, i, last);
+            }
+                            
             if (first < j)
+            {
                 QuickSort(array, first, j);
+            }                
+        }
+
+        private static int[] GenerateArray(int n)
+        {
+            int[] array = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                array[i] = rand.Next(-100, 100);
+            }
+
+            return array;
+        }
+
+        private static void WriteArray(int[] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                Console.Write($"{array[i]} ");
+            }
+
+            Console.WriteLine();
+        }
+
+        private static int Min(int[] array)
+        {
+            int min = array[0];
+            for (int i = 1; i < array.Length; i++)
+            {
+                if (array[i] < min)
+                {
+                    min = array[i];
+                }
+            }
+
+            return min;
+        }
+
+        private static int Max(int[] array)
+        {
+            int max = array[0];
+            for (int i = 1; i < array.Length; i++)
+            {
+                if (array[i] > max)
+                {
+                    max = array[i];
+                }
+            }
+
+            return max;
         }
 
         private static void Main(string[] args)

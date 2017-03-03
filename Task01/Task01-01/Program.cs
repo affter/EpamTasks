@@ -12,7 +12,9 @@ namespace Task01_01
                 Console.Write("Введите целое неотрицательное a: ");
                 a = int.Parse(Console.ReadLine());
                 if (a <= 0)
+                {
                     Console.WriteLine("Некорректный ввод.");
+                }
             }
             while (a <= 0);
             do
@@ -20,7 +22,9 @@ namespace Task01_01
                 Console.Write("Введите целое неотрицательное b: ");
                 b = int.Parse(Console.ReadLine());
                 if (b <= 0)
+                {
                     Console.WriteLine("Некорректный ввод.");
+                }         
             }
             while (b <= 0);
             Rectangle rect = new Rectangle(a, b);

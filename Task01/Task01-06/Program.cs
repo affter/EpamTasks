@@ -28,7 +28,10 @@ namespace Task01_06
 
                 input = Console.ReadKey();
                 Console.WriteLine();
-                if (input.Key == ConsoleKey.Escape) break;
+                if (input.Key == ConsoleKey.Escape)
+                {
+                    break;
+                }
 
                 switch (input.KeyChar)
                 {

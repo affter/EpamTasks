@@ -6,7 +6,7 @@ namespace Task01_05
     {
         private static void Main(string[] args)
         {
-            const int a1 = 3,
+            int a1 = 3,
                             b1 = 5,
                             n = 1000,
                             c1 = a1 * b1,
