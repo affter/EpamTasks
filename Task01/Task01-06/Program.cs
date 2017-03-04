@@ -13,11 +13,17 @@ namespace Task01_06
             Underline = 4,
         }
 
+        private enum Inputs : int
+        {
+            Bold = 1,
+            Italic = 2,
+            Underline = 3,
+        }
+
         private static void Main(string[] args)
         {
-            // TODO: Fix index binding
-            ConsoleKeyInfo input;
             Types type = new Types();
+            Inputs input = new Inputs();
             while (true)
             {
                 Console.WriteLine($"Параметры надписи: {type}");
@@ -25,32 +31,9 @@ namespace Task01_06
                 Console.WriteLine("\t 1: Bold");
                 Console.WriteLine("\t 2: Italic");
                 Console.WriteLine("\t 3: Undeline");
-
-                input = Console.ReadKey();
                 Console.WriteLine();
-                if (input.Key == ConsoleKey.Escape)
-                {
-                    break;
-                }
-
-                switch (input.KeyChar)
-                {
-                    case '1':
-                        type ^= Types.Bold;
-                        break;
-
-                    case '2':
-                        type ^= Types.Italic;
-                        break;
-
-                    case '3':
-                        type ^= Types.Underline;
-                        break;
-
-                    default:
-                        Console.WriteLine("Некорректный ввод!");
-                        break;
-                }
+                input = (Inputs)Enum.Parse(typeof(Inputs), Console.ReadLine());
+                type ^= (Types)Enum.Parse(typeof(Types), Enum.GetName(typeof(Inputs), input));
             }
         }
     }
