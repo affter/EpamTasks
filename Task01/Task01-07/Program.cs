@@ -107,7 +107,7 @@ namespace Task01_07
             Console.WriteLine($"Максимальный элемент: {Max(array)}");
             Console.WriteLine($"Минимальный элемент: {Min(array)}");
             QuickSort(array);
-            Console.WriteLine("Отсортированный массив массив:");
+            Console.WriteLine("Отсортированный массив :");
             WriteArray(array);
         }
     }

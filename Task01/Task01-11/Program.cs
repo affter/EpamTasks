@@ -4,39 +4,34 @@ namespace Task01_11
 {
     internal class Program
     {
-        private static char[] AllSeparators()
+        private static char[] FindSeparators(string input)
         {
-            var array = new char[char.MaxValue + 1];
-            int j = 0;
-
-            for (char i = (char)0; i < char.MaxValue; i++)
+            var array = new char[input.Length];
+            for (int i = 0; i < input.Length; i++)
             {
-                if (char.IsWhiteSpace(i) || char.IsSeparator(i) || char.IsPunctuation(i))
+                if (char.IsSeparator(input[i]) || char.IsPunctuation(input[i]))
                 {
-                    array[j] = i;
-                    j++;
+                    array[i] = input[i];
                 }
             }
 
-            var output = new char[j];
-            Array.Copy(array, output, j);
-            return output;
+            return array;
         }
 
         private static void Main(string[] args)
         {
-            var sum = 0.0;
+            var sum = 0;
             Console.WriteLine("Введите строку:");
             string input = Console.ReadLine();
 
-            string[] words = input.Split(AllSeparators());
+            string[] words = input.Split(FindSeparators(input), StringSplitOptions.RemoveEmptyEntries);
             var wordsLength = words.Length;
             for (int i = 0; i < wordsLength; i++)
             {
                 sum += words[i].Length;
             }
 
-            Console.WriteLine($"Средняя длина слова во введенной строке: {sum / wordsLength}");
+            Console.WriteLine($"Средняя длина слова во введенной строке: {(double)sum / wordsLength}");
         }
     }
 }

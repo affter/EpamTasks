@@ -41,19 +41,9 @@ namespace Task01_10
 
             for (int i = 0; i <= rowsCount; i++)
             {
-                if (i % 2 == 0)
+                for (int j = i % 2; j <= array.GetUpperBound(1); j += 2)
                 {
-                    for (int j = 0; j <= rowsCount; j += 2)
-                    {
-                        sum += array[i, j];
-                    }
-                }
-                else
-                {
-                    for (int j = 1; j <= array.GetUpperBound(1); j += 2)
-                    {
-                        sum += array[i, j];
-                    }
+                    sum += array[i, j];
                 }
             }
 
