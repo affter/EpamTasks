@@ -27,7 +27,7 @@ namespace Task01_10
             {
                 for (int j = 0; j <= array.GetUpperBound(1); j++)
                 {
-                    Console.Write($"{array[i, j]} ");
+                    Console.Write($"{array[i, j]}\t");
                 }
 
                 Console.WriteLine();
@@ -37,12 +37,13 @@ namespace Task01_10
         private static int Sum(int[,] array)
         {
             int sum = 0;
+            int rowsCount = array.GetUpperBound(0);
 
-            for (int i = 0; i <= array.GetUpperBound(0); i++)
+            for (int i = 0; i <= rowsCount; i++)
             {
                 if (i % 2 == 0)
                 {
-                    for (int j = 0; j <= array.GetUpperBound(0); j += 2)
+                    for (int j = 0; j <= rowsCount; j += 2)
                     {
                         sum += array[i, j];
                     }
@@ -64,7 +65,7 @@ namespace Task01_10
             int[,] array = new int[5, 5];
             Fill2DArray(array);
             Write2DArray(array);
-            Console.WriteLine($"Сумма элементов, стоящих на нечетных позициях равна {Sum(array)}");
+            Console.WriteLine($"Сумма элементов, стоящих на четных позициях равна {Sum(array)}");
         }
     }
 }
