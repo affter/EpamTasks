@@ -37,9 +37,8 @@ namespace Task01_10
         private static int Sum(int[,] array)
         {
             int sum = 0;
-            int rowsCount = array.GetUpperBound(0);
 
-            for (int i = 0; i <= rowsCount; i++)
+            for (int i = 0; i <= array.GetUpperBound(0); i++)
             {
                 for (int j = i % 2; j <= array.GetUpperBound(1); j += 2)
                 {
