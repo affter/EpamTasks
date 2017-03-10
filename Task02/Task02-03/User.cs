@@ -10,49 +10,57 @@ namespace Task02_03
     {
         private string name, surname, patronymic;
         private DateTime? birthdate;
-        private int age;
 
         public User()
         {
         }
 
+        public User(string surname, string name)
+        {
+            this.CheckNull(surname, name, this.patronymic);
+            this.name = name;
+            this.surname = surname;
+        }
+
         public User(string surname, string name, string patronymic)
         {
+            this.CheckNull(surname, name, patronymic);
             this.name = name;
             this.surname = surname;
             this.patronymic = patronymic;
         }
 
+        public User(string surname, string name, DateTime? birthdate)
+        {
+            this.CheckNull(surname, name, this.patronymic);
+            this.name = name;
+            this.surname = surname;
+            this.Birthdate = birthdate;
+        }
+
         public User(string surname, string name, string patronymic, DateTime? birthdate)
         {
+            this.CheckNull(surname, name, patronymic);
             this.name = name;
             this.surname = surname;
             this.patronymic = patronymic;
             this.Birthdate = birthdate;
         }
 
-        public User(string surname, string name, string patronymic, int age)
-        {
-            this.name = name;
-            this.surname = surname;
-            this.patronymic = patronymic;
-            this.age = age;
-        }
-
         public string Name
         {
             get
             {
-                if (this.name == string.Empty)
-                {
-                    return "Unknown";
-                }
-
                 return this.name;
             }
 
             set
             {
+                if (string.IsNullOrEmpty(value))
+                {
+                throw new ArgumentException("Имя не может быть пустой строкой или null");
+                }
+
                 this.name = value;
             }
         }
@@ -61,16 +69,16 @@ namespace Task02_03
         {
             get
             {
-                if (this.surname == string.Empty)
-                {
-                    return "Unknown";
-                }
-
                 return this.surname;
             }
 
             set
             {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Фамилия не может быть пустой строкой или null");
+                }
+
                 this.surname = value;
             }
         }
@@ -79,16 +87,16 @@ namespace Task02_03
         {
             get
             {
-                if (this.patronymic == string.Empty)
-                {
-                    return "Unknown";
-                }
-
                 return this.patronymic;
             }
 
             set
             {
+                if (value == string.Empty)
+                {
+                    throw new ArgumentException("Отчество не может быть пустой строкой");
+                }
+
                 this.patronymic = value;
             }
         }
@@ -108,31 +116,45 @@ namespace Task02_03
                 }
 
                 this.birthdate = value;
-                this.age = (int)(DateTime.Now - value).Value.TotalDays / 365;
             }
         }
 
-        public int Age
+        public int? Age
         {
             get
             {
-                return this.age;
+                if (this.Birthdate == null)
+                {
+                    return null;
+                }
+
+                var today = DateTime.Today;
+                var age = today.Year - this.Birthdate.Value.Year;
+
+                if (this.Birthdate > today.AddYears(-age))
+                {
+                    age--;
+                }
+
+                return age;
+            }
+        }
+
+        private void CheckNull(string surname, string name, string patronymic)
+        {
+            if (string.IsNullOrEmpty(surname))
+            {
+                throw new ArgumentException("Фамилия не может быть пустой строкой или null");
             }
 
-            set
+            if (string.IsNullOrEmpty(name))
             {
-                if (this.birthdate.HasValue)
-                {
-                    this.birthdate = new DateTime(
-                        DateTime.Now.Year - value,
-                        this.birthdate.GetValueOrDefault().Month,
-                        this.birthdate.GetValueOrDefault().Day);
-                    this.age = value;
-                }
-                else
-                {
-                    this.age = value;
-                }
+                throw new ArgumentException("Имя не может быть пустой строкой или null");
+            }
+
+            if (patronymic == string.Empty)
+            {
+                throw new ArgumentException("Отчество не может быть пустой строкой");
             }
         }
     }

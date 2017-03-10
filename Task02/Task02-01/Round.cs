@@ -4,7 +4,7 @@ namespace Task02_01
 {
     internal class Round
     {
-        private double radius, perimeter, area, centerX, centerY;
+        private double radius, circumference, area, centerX, centerY;
 
         public Round()
         {
@@ -18,7 +18,7 @@ namespace Task02_01
             }
 
             this.radius = radius;
-            this.perimeter = 2 * Math.PI * radius;
+            this.circumference = 2 * Math.PI * radius;
             this.area = Math.PI * radius * radius;
         }
 
@@ -32,7 +32,7 @@ namespace Task02_01
             this.centerX = centerX;
             this.centerY = centerY;
             this.radius = radius;
-            this.perimeter = 2 * Math.PI * radius;
+            this.circumference = 2 * Math.PI * radius;
             this.area = Math.PI * radius * radius;
         }
 
@@ -51,12 +51,12 @@ namespace Task02_01
                 }
 
                 this.radius = value;
-                this.perimeter = 2 * Math.PI * value;
+                this.circumference = 2 * Math.PI * value;
                 this.area = Math.PI * value * value;
             }
         }
 
-        public double Perimeter { get => this.perimeter; }
+        public double Circumference { get => this.circumference; }
 
         public double Area { get => this.area; }
 
