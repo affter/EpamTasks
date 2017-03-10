@@ -8,7 +8,6 @@ namespace Task02_01
 
         public Round()
         {
-
         }
 
         public Round(double radius)
@@ -61,8 +60,8 @@ namespace Task02_01
 
         public double Area { get => this.area; }
 
-        public double CenterY { get => centerY; set => centerY = value; }
+        public double CenterY { get => this.centerY; set => this.centerY = value; }
 
-        public double CenterX { get => centerX; set => centerX = value; }
+        public double CenterX { get => this.centerX; set => this.centerX = value; }
     }
 }
