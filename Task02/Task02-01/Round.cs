@@ -8,6 +8,10 @@ namespace Task02_01
         
         public Round(double radius)
         {
+            if (radius < 0)
+            {
+                throw new ArgumentException("Невозможно создать круг с отрицательным радиусом",nameof(radius));
+            }
             this.radius = radius;
             this.perimeter = 2 * Math.PI * radius;
             this.area = Math.PI * radius * radius;
@@ -22,6 +26,10 @@ namespace Task02_01
 
             set
             {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Невозможно создать круг с отрицательным радиусом", nameof(radius));
+                }
                 this.radius = value;
                 this.perimeter = 2 * Math.PI * value;
                 this.area = Math.PI * value * value;
