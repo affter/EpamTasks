@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task02_03
 {
-    internal class User
+    public class User
     {
         private string name, surname, patronymic;
         private DateTime? birthdate;
@@ -110,6 +110,7 @@ namespace Task02_03
 
             set
             {
+                CheckDate(value);
                 if (value > DateTime.Now)
                 {
                     throw new ArgumentException("Невозможно создать пользователя с датой рождения позже сегодняшней");
@@ -128,7 +129,7 @@ namespace Task02_03
                     return null;
                 }
 
-                var today = DateTime.Today;
+                var today = DateTime.Now;
                 var age = today.Year - this.Birthdate.Value.Year;
 
                 if (this.Birthdate > today.AddYears(-age))
@@ -156,6 +157,22 @@ namespace Task02_03
             {
                 throw new ArgumentException("Отчество не может быть пустой строкой");
             }
+        }
+
+        private void CheckDate(DateTime? birthdate)
+        {
+            var today = DateTime.Now;
+            var difference = today.Year - birthdate.Value.Year;
+
+            if (birthdate > today.AddYears(-difference))
+            {
+                difference--;
+            }
+
+            if (difference >= 150)
+            {
+                throw new ArgumentException("Возраст не должен превышать 150 лет");
+            }            
         }
     }
 }
