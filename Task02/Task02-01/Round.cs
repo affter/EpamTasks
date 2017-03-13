@@ -6,7 +6,7 @@ namespace Task02_01
     public class Round : RoundShape
     {
 
-        public Round(Point center, double radius)
+        public Round(Point center, double radius) : base(center,radius)
         {
             this.Center = center;
             this.Radius = radius;

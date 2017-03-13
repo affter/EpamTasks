@@ -9,7 +9,7 @@ namespace Task02_02
     internal class Triangle
     {
         // TODO: Dont store calculables
-        private double a, b, c, perimeter, area;
+        private double a, b, c;
 
         public Triangle(double a, double b, double c)
         {
@@ -17,7 +17,6 @@ namespace Task02_02
             this.a = a;
             this.b = b;
             this.c = c;
-            this.RecalcProperties();
         }
 
         public double A
@@ -31,7 +30,6 @@ namespace Task02_02
             {
                 this.CheckExceptions(value, this.b, this.c);
                 this.a = value;
-                this.RecalcProperties();
             }
         }
 
@@ -46,7 +44,6 @@ namespace Task02_02
             {
                 this.CheckExceptions(value, this.b, this.c);
                 this.b = value;
-                this.RecalcProperties();
             }
         }
 
@@ -61,19 +58,18 @@ namespace Task02_02
             {
                 this.CheckExceptions(value, this.b, this.c);
                 this.c = value;
-                this.RecalcProperties();
             }
         }
 
-        public double Perimeter { get => this.perimeter; }
+        public double Perimeter { get => this.a + this.b + this.c; }
 
-        public double Area { get => this.area; }
-
-        private void RecalcProperties()
+        public double Area
         {
-            this.perimeter = this.a + this.b + this.c;
-            double halfper = this.perimeter / 2;
-            this.area = Math.Sqrt(halfper * (halfper - this.a) * (halfper - this.b) * (halfper - this.c));
+            get
+            {
+                double halfper = this.Perimeter / 2;
+                return Math.Sqrt(halfper * (halfper - this.a) * (halfper - this.b) * (halfper - this.c));
+            }
         }
 
         private void CheckExceptions(double a, double b, double c)
