@@ -10,41 +10,24 @@ namespace Task02_03
     {
         // TODO: Delete constructors
         private string name, surname, patronymic;
-        private DateTime? birthdate;
+        private DateTime birthdate;
 
-        public User()
+        public User(
+            string surname,
+            string name,
+            DateTime birthdate) : this(surname, name, null, birthdate)
         {
         }
 
-        public User(string surname, string name)
+        public User(
+            string surname,
+            string name,
+            string patronymic,
+            DateTime birthdate)
         {
-            this.CheckNull(surname, name, this.patronymic);
-            this.name = name;
-            this.surname = surname;
-        }
-
-        public User(string surname, string name, string patronymic)
-        {
-            this.CheckNull(surname, name, patronymic);
-            this.name = name;
-            this.surname = surname;
-            this.patronymic = patronymic;
-        }
-
-        public User(string surname, string name, DateTime? birthdate)
-        {
-            this.CheckNull(surname, name, this.patronymic);
-            this.name = name;
-            this.surname = surname;
-            this.Birthdate = birthdate;
-        }
-
-        public User(string surname, string name, string patronymic, DateTime? birthdate)
-        {
-            this.CheckNull(surname, name, patronymic);
-            this.name = name;
-            this.surname = surname;
-            this.patronymic = patronymic;
+            this.Name = name;
+            this.Surname = surname;
+            this.Patronymic = patronymic;
             this.Birthdate = birthdate;
         }
 
@@ -59,7 +42,7 @@ namespace Task02_03
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                throw new ArgumentException("Имя не может быть пустой строкой или null");
+                    throw new ArgumentException("Имя не может быть пустой строкой или null");
                 }
 
                 this.name = value;
@@ -102,7 +85,7 @@ namespace Task02_03
             }
         }
 
-        public DateTime? Birthdate
+        public DateTime Birthdate
         {
             get
             {
@@ -111,7 +94,19 @@ namespace Task02_03
 
             set
             {
-                this.CheckDate(value);
+                var today = DateTime.Now;
+                var difference = today.Year - value.Year;
+
+                if (this.birthdate > today.AddYears(-difference))
+                {
+                    difference--;
+                }
+
+                if (difference >= 150)
+                {
+                    throw new ArgumentException("Возраст не должен превышать 150 лет");
+                }
+
                 if (value > DateTime.Now)
                 {
                     throw new ArgumentException("Невозможно создать пользователя с датой рождения позже сегодняшней");
@@ -125,13 +120,8 @@ namespace Task02_03
         {
             get
             {
-                if (this.Birthdate == null)
-                {
-                    return null;
-                }
-
                 var today = DateTime.Now;
-                var age = today.Year - this.Birthdate.Value.Year;
+                var age = today.Year - this.Birthdate.Year;
 
                 if (this.Birthdate > today.AddYears(-age))
                 {
@@ -140,40 +130,6 @@ namespace Task02_03
 
                 return age;
             }
-        }
-
-        private void CheckNull(string surname, string name, string patronymic)
-        {
-            if (string.IsNullOrEmpty(surname))
-            {
-                throw new ArgumentException("Фамилия не может быть пустой строкой или null");
-            }
-
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new ArgumentException("Имя не может быть пустой строкой или null");
-            }
-
-            if (patronymic == string.Empty)
-            {
-                throw new ArgumentException("Отчество не может быть пустой строкой");
-            }
-        }
-
-        private void CheckDate(DateTime? birthdate)
-        {
-            var today = DateTime.Now;
-            var difference = today.Year - birthdate.Value.Year;
-
-            if (birthdate > today.AddYears(-difference))
-            {
-                difference--;
-            }
-
-            if (difference >= 150)
-            {
-                throw new ArgumentException("Возраст не должен превышать 150 лет");
-            }            
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Task02_03
             Console.WriteLine($"Имя: {user.Name}");
             Console.WriteLine($"Фамилия: {user.Surname}");
             Console.WriteLine($"Отчество: {user.Patronymic}");
-            Console.WriteLine($"Дата рождения: {user.Birthdate.Value.ToShortDateString()}");
+            Console.WriteLine($"Дата рождения: {user.Birthdate.ToShortDateString()}");
             Console.WriteLine($"Возраст: {user.Age.ToString()}");
         }
     }

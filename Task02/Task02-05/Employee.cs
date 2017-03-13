@@ -15,9 +15,9 @@ namespace Task02_05
         public Employee(
             string surname,
             string name,
-            DateTime? birthdate,
+            DateTime birthdate,
             DateTime employmentDay,
-            string position) : this(surname,name,null,birthdate,employmentDay,position)
+            string position) : this(surname, name, null, birthdate, employmentDay, position)
         {
         }
 
@@ -25,18 +25,12 @@ namespace Task02_05
             string surname,
             string name,
             string patronymic,
-            DateTime? birthdate,
+            DateTime birthdate,
             DateTime employmentDay,
-            string position)
+            string position) : base(surname, name, patronymic, birthdate)
         {
-            this.CheckNull(surname, name, patronymic, position);
-            this.CheckDates(birthdate, employmentDay);
-            this.Birthdate = birthdate;
-            this.EmploymentDay = employmentDay;
-            this.Name = name;
             this.Position = position;
-            this.Surname = surname;
-            this.Patronymic = patronymic;
+            this.EmploymentDay = employmentDay;
         }
 
         public string Position
@@ -60,7 +54,18 @@ namespace Task02_05
 
             set
             {
-                this.CheckDates(this.Birthdate, value);
+                var today = DateTime.Now;
+                var difference = value.Year - Birthdate.Year;
+
+                if (value > today.AddYears(-difference))
+                {
+                    difference--;
+                }
+
+                if (difference < 14)
+                {
+                    throw new ArgumentException("Человек не мог работать до 14 лет");
+                }
 
                 this.employmentDay = value;
             }
@@ -79,57 +84,6 @@ namespace Task02_05
                 }
 
                 return experience;
-            }
-        }
-
-        private void CheckNull(string surname, string name, string patronymic, string position)
-        {
-            if (string.IsNullOrEmpty(surname))
-            {
-                throw new ArgumentException("Фамилия не может быть пустой строкой или null");
-            }
-
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new ArgumentException("Имя не может быть пустой строкой или null");
-            }
-
-            if (patronymic == string.Empty)
-            {
-                throw new ArgumentException("Отчество не может быть пустой строкой");
-            }
-
-            if (string.IsNullOrEmpty(position))
-            {
-                throw new ArgumentException("Должность не может быть пустой строкой или null");
-            }
-        }
-
-        private void CheckDates(DateTime? birthdate, DateTime employmentDay)
-        {
-            var today = DateTime.Now;
-            var difference = today.Year - birthdate.Value.Year;
-
-            if (birthdate > today.AddYears(-difference))
-            {
-                difference--;
-            }
-
-            if (difference >= 150)
-            {
-                throw new ArgumentException("Возраст не должен превышать 150 лет");
-            }
-
-            difference = employmentDay.Year - birthdate.Value.Year;
-
-            if (employmentDay > today.AddYears(-difference))
-            {
-                difference--;
-            }
-
-            if (difference < 14)
-            {
-                throw new ArgumentException("Человек не мог работать до 14 лет");
             }
         }
     }

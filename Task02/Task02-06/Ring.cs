@@ -1,96 +1,61 @@
 ﻿using System;
-using FigureLibrary
+using FigureLibrary;
 
 namespace Task02_06
 {
-    internal class Ring
+    internal class Ring : RoundShape
     {
-        //TODO - Inheritance instead of aggregation (class library)
-        private Round innerRound;
-        private Round outerRound;
-        private double area, sumOfCircumferences;
+        private double innerRadius;
 
-        public Ring(double centerX, double centerY, double innerRadius, double outerRadius)
+        public Ring(Point center, double innerRadius, double outerRadius) : base(center, outerRadius)
         {
-            if (innerRadius < 0)
-            {
-                throw new ArgumentException("Невозможно создать кольцо с отрицательным внутренним радиусом");
-            }
-
-            if (innerRadius < 0)
-            {
-                throw new ArgumentException("Невозможно создать кольцо с отрицательным внешним радиусом");
-            }
-
-            if (innerRadius > outerRadius)
-            {
-                throw new ArgumentException("Невозможно создать кольцо, у которого внутренний радиус больше внешнего");
-            }
-
-            this.innerRound = new Round(centerX, centerY, innerRadius);
-            this.outerRound = new Round(centerX, centerY, outerRadius);
-            this.area = this.outerRound.Area - this.innerRound.Area;
-            this.sumOfCircumferences = this.outerRound.Circumference + this.innerRound.Circumference;
+            this.InnerRadius = innerRadius;
         }
 
         public double InnerRadius
         {
-            get => this.innerRound.Radius;
+            get => this.innerRadius;
 
             set
             {
-                if (value > this.OuterRadius)
+                if (value <= 0)
                 {
-                    throw new ArgumentException("Невозможно создать кольцо, у которого внутренний радиус больше внешнего");
+                    throw new ArgumentException(
+                        "Невозможно создать круглый объект с отрицательным радиусом");
                 }
 
-                this.innerRound.Radius = value;
-                this.area = this.outerRound.Area - this.innerRound.Area;
-                this.sumOfCircumferences = this.outerRound.Circumference + this.innerRound.Circumference;
+                if (value <= this.Radius)
+                {
+                    throw new ArgumentException("Внешний радиус не может быть меньше внутреннего");
+                }
+
+                this.InnerRadius = value;
             }
         }
 
-        public double OuterRadius
+        public new double Radius
         {
-            get => this.outerRound.Radius;
+            get => base.Radius;
 
             set
             {
                 if (value < this.InnerRadius)
                 {
-                    throw new ArgumentException("Невозможно создать кольцо, у которого внутренний радиус больше внешнего");
+                    throw new ArgumentException("Внешний радиус не может быть меньше внутреннего");
                 }
 
-                this.outerRound.Radius = value;
-                this.area = this.outerRound.Area - this.innerRound.Area;
-                this.sumOfCircumferences = this.outerRound.Circumference + this.innerRound.Circumference;
+                base.Radius = value;
             }
         }
 
-        public double CenterX
+        public double Area
         {
-            get => this.outerRound.CenterX;
-
-            set
-            {
-                this.outerRound.CenterX = value;
-                this.innerRound.CenterX = value;
-            }
+            get => Math.PI * ((this.Radius * this.Radius) - (this.InnerRadius * this.InnerRadius));
         }
 
-        public double CenterY
+        public double SumOfCircumferences
         {
-            get => this.outerRound.CenterY;
-
-            set
-            {
-                this.outerRound.CenterY = value;
-                this.innerRound.CenterY = value;
-            }
+            get => (2 * Math.PI) * (this.InnerRadius + this.Radius);
         }
-
-        public double Area { get => this.area; }
-
-        public double SumOfCircumferences { get => this.sumOfCircumferences; }
     }
 }
