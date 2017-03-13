@@ -24,12 +24,12 @@ namespace Task02_06
                         "Невозможно создать круглый объект с отрицательным радиусом");
                 }
 
-                if (value <= this.Radius)
+                if (value >= this.Radius)
                 {
-                    throw new ArgumentException("Внешний радиус не может быть меньше внутреннего");
+                   throw new ArgumentException("Внешний радиус не может быть меньше внутреннего");
                 }
 
-                this.InnerRadius = value;
+                this.innerRadius = value;
             }
         }
 
