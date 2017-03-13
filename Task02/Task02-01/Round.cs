@@ -2,25 +2,9 @@
 
 namespace Task02_01
 {
-    internal class Round
+    public class Round
     {
         private double radius, circumference, area, centerX, centerY;
-
-        public Round()
-        {
-        }
-
-        public Round(double radius)
-        {
-            if (radius < 0)
-            {
-                throw new ArgumentException("Невозможно создать круг с отрицательным радиусом");
-            }
-
-            this.radius = radius;
-            this.circumference = 2 * Math.PI * radius;
-            this.area = Math.PI * radius * radius;
-        }
 
         public Round(double centerX, double centerY, double radius)
         {
