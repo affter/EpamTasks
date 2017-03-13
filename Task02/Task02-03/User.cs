@@ -110,7 +110,7 @@ namespace Task02_03
 
             set
             {
-                CheckDate(value);
+                this.CheckDate(value);
                 if (value > DateTime.Now)
                 {
                     throw new ArgumentException("Невозможно создать пользователя с датой рождения позже сегодняшней");

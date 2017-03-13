@@ -327,12 +327,13 @@ namespace Task02_04
 
             for (int k = 0; k < content.Length; k++)
             {
-                if (k == (indexes[j] + ((newString.Length - oldString.Length)) * j))
+                if (k == (indexes[j] + ((newString.Length - oldString.Length) * j)))
                 {
-                    for (int q = 0; q < newString.Length; q++,k++)
+                    for (int q = 0; q < newString.Length; q++, k++)
                     {
                         content[k] = newString[q];
                     }
+
                     j++;
                     k--;
                 }
@@ -341,6 +342,7 @@ namespace Task02_04
                     content[k] = this.content[k - ((newString.Length - oldString.Length) * j)];
                 }
             }
+
             return new MyString(content);
         }
 
