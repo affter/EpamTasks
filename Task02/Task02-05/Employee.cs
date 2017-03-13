@@ -8,8 +8,8 @@ namespace Task02_05
 {
     internal class Employee : Task02_03.User
     {
-        string position;
-        DateTime employmentDay;
+        private string position;
+        private DateTime employmentDay;
 
         public Employee(string surname, string name, DateTime? birthdate, DateTime employmentDay, string position)
         {
@@ -34,9 +34,32 @@ namespace Task02_05
             this.Patronymic = patronymic;
         }
 
-        public string Position { get => position; set => position = value; }
+        public string Position
+        {
+            get => this.position;
 
-        public DateTime EmploymentDay { get => employmentDay; set => employmentDay = value; }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Должность не может быть пустой строкой или null");
+                }
+
+                this.position = value;
+            }
+        }
+
+        public DateTime EmploymentDay
+        {
+            get => this.employmentDay;
+
+            set
+            {
+                this.CheckDates(this.Birthdate, value);
+
+                this.employmentDay = value;
+            }
+        }
 
         public int Experience
         {
