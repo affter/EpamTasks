@@ -11,7 +11,7 @@ namespace Task02_06
     {
         private Round innerRound;
         private Round outerRound;
-        double area, sumOfCircumferences;
+        private double area, sumOfCircumferences;
 
         public Ring(double centerX, double centerY, double innerRadius, double outerRadius)
         {
@@ -70,7 +70,7 @@ namespace Task02_06
             }
         }
 
-        public double centerX
+        public double CenterX
         {
             get => this.outerRound.CenterX;
 
@@ -81,7 +81,7 @@ namespace Task02_06
             }
         }
 
-        public double centerY
+        public double CenterY
         {
             get => this.outerRound.CenterY;
 
@@ -93,6 +93,7 @@ namespace Task02_06
         }
 
         public double Area { get => this.area; }
-        public double SumOfCircumferences { get => sumOfCircumferences; }
+
+        public double SumOfCircumferences { get => this.sumOfCircumferences; }
     }
 }
