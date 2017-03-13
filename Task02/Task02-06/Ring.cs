@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Task02_01;
+using FigureLibrary
 
 namespace Task02_06
 {
     internal class Ring
     {
+        //TODO - Inheritance instead of aggregation (class library)
         private Round innerRound;
         private Round outerRound;
         private double area, sumOfCircumferences;

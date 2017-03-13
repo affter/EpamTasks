@@ -3,26 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task02_03;
 
 namespace Task02_05
 {
-    internal class Employee : Task02_03.User
+    internal class Employee : User
     {
         private string position;
         private DateTime employmentDay;
 
-        public Employee(string surname, string name, DateTime? birthdate, DateTime employmentDay, string position)
+        public Employee(
+            string surname,
+            string name,
+            DateTime? birthdate,
+            DateTime employmentDay,
+            string position) : this(surname,name,null,birthdate,employmentDay,position)
         {
-            this.CheckNull(surname, name, this.Patronymic, position);
-            this.CheckDates(birthdate, employmentDay);
-            this.Birthdate = birthdate;
-            this.EmploymentDay = employmentDay;
-            this.Name = name;
-            this.Position = position;
-            this.Surname = surname;
         }
 
-        public Employee(string surname, string name, string patronymic, DateTime? birthdate, DateTime employmentDay, string position)
+        public Employee(
+            string surname,
+            string name,
+            string patronymic,
+            DateTime? birthdate,
+            DateTime employmentDay,
+            string position)
         {
             this.CheckNull(surname, name, patronymic, position);
             this.CheckDates(birthdate, employmentDay);

@@ -8,6 +8,7 @@ namespace Task02_03
 {
     public class User
     {
+        // TODO: Delete constructors
         private string name, surname, patronymic;
         private DateTime? birthdate;
 

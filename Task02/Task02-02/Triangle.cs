@@ -8,6 +8,7 @@ namespace Task02_02
 {
     internal class Triangle
     {
+        // TODO: Dont store calculables
         private double a, b, c, perimeter, area;
 
         public Triangle(double a, double b, double c)
