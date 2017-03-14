@@ -1,7 +1,6 @@
 ﻿using System;
-using FigureLibrary;
 
-namespace Task02_01
+namespace FigureLibrary
 {
     public class Round : RoundShape
     {

@@ -1,7 +1,6 @@
 ﻿using System;
-using FigureLibrary;
 
-namespace Task02_06
+namespace FigureLibrary
 {
     internal class Ring : RoundShape
     {
