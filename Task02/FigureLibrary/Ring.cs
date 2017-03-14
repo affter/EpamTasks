@@ -25,7 +25,7 @@ namespace FigureLibrary
 
                 if (value >= this.Radius)
                 {
-                   throw new ArgumentException("Внешний радиус не может быть меньше внутреннего");
+                    throw new ArgumentException("Внешний радиус не может быть меньше внутреннего");
                 }
 
                 this.innerRadius = value;

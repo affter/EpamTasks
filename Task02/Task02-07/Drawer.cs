@@ -3,7 +3,7 @@ using FigureLibrary;
 
 namespace Task02_07
 {
-    class Drawer
+    internal class Drawer
     {
         public static void Draw(Figure figure)
         {
@@ -18,6 +18,7 @@ namespace Task02_07
                         Console.WriteLine($"Точка конца: ({tempFigure.End.X},{tempFigure.End.Y})");
                         break;
                     }
+
                 case "FigureLibrary.Circle":
                     {
                         var tempFigure = (Circle)figure;
@@ -28,6 +29,7 @@ namespace Task02_07
                         Console.WriteLine($"Длина окружности: {tempFigure.Circumference}");
                         break;
                     }
+
                 case "FigureLibrary.Round":
                     {
                         var tempFigure = (Round)figure;
@@ -39,6 +41,7 @@ namespace Task02_07
                         Console.WriteLine($"Площадь: {tempFigure.Area}");
                         break;
                     }
+
                 case "FigureLibrary.Ring":
                     {
                         var tempFigure = (Ring)figure;
@@ -51,6 +54,7 @@ namespace Task02_07
                         Console.WriteLine($"Площадь: {tempFigure.Area}");
                         break;
                     }
+
                 case "FigureLibrary.Rectangle":
                     {
                         var tempFigure = (Rectangle)figure;
@@ -63,6 +67,7 @@ namespace Task02_07
                         Console.WriteLine($"Площадь: {tempFigure.Area}");
                         break;
                     }
+
                 default:
                     {
                         Console.WriteLine("Невозможно определить тип фигуры");

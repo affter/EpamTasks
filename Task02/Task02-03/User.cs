@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task02_03
 {
@@ -10,6 +6,7 @@ namespace Task02_03
     {
         // TODO: Delete constructors
         private string name, surname, patronymic;
+
         private DateTime birthdate;
 
         public User(

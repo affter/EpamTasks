@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FigureLibrary
 {
     public class Rectangle : Figure
     {
-        double width, height;
+        private double width, height;
 
-        public Rectangle(Point upperLeftCorner,double width, double height)
+        public Rectangle(Point upperLeftCorner, double width, double height)
         {
             this.UpperLeftCorner = upperLeftCorner;
             this.Width = width;
@@ -31,7 +27,7 @@ namespace FigureLibrary
                 this.width = value;
             }
         }
-        
+
         public double Heigth
         {
             get => this.height;
