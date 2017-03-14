@@ -23,7 +23,7 @@ namespace FigureLibrary
 
             set
             {
-                if (width <= 0)
+                if (value <= 0)
                 {
                     throw new ArgumentException("Невозможно создать прямоугольник с отрцательной шириной");
                 }
@@ -40,7 +40,7 @@ namespace FigureLibrary
             {
                 if (value <= 0)
                 {
-                    throw new ArgumentException("Невозможно создать прямоугольник с отрцательной шириной");
+                    throw new ArgumentException("Невозможно создать прямоугольник с отрцательной высотой");
                 }
 
                 this.height = value;
@@ -48,5 +48,9 @@ namespace FigureLibrary
         }
 
         public Point UpperLeftCorner { get => this.Point; set => this.Point = value; }
+
+        public double Area { get => this.Width * this.Heigth; }
+
+        public double Perimeter { get => (this.Width + this.Heigth) * 2; }
     }
 }

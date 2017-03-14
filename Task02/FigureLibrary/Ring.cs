@@ -2,7 +2,7 @@
 
 namespace FigureLibrary
 {
-    internal class Ring : RoundShape
+    public class Ring : RoundShape
     {
         private double innerRadius;
 
