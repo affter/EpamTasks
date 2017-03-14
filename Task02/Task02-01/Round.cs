@@ -7,8 +7,6 @@ namespace Task02_01
     {
         public Round(Point center, double radius) : base(center, radius)
         {
-            this.Center = center;
-            this.Radius = radius;
         }
 
         public double Circumference { get => 2 * Math.PI * this.Radius; }

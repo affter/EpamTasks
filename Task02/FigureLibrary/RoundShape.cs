@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace FigureLibrary
 {
-    public class RoundShape
+    public class RoundShape : Figure
     {
-        private Point center;
         private double radius;
 
         public RoundShape(Point center, double radius)
@@ -17,7 +16,7 @@ namespace FigureLibrary
             this.Radius = radius;
         }
 
-        public Point Center { get => this.center; set => this.center = value; }
+        public Point Center { get => this.Point; set => this.Point = value; }
 
         public double Radius
         {
