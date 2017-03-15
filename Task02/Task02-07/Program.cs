@@ -154,7 +154,6 @@ namespace Task02_07
                                         {
                                             Console.WriteLine("Некорректный ввод: ширина должна быть больше ноля");
                                         }
-
                                     }
                                     while (width <= 0);
 
@@ -166,7 +165,6 @@ namespace Task02_07
                                         {
                                             Console.WriteLine("Некорректный ввод: высота должна быть больше ноля");
                                         }
-
                                     }
                                     while (width <= 0);
 
