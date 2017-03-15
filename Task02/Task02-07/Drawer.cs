@@ -3,77 +3,55 @@ using FigureLibrary;
 
 namespace Task02_07
 {
-    internal class Drawer
+    internal class VectorGraphicEditor
     {
-        public static void Draw(Figure figure)
+        public static void Draw(Line line)
         {
-            switch (figure.GetType().ToString())
-            {
-                case "FigureLibrary.Line":
-                    {
-                        var tempFigure = (Line)figure;
-                        Console.WriteLine("Тип фигуры: Линия");
-                        Console.WriteLine("Параметры:");
-                        Console.WriteLine($"Точка начала: ({tempFigure.Start.X},{tempFigure.Start.Y})");
-                        Console.WriteLine($"Точка конца: ({tempFigure.End.X},{tempFigure.End.Y})");
-                        break;
-                    }
+            Console.WriteLine("Тип фигуры: Линия");
+            Console.WriteLine("Параметры:");
+            Console.WriteLine($"Точка начала: ({line.Start.X},{line.Start.Y})");
+            Console.WriteLine($"Точка конца: ({line.End.X},{line.End.Y})");
+        }
 
-                case "FigureLibrary.Circle":
-                    {
-                        var tempFigure = (Circle)figure;
-                        Console.WriteLine("Тип фигуры: Окружность");
-                        Console.WriteLine("Параметры:");
-                        Console.WriteLine($"Центр: ({tempFigure.Center.X},{tempFigure.Center.Y})");
-                        Console.WriteLine($"Радиус: {tempFigure.Radius}");
-                        Console.WriteLine($"Длина окружности: {tempFigure.Circumference}");
-                        break;
-                    }
+        public static void Draw(Circle circle)
+        {
+            Console.WriteLine("Тип фигуры: Окружность");
+            Console.WriteLine("Параметры:");
+            Console.WriteLine($"Центр: ({circle.Center.X},{circle.Center.Y})");
+            Console.WriteLine($"Радиус: {circle.Radius}");
+            Console.WriteLine($"Длина окружности: {circle.Circumference}");
+        }
 
-                case "FigureLibrary.Round":
-                    {
-                        var tempFigure = (Round)figure;
-                        Console.WriteLine("Тип фигуры: Круг");
-                        Console.WriteLine("Параметры:");
-                        Console.WriteLine($"Центр: ({tempFigure.Center.X},{tempFigure.Center.Y})");
-                        Console.WriteLine($"Радиус: {tempFigure.Radius}");
-                        Console.WriteLine($"Длина окружности: {tempFigure.Circumference}");
-                        Console.WriteLine($"Площадь: {tempFigure.Area}");
-                        break;
-                    }
+        public static void Draw(Round round)
+        {
+            Console.WriteLine("Тип фигуры: Круг");
+            Console.WriteLine("Параметры:");
+            Console.WriteLine($"Центр: ({round.Center.X},{round.Center.Y})");
+            Console.WriteLine($"Радиус: {round.Radius}");
+            Console.WriteLine($"Длина окружности: {round.Circumference}");
+            Console.WriteLine($"Площадь: {round.Area}");
+        }
+        
+        public static void Draw(Ring ring)
+        {
+            Console.WriteLine("Тип фигуры: Кольцо");
+            Console.WriteLine("Параметры:");
+            Console.WriteLine($"Центр: ({ring.Center.X},{ring.Center.Y})");
+            Console.WriteLine($"Внешний радиус: {ring.Radius}");
+            Console.WriteLine($"Внутренний радиус: {ring.InnerRadius}");
+            Console.WriteLine($"Сумма длин окружностей: {ring.SumOfCircumferences}");
+            Console.WriteLine($"Площадь: {ring.Area}");
+        }
 
-                case "FigureLibrary.Ring":
-                    {
-                        var tempFigure = (Ring)figure;
-                        Console.WriteLine("Тип фигуры: Кольцо");
-                        Console.WriteLine("Параметры:");
-                        Console.WriteLine($"Центр: ({tempFigure.Center.X},{tempFigure.Center.Y})");
-                        Console.WriteLine($"Внешний радиус: {tempFigure.Radius}");
-                        Console.WriteLine($"Внутренний радиус: {tempFigure.InnerRadius}");
-                        Console.WriteLine($"Сумма длин окружностей: {tempFigure.SumOfCircumferences}");
-                        Console.WriteLine($"Площадь: {tempFigure.Area}");
-                        break;
-                    }
-
-                case "FigureLibrary.Rectangle":
-                    {
-                        var tempFigure = (Rectangle)figure;
-                        Console.WriteLine("Тип фигуры: Прямоугольник");
-                        Console.WriteLine("Параметры:");
-                        Console.WriteLine($"Левый верхний угол: ({tempFigure.UpperLeftCorner.X},{tempFigure.UpperLeftCorner.Y})");
-                        Console.WriteLine($"Ширина: {tempFigure.Width}");
-                        Console.WriteLine($"Высота: {tempFigure.Heigth}");
-                        Console.WriteLine($"Периметр: {tempFigure.Perimeter}");
-                        Console.WriteLine($"Площадь: {tempFigure.Area}");
-                        break;
-                    }
-
-                default:
-                    {
-                        Console.WriteLine("Невозможно определить тип фигуры");
-                        break;
-                    }
-            }
+        public static void Draw(Rectangle rect)
+        {
+            Console.WriteLine("Тип фигуры: Прямоугольник");
+            Console.WriteLine("Параметры:");
+            Console.WriteLine($"Левый верхний угол: ({rect.UpperLeftCorner.X},{rect.UpperLeftCorner.Y})");
+            Console.WriteLine($"Ширина: {rect.Width}");
+            Console.WriteLine($"Высота: {rect.Heigth}");
+            Console.WriteLine($"Периметр: {rect.Perimeter}");
+            Console.WriteLine($"Площадь: {rect.Area}");
         }
     }
 }

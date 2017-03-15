@@ -1,6 +1,6 @@
 ﻿namespace FigureLibrary
 {
-    public class Figure
+    public abstract class Figure
     {
         private Point point;
 

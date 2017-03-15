@@ -2,7 +2,7 @@
 
 namespace FigureLibrary
 {
-    public class RoundShape : Figure
+    public abstract class RoundShape : Figure
     {
         private double radius;
 
