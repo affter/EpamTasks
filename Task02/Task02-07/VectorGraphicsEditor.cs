@@ -75,49 +75,49 @@ namespace Task02_07
         {
             Console.WriteLine("Тип фигуры: Линия");
             Console.WriteLine("Параметры:");
-            Console.WriteLine($"Точка начала: ({line.Start.X},{line.Start.Y})");
-            Console.WriteLine($"Точка конца: ({line.End.X},{line.End.Y})");
+            Console.WriteLine($"Точка начала: ({line.Start.X.ToString()},{line.Start.Y.ToString()})");
+            Console.WriteLine($"Точка конца: ({line.End.X.ToString()},{line.End.Y.ToString()})");
         }
 
         private void Draw(Circle circle)
         {
             Console.WriteLine("Тип фигуры: Окружность");
             Console.WriteLine("Параметры:");
-            Console.WriteLine($"Центр: ({circle.Center.X},{circle.Center.Y})");
-            Console.WriteLine($"Радиус: {circle.Radius}");
-            Console.WriteLine($"Длина окружности: {circle.Circumference}");
+            Console.WriteLine($"Центр: ({circle.Center.X.ToString()},{circle.Center.Y.ToString()})");
+            Console.WriteLine($"Радиус: {circle.Radius.ToString()}");
+            Console.WriteLine($"Длина окружности: {circle.Circumference.ToString()}");
         }
 
         private void Draw(Round round)
         {
             Console.WriteLine("Тип фигуры: Круг");
             Console.WriteLine("Параметры:");
-            Console.WriteLine($"Центр: ({round.Center.X},{round.Center.Y})");
-            Console.WriteLine($"Радиус: {round.Radius}");
-            Console.WriteLine($"Длина окружности: {round.Circumference}");
-            Console.WriteLine($"Площадь: {round.Area}");
+            Console.WriteLine($"Центр: ({round.Center.X.ToString()},{round.Center.Y.ToString()})");
+            Console.WriteLine($"Радиус: {round.Radius.ToString()}");
+            Console.WriteLine($"Длина окружности: {round.Circumference.ToString()}");
+            Console.WriteLine($"Площадь: {round.Area.ToString()}");
         }
 
         private void Draw(Ring ring)
         {
             Console.WriteLine("Тип фигуры: Кольцо");
             Console.WriteLine("Параметры:");
-            Console.WriteLine($"Центр: ({ring.Center.X},{ring.Center.Y})");
-            Console.WriteLine($"Внешний радиус: {ring.Radius}");
-            Console.WriteLine($"Внутренний радиус: {ring.InnerRadius}");
-            Console.WriteLine($"Сумма длин окружностей: {ring.SumOfCircumferences}");
-            Console.WriteLine($"Площадь: {ring.Area}");
+            Console.WriteLine($"Центр: ({ring.Center.X.ToString()},{ring.Center.Y.ToString()})");
+            Console.WriteLine($"Внешний радиус: {ring.Radius.ToString()}");
+            Console.WriteLine($"Внутренний радиус: {ring.InnerRadius.ToString()}");
+            Console.WriteLine($"Сумма длин окружностей: {ring.SumOfCircumferences.ToString()}");
+            Console.WriteLine($"Площадь: {ring.Area.ToString()}");
         }
 
         private void Draw(Rectangle rect)
         {
             Console.WriteLine("Тип фигуры: Прямоугольник");
             Console.WriteLine("Параметры:");
-            Console.WriteLine($"Левый верхний угол: ({rect.UpperLeftCorner.X},{rect.UpperLeftCorner.Y})");
-            Console.WriteLine($"Ширина: {rect.Width}");
-            Console.WriteLine($"Высота: {rect.Heigth}");
-            Console.WriteLine($"Периметр: {rect.Perimeter}");
-            Console.WriteLine($"Площадь: {rect.Area}");
+            Console.WriteLine($"Левый верхний угол: ({rect.UpperLeftCorner.X.ToString()},{rect.UpperLeftCorner.Y.ToString()})");
+            Console.WriteLine($"Ширина: {rect.Width.ToString()}");
+            Console.WriteLine($"Высота: {rect.Heigth.ToString()}");
+            Console.WriteLine($"Периметр: {rect.Perimeter.ToString()}");
+            Console.WriteLine($"Площадь: {rect.Area.ToString()}");
         }
     }
 }
