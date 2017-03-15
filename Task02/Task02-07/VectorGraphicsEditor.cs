@@ -3,7 +3,7 @@ using FigureLibrary;
 
 namespace Task02_07
 {
-    internal class VectorGraphicEditor
+    internal class VectorGraphicsEditor
     {
         public static void Draw(Line line)
         {
