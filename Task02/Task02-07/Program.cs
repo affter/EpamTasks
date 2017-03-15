@@ -26,6 +26,8 @@ namespace Task02_07
             while (radius <= 0);
         }
 
+        //todo: methods
+
         private static void Main(string[] args)
         {
             var editor = new VectorGraphicsEditor();
@@ -49,7 +51,6 @@ namespace Task02_07
                 switch (input.KeyChar)
                 {
                     case '1':
-                        ConsoleKeyInfo insideKeyInfo;
                         Console.WriteLine("Выберите, какую фигуру создать:");
                         Console.WriteLine("Введите:");
                         Console.WriteLine("\t 1: Линия");
@@ -59,14 +60,14 @@ namespace Task02_07
                         Console.WriteLine("\t 5: Прямоугольник");
                         Console.WriteLine("\t Esc: Назад");
 
-                        insideKeyInfo = Console.ReadKey();
+                        input = Console.ReadKey();
                         Console.WriteLine();
                         if (input.Key == ConsoleKey.Escape)
                         {
                             break;
                         }
 
-                        switch (insideKeyInfo.KeyChar)
+                        switch (input.KeyChar)
                         {
                             case '1':
                                 try
@@ -81,7 +82,7 @@ namespace Task02_07
                                     double secondY = double.Parse(Console.ReadLine());
                                     editor.Create(new Line(new Point(firstX, firstY), new Point(secondX, secondY)));
                                 }
-                                catch (Exception)
+                                catch
                                 {
                                     Console.WriteLine("Некорректный ввод");
                                 }
@@ -95,7 +96,7 @@ namespace Task02_07
                                     GetCircleInfo(out point, out radius);
                                     editor.Create(new Circle(point, radius));
                                 }
-                                catch (Exception)
+                                catch
                                 {
                                     Console.WriteLine("Некорректный ввод");
                                 }
@@ -107,7 +108,7 @@ namespace Task02_07
                                     GetCircleInfo(out point, out radius);
                                     editor.Create(new Round(point, radius));
                                 }
-                                catch (Exception)
+                                catch
                                 {
                                     Console.WriteLine("Некорректный ввод");
                                 }
@@ -132,7 +133,7 @@ namespace Task02_07
 
                                     editor.Create(new Ring(point, innerRadius, radius));
                                 }
-                                catch (Exception)
+                                catch
                                 {
                                     Console.WriteLine("Некорректный ввод");
                                 }
@@ -170,7 +171,7 @@ namespace Task02_07
 
                                     editor.Create(new Rectangle(new Point(firstX, firstY), width, height));
                                 }
-                                catch (Exception)
+                                catch
                                 {
                                     Console.WriteLine("Некорректный ввод");
                                 }

@@ -8,6 +8,6 @@ namespace FigureLibrary
         {
         }
 
-        public double Circumference { get => 2 * Math.PI * this.Radius; }
+        public double Circumference => 2 * Math.PI * this.Radius; 
     }
 }

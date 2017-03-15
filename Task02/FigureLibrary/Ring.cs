@@ -4,6 +4,7 @@ namespace FigureLibrary
 {
     public class Ring : RoundShape
     {
+        //todo: aggregation
         private double innerRadius;
 
         public Ring(Point center, double innerRadius, double outerRadius) : base(center, outerRadius)

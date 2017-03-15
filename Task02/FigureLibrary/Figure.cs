@@ -4,6 +4,6 @@
     {
         private Point point;
 
-        protected Point Point { get => this.point; set => this.point = value; }
+        public Point Point { get => this.point; set => this.point = value; }
     }
 }

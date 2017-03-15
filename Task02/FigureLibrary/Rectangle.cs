@@ -8,7 +8,7 @@ namespace FigureLibrary
 
         public Rectangle(Point upperLeftCorner, double width, double height)
         {
-            this.UpperLeftCorner = upperLeftCorner;
+            this.Point = upperLeftCorner;
             this.Width = width;
             this.Heigth = height;
         }
@@ -43,10 +43,8 @@ namespace FigureLibrary
             }
         }
 
-        public Point UpperLeftCorner { get => this.Point; set => this.Point = value; }
+        public double Area => this.Width * this.Heigth;
 
-        public double Area { get => this.Width * this.Heigth; }
-
-        public double Perimeter { get => (this.Width + this.Heigth) * 2; }
+        public double Perimeter => (this.Width + this.Heigth) * 2;
     }
 }

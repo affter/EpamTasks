@@ -6,13 +6,11 @@ namespace FigureLibrary
     {
         private double radius;
 
-        public RoundShape(Point center, double radius)
+        protected RoundShape(Point center, double radius)
         {
-            this.Center = center;
+            this.Point = center;
             this.Radius = radius;
         }
-
-        public Point Center { get => this.Point; set => this.Point = value; }
 
         public double Radius
         {

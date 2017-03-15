@@ -11,7 +11,7 @@ namespace Task02_06
             Console.WriteLine("Создано кольцо со следующими параметрами:");
             Console.WriteLine($"Внутренний радиус: {ring.InnerRadius.ToString()}");
             Console.WriteLine($"Внешний радиус: {ring.Radius.ToString()}");
-            Console.WriteLine($"Центр: ({ring.Center.X.ToString()},{ring.Center.Y.ToString()})");
+            Console.WriteLine($"Центр: ({ring.Point.X.ToString()},{ring.Point.Y.ToString()})");
             Console.WriteLine($"Площадь: {ring.Area.ToString()}");
             Console.WriteLine($"Сумма окружностей: {ring.SumOfCircumferences.ToString()}");
         }

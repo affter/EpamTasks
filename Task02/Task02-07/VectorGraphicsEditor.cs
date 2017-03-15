@@ -75,7 +75,7 @@ namespace Task02_07
         {
             Console.WriteLine("Тип фигуры: Линия");
             Console.WriteLine("Параметры:");
-            Console.WriteLine($"Точка начала: ({line.Start.X.ToString()},{line.Start.Y.ToString()})");
+            Console.WriteLine($"Точка начала: ({line.Point.X.ToString()},{line.Point.Y.ToString()})");
             Console.WriteLine($"Точка конца: ({line.End.X.ToString()},{line.End.Y.ToString()})");
         }
 
@@ -83,7 +83,7 @@ namespace Task02_07
         {
             Console.WriteLine("Тип фигуры: Окружность");
             Console.WriteLine("Параметры:");
-            Console.WriteLine($"Центр: ({circle.Center.X.ToString()},{circle.Center.Y.ToString()})");
+            Console.WriteLine($"Центр: ({circle.Point.X.ToString()},{circle.Point.Y.ToString()})");
             Console.WriteLine($"Радиус: {circle.Radius.ToString()}");
             Console.WriteLine($"Длина окружности: {circle.Circumference.ToString()}");
         }
@@ -92,7 +92,7 @@ namespace Task02_07
         {
             Console.WriteLine("Тип фигуры: Круг");
             Console.WriteLine("Параметры:");
-            Console.WriteLine($"Центр: ({round.Center.X.ToString()},{round.Center.Y.ToString()})");
+            Console.WriteLine($"Центр: ({round.Point.X.ToString()},{round.Point.Y.ToString()})");
             Console.WriteLine($"Радиус: {round.Radius.ToString()}");
             Console.WriteLine($"Длина окружности: {round.Circumference.ToString()}");
             Console.WriteLine($"Площадь: {round.Area.ToString()}");
@@ -102,7 +102,7 @@ namespace Task02_07
         {
             Console.WriteLine("Тип фигуры: Кольцо");
             Console.WriteLine("Параметры:");
-            Console.WriteLine($"Центр: ({ring.Center.X.ToString()},{ring.Center.Y.ToString()})");
+            Console.WriteLine($"Центр: ({ring.Point.X.ToString()},{ring.Point.Y.ToString()})");
             Console.WriteLine($"Внешний радиус: {ring.Radius.ToString()}");
             Console.WriteLine($"Внутренний радиус: {ring.InnerRadius.ToString()}");
             Console.WriteLine($"Сумма длин окружностей: {ring.SumOfCircumferences.ToString()}");
@@ -113,7 +113,7 @@ namespace Task02_07
         {
             Console.WriteLine("Тип фигуры: Прямоугольник");
             Console.WriteLine("Параметры:");
-            Console.WriteLine($"Левый верхний угол: ({rect.UpperLeftCorner.X.ToString()},{rect.UpperLeftCorner.Y.ToString()})");
+            Console.WriteLine($"Левый верхний угол: ({rect.Point.X.ToString()},{rect.Point.Y.ToString()})");
             Console.WriteLine($"Ширина: {rect.Width.ToString()}");
             Console.WriteLine($"Высота: {rect.Heigth.ToString()}");
             Console.WriteLine($"Периметр: {rect.Perimeter.ToString()}");
