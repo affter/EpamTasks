@@ -17,11 +17,10 @@ namespace Task02_07
 
         public void DrawAll()
         {
-            foreach (var item in CreatedFigures)
+            foreach (var item in this.CreatedFigures)
             {
                 item.Draw();
             }
         }
-
     }
 }

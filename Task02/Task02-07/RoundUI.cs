@@ -3,9 +3,9 @@ using FigureLibrary;
 
 namespace Task02_07
 {
-    class RoundUI : FigureUI
+    internal class RoundUI : FigureUI
     {
-        Round round;
+        private Round round;
 
         public RoundUI(Round round)
         {

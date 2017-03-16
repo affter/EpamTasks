@@ -1,10 +1,11 @@
 ﻿using System;
 using FigureLibrary;
+
 namespace Task02_07
 {
-    class CircleUI : FigureUI
+    internal class CircleUI : FigureUI
     {
-        Circle circle;
+        private Circle circle;
 
         public CircleUI(Circle circle)
         {

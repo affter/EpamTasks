@@ -3,7 +3,7 @@ using FigureLibrary;
 
 namespace Task02_07
 {
-    class RingUI : FigureUI
+    internal class RingUI : FigureUI
     {
         private Ring ring;
 
