@@ -105,7 +105,7 @@ namespace Task02_07
             Console.WriteLine($"Центр: ({ring.Point.X.ToString()},{ring.Point.Y.ToString()})");
             Console.WriteLine($"Внешний радиус: {ring.Radius.ToString()}");
             Console.WriteLine($"Внутренний радиус: {ring.InnerRadius.ToString()}");
-            Console.WriteLine($"Сумма длин окружностей: {ring.SumOfCircumferences.ToString()}");
+            Console.WriteLine($"Сумма длин окружностей: {ring.Circumference.ToString()}");
             Console.WriteLine($"Площадь: {ring.Area.ToString()}");
         }
 

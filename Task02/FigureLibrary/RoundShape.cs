@@ -12,7 +12,7 @@ namespace FigureLibrary
             this.Radius = radius;
         }
 
-        public double Radius
+        public virtual double Radius
         {
             get => this.radius;
 
@@ -26,5 +26,7 @@ namespace FigureLibrary
                 this.radius = value;
             }
         }
+
+        public virtual double Circumference => 2 * Math.PI * this.Radius;
     }
 }

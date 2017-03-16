@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Circle.cs" />
     <Compile Include="Figure.cs" />
+    <Compile Include="IHasArea.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -26,8 +26,6 @@ namespace Task02_07
             while (radius <= 0);
         }
 
-        //todo: methods
-
         private static void Main(string[] args)
         {
             var editor = new VectorGraphicsEditor();

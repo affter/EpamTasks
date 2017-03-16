@@ -2,9 +2,8 @@
 
 namespace FigureLibrary
 {
-    public class Ring : RoundShape
+    public class Ring : RoundShape, IHasArea
     {
-        //todo: aggregation
         private double innerRadius;
 
         public Ring(Point center, double innerRadius, double outerRadius) : base(center, outerRadius)
@@ -33,7 +32,7 @@ namespace FigureLibrary
             }
         }
 
-        public new double Radius
+        public override double Radius
         {
             get => base.Radius;
 
@@ -53,9 +52,6 @@ namespace FigureLibrary
             get => Math.PI * ((this.Radius * this.Radius) - (this.InnerRadius * this.InnerRadius));
         }
 
-        public double SumOfCircumferences
-        {
-            get => (2 * Math.PI) * (this.InnerRadius + this.Radius);
-        }
+        public override double Circumference => (2 * Math.PI) * (this.InnerRadius + this.Radius);
     }
 }

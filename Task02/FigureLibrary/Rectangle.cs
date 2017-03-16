@@ -2,7 +2,7 @@
 
 namespace FigureLibrary
 {
-    public class Rectangle : Figure
+    public class Rectangle : Figure, IHasArea
     {
         private double width, height;
 
