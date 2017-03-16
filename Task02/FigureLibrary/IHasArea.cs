@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FigureLibrary
 {
-    internal interface IHasArea
+    public interface IHasArea
     {
         double Area { get; }
     }

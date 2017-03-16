@@ -50,13 +50,7 @@ namespace Task02_05
 
             set
             {
-                var today = DateTime.Now;
-                var difference = value.Year - Birthdate.Year;
-
-                if (value > today.AddYears(-difference))
-                {
-                    difference--;
-                }
+                int difference = this.CalculateYears(this.Birthdate, value);
 
                 if (difference < 14)
                 {
@@ -66,21 +60,7 @@ namespace Task02_05
                 this.employmentDay = value;
             }
         }
-
-        public int Experience
-        {
-            get
-            {
-                var today = DateTime.Now;
-                var experience = today.Year - this.EmploymentDay.Year;
-
-                if (this.EmploymentDay > today.AddYears(-experience))
-                {
-                    experience--;
-                }
-
-                return experience;
-            }
-        }
+        
+        public int Experience => CalculateYears(this.EmploymentDay, DateTime.Now);
     }
 }

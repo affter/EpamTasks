@@ -4,7 +4,6 @@ namespace Task02_03
 {
     public class User
     {
-        // TODO: Delete constructors
         private string name, surname, patronymic;
 
         private DateTime birthdate;
@@ -30,10 +29,7 @@ namespace Task02_03
 
         public string Name
         {
-            get
-            {
-                return this.name;
-            }
+            get => this.name;
 
             set
             {
@@ -48,10 +44,7 @@ namespace Task02_03
 
         public string Surname
         {
-            get
-            {
-                return this.surname;
-            }
+            get => this.surname;
 
             set
             {
@@ -66,10 +59,7 @@ namespace Task02_03
 
         public string Patronymic
         {
-            get
-            {
-                return this.patronymic;
-            }
+            get => this.patronymic;
 
             set
             {
@@ -84,10 +74,7 @@ namespace Task02_03
 
         public DateTime Birthdate
         {
-            get
-            {
-                return this.birthdate;
-            }
+            get => this.birthdate;
 
             set
             {
@@ -113,20 +100,19 @@ namespace Task02_03
             }
         }
 
-        public int? Age
+        public int Age => CalculateYears(this.Birthdate, DateTime.Now);
+        
+        protected int CalculateYears(DateTime start, DateTime end)
         {
-            get
+            var today = DateTime.Now;
+            var difference = end.Year - start.Year;
+
+            if (start > today.AddYears(-difference))
             {
-                var today = DateTime.Now;
-                var age = today.Year - this.Birthdate.Year;
-
-                if (this.Birthdate > today.AddYears(-age))
-                {
-                    age--;
-                }
-
-                return age;
+                difference--;
             }
+
+            return difference;
         }
     }
 }
