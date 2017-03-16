@@ -30,7 +30,6 @@ namespace Task02_07
         {
             var editor = new VectorGraphicsEditor();
             ConsoleKeyInfo input;
-
             while (true)
             {
                 Console.WriteLine("Выберите режим работы:");
@@ -78,7 +77,7 @@ namespace Task02_07
                                     double secondX = double.Parse(Console.ReadLine());
                                     Console.Write("Введите координату y центра окружности: ");
                                     double secondY = double.Parse(Console.ReadLine());
-                                    editor.Create(new Line(new Point(firstX, firstY), new Point(secondX, secondY)));
+                                    editor.Create(new LineUI(new Line(new Point(firstX, firstY), new Point(secondX, secondY))));
                                 }
                                 catch
                                 {
@@ -92,7 +91,7 @@ namespace Task02_07
                                 try
                                 {
                                     GetCircleInfo(out point, out radius);
-                                    editor.Create(new Circle(point, radius));
+                                    editor.Create(new CircleUI(new Circle(point, radius)));
                                 }
                                 catch
                                 {
@@ -104,7 +103,7 @@ namespace Task02_07
                                 try
                                 {
                                     GetCircleInfo(out point, out radius);
-                                    editor.Create(new Round(point, radius));
+                                    editor.Create(new RoundUI(new Round(point, radius)));
                                 }
                                 catch
                                 {
@@ -129,13 +128,13 @@ namespace Task02_07
                                     }
                                     while (radius <= 0);
 
-                                    editor.Create(new Ring(point, innerRadius, radius));
+                                    editor.Create(new RingUI(new Ring(point, innerRadius, radius)));
                                 }
                                 catch
                                 {
                                     Console.WriteLine("Некорректный ввод");
                                 }
-                                
+
                                 break;
                             case '5':
                                 try
@@ -167,7 +166,7 @@ namespace Task02_07
                                     }
                                     while (width <= 0);
 
-                                    editor.Create(new Rectangle(new Point(firstX, firstY), width, height));
+                                    editor.Create(new RectangleUI(new Rectangle(new Point(firstX, firstY), width, height)));
                                 }
                                 catch
                                 {
@@ -187,11 +186,7 @@ namespace Task02_07
                             Console.WriteLine("Не создано ни одной фигуры");
                         }
 
-                        foreach (Figure item in editor.CreatedFigures)
-                        {
-                            editor.Draw(item);
-                        }
-
+                        editor.DrawAll();
                         break;
                     default:
                         Console.WriteLine("Некорректный ввод!");
