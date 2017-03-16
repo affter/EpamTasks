@@ -57,10 +57,15 @@ namespace Task02_05
                     throw new ArgumentException("Человек не мог работать до 14 лет");
                 }
 
+                if (value > DateTime.Now)
+                {
+                    throw new ArgumentException("Невозможно создать пользователя с датой приема на работу позже сегодняшней");
+                }
+
                 this.employmentDay = value;
             }
         }
         
-        public int Experience => CalculateYears(this.EmploymentDay, DateTime.Now);
+        public int Experience => this.CalculateYears(this.EmploymentDay, DateTime.Now);
     }
 }

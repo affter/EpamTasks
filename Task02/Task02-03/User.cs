@@ -76,15 +76,9 @@ namespace Task02_03
         {
             get => this.birthdate;
 
-            set
+            private set
             {
-                var today = DateTime.Now;
-                var difference = today.Year - value.Year;
-
-                if (this.birthdate > today.AddYears(-difference))
-                {
-                    difference--;
-                }
+                int difference = this.CalculateYears(value, DateTime.Now);
 
                 if (difference >= 150)
                 {
@@ -100,7 +94,7 @@ namespace Task02_03
             }
         }
 
-        public int Age => CalculateYears(this.Birthdate, DateTime.Now);
+        public int Age => this.CalculateYears(this.Birthdate, DateTime.Now);
         
         protected int CalculateYears(DateTime start, DateTime end)
         {
