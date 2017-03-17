@@ -135,7 +135,7 @@ namespace Task02_07
                 }
                 while (width <= 0);
 
-                editor.Create(new RectangleUI(new Rectangle(new Point(firstX, firstY), width, height)));
+                editor.Create(new DrawableRectangle(new Point(firstX, firstY), width, height));
             }
             catch
             {
@@ -163,7 +163,7 @@ namespace Task02_07
                 }
                 while (radius <= 0);
 
-                editor.Create(new RingUI(new Ring(point, innerRadius, radius)));
+                editor.Create(new DrawableRing(point, innerRadius, radius));
             }
             catch
             {
@@ -178,7 +178,7 @@ namespace Task02_07
             try
             {
                 GetCircleInfo(out point, out radius);
-                editor.Create(new RoundUI(new Round(point, radius)));
+                editor.Create(new DrawableRound(point, radius));
             }
             catch
             {
@@ -193,7 +193,7 @@ namespace Task02_07
             try
             {
                 GetCircleInfo(out point, out radius);
-                editor.Create(new CircleUI(new Circle(point, radius)));
+                editor.Create(new DrawableCircle(point, radius));
             }
             catch
             {
@@ -213,7 +213,7 @@ namespace Task02_07
                 double secondX = double.Parse(Console.ReadLine());
                 Console.Write("Введите координату y центра окружности: ");
                 double secondY = double.Parse(Console.ReadLine());
-                editor.Create(new LineUI(new Line(new Point(firstX, firstY), new Point(secondX, secondY))));
+                editor.Create(new DrawableLine(new Point(firstX, firstY), new Point(secondX, secondY)));
             }
             catch
             {

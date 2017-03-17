@@ -42,12 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FigureUI.cs" />
-    <Compile Include="CircleUI.cs" />
-    <Compile Include="LineUI.cs" />
-    <Compile Include="RectangleUI.cs" />
-    <Compile Include="RingUI.cs" />
-    <Compile Include="RoundUI.cs" />
+    <Compile Include="IDrawable.cs" />
+    <Compile Include="DrawableCircle.cs" />
+    <Compile Include="DrawableLine.cs" />
+    <Compile Include="DrawableRectangle.cs" />
+    <Compile Include="DrawableRing.cs" />
+    <Compile Include="DrawableRound.cs" />
     <Compile Include="VectorGraphicsEditor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

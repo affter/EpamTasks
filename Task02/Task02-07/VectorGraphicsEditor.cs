@@ -6,11 +6,11 @@ namespace Task02_07
 {
     internal class VectorGraphicsEditor
     {
-        private HashSet<FigureUI> createdFigures = new HashSet<FigureUI>();
+        private HashSet<IDrawable> createdFigures = new HashSet<IDrawable>();
 
-        public HashSet<FigureUI> CreatedFigures => this.createdFigures;
+        public HashSet<IDrawable> CreatedFigures => this.createdFigures;
         
-        public void Create(FigureUI figure)
+        public void Create(IDrawable figure)
         {
             this.createdFigures.Add(figure);
         }
