@@ -184,7 +184,7 @@ namespace Task02_08
             {
                 if (this.CheckObstacles(row - 1, column, out obs))
                 {
-                    movable.InteractWithObstacle(obs);
+                    this.HandleObstacle(movable, obs);
                 }
                 else
                 {
@@ -195,7 +195,7 @@ namespace Task02_08
             {
                 if (this.CheckObstacles(row + 1, column, out obs))
                 {
-                    movable.InteractWithObstacle(obs);
+                    this.HandleObstacle(movable, obs);
                 }
                 else if (row + 1 >= this.Height)
                 {
@@ -210,7 +210,7 @@ namespace Task02_08
             {
                 if (this.CheckObstacles(row, column - 1, out obs))
                 {
-                    movable.InteractWithObstacle(obs);
+                    this.HandleObstacle(movable, obs);
                 }
                 else
                 {
@@ -221,7 +221,7 @@ namespace Task02_08
             {
                 if (this.CheckObstacles(row, column + 1, out obs))
                 {
-                    movable.InteractWithObstacle(obs);
+                    this.HandleObstacle(movable, obs);
                 }
                 else if (column + 1 >= this.Width)
                 {
@@ -253,6 +253,11 @@ namespace Task02_08
             if (this.CheckBonuses(this.hero.Position, out bonus))
             {
                 bonus.Affect(this.hero);
+                this.bonuses.Remove(bonus);
+                if (!this.bonuses.Any())
+                {
+                    throw new Exception("Достигнуты условия победы");
+                }
             }
         }
 
@@ -267,6 +272,15 @@ namespace Task02_08
                     this.hero.Lives--;
                     this.hero.Respawn(new Position(0, 0));
                 }
+            }
+        }
+
+        private void HandleObstacle(MovableObject movable, Obstacle obs)
+        {
+            movable.InteractWithObstacle(obs);
+            if (obs.Durability <= 0)
+            {
+                this.obstacles.Remove(obs);
             }
         }
     }

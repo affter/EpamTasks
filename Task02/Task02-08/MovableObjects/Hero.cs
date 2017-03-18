@@ -28,7 +28,7 @@ namespace Task02_08
         {
             if (this.Lives <= 0)
             {
-                throw new ArgumentException("Жизни закончились, игра окончена");
+                throw new Exception("Жизни закончились, игра окончена");
             }
 
             this.Position = position;
