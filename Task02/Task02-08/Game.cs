@@ -239,6 +239,11 @@ namespace Task02_08
             if (this.CheckHero(monster.Position))
             {
                 monster.Attack(this.hero);
+                if (this.hero.Hearts <= 0)
+                {
+                    hero.Lives--;
+                    this.hero.Respawn(new Position(0, 0));
+                }
             }
         }
     }
