@@ -170,7 +170,7 @@ namespace Task02_08
                 {
                     movable.InteractWithObstacle(obs);
                 }
-                else if (row + 1 >= this.Width)
+                else if (row + 1 >= this.Heigth)
                 {
                     throw new ArgumentException("Невозможно двигаться в данном направлении");
                 }
