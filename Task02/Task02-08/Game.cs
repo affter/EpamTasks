@@ -62,6 +62,14 @@ namespace Task02_08
 
         public void Initialize(Hero hero, LinkedList<Monster> monsters, LinkedList<Obstacle> obstacles, LinkedList<Bonus> bonuses)
         {
+            foreach (var obstacle in obstacles)
+            {
+                if (obstacle.Position.Row >= this.Width || obstacle.Position.Column >= this.Height)
+                {
+                    throw new ArgumentException("Препятствие не может находиться за пределами поля");
+                }
+            }
+
             this.obstacles = obstacles;
             foreach (var obstacle in obstacles)
             {
@@ -71,6 +79,11 @@ namespace Task02_08
                     {
                         throw new ArgumentException("Монстр не может находиться на препятствии");
                     }
+
+                    if (monster.Position.Row >= this.Width || monster.Position.Column >= this.Height)
+                    {
+                        throw new ArgumentException("Монстр не может находиться за пределами поля");
+                    }
                 }
 
                 foreach (var bonus in bonuses)
@@ -79,11 +92,21 @@ namespace Task02_08
                     {
                         throw new ArgumentException("Бонус не может находиться на препятствии");
                     }
+
+                    if (bonus.Position.Row >= this.Width || bonus.Position.Column >= this.Height)
+                    {
+                        throw new ArgumentException("Бонус не может находиться за пределами поля");
+                    }
                 }
 
                 if (hero.Position == obstacle.Position)
                 {
                     throw new ArgumentException("Герой не может находиться на препятствии");
+                }
+
+                if (hero.Position.Row >= this.Width || hero.Position.Column >= this.Height)
+                {
+                    throw new ArgumentException("Герой не может находиться за пределами поля");
                 }
             }
 
