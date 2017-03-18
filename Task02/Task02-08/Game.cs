@@ -20,7 +20,7 @@ namespace Task02_08
             this.Height = height;
         }
 
-        public Game(int width, int height, Hero hero, LinkedList<Monster> monsters, LinkedList<Obstacle> obstacles, LinkedList<Bonus> bonuses)
+        private Game(int width, int height, Hero hero, LinkedList<Monster> monsters, LinkedList<Obstacle> obstacles, LinkedList<Bonus> bonuses)
         {
             this.Width = width;
             this.Height = height;
@@ -86,6 +86,10 @@ namespace Task02_08
                     throw new ArgumentException("Герой не может находиться на препятствии");
                 }
             }
+
+            this.hero = hero;
+            this.monsters = monsters;
+            this.bonuses = bonuses;
         }
 
         public bool CheckObstacles(int row, int column, out Obstacle obstacle)
@@ -219,6 +223,7 @@ namespace Task02_08
 
             if (this.hero.Hearts <= 0)
             {
+                hero.Lives--;
                 this.hero.Respawn(new Position(0, 0));
             }
 
