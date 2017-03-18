@@ -11,20 +11,21 @@
 
         public MyString(char[] content)
         {
-            this.content = content;
-            this.length = content.Length;
-        }
-
-        public MyString(string content)
-        {
-            this.content = content.ToCharArray();
-            this.length = content.Length;
+            this.content = new char[content.Length];
+            content.CopyTo(this.content, 0);
+            this.length = this.content.Length;
         }
 
         public MyString(char content)
         {
             this.content = new char[] { content };
             this.length = 1;
+        }
+
+        public MyString(string content)
+        {
+            this.content = content.ToCharArray();
+            this.length = content.Length;
         }
 
         public char[] Content => this.content;
@@ -59,15 +60,8 @@
             int newLength = string1.Length + string2.Length;
             char[] content = new char[newLength];
 
-            for (int i = 0; i < string1.Length; i++)
-            {
-                content[i] = string1.Content[i];
-            }
-
-            for (int i = string1.Length; i < newLength; i++)
-            {
-                content[i] = string2.Content[i - string1.Length];
-            }
+            string1.Content.CopyTo(content, 0);
+            string2.Content.CopyTo(content, string1.Length);
 
             return new MyString(content);
         }
@@ -77,15 +71,8 @@
             int newLength = this.Length + string1.Length;
             char[] content = new char[newLength];
 
-            for (int i = 0; i < this.Length; i++)
-            {
-                content[i] = this.Content[i];
-            }
-
-            for (int i = this.Length; i < newLength; i++)
-            {
-                content[i] = string1.Content[i - string1.Length];
-            }
+            this.content.CopyTo(content, 0);
+            string1.Content.CopyTo(content, this.Length);
 
             return new MyString(content);
         }
@@ -130,7 +117,7 @@
             return -1;
         }
 
-        public int IndexOf(string string1)
+        public int IndexOf(MyString string1)
         {
             bool flag;
             for (int i = 0; i < this.content.Length - string1.Length + 1; i++)
@@ -197,7 +184,7 @@
             return -1;
         }
 
-        public int IndexOf(string string1, int startIndex)
+        public int IndexOf(MyString string1, int startIndex)
         {
             bool flag = true;
             for (int i = startIndex; i < this.content.Length - string1.Length + 1; i++)
@@ -226,11 +213,12 @@
 
         public MyString Substring(int startIndex)
         {
-            char[] content = new char[this.Length - startIndex];
+            int newLength = this.Length - startIndex;
+            char[] content = new char[newLength];
 
-            for (int i = startIndex; i < this.Length; i++)
+            for (int i = 0; i < newLength; i++)
             {
-                content[i - startIndex] = this.content[i];
+                content[i] = this.content[i + startIndex];
             }
 
             return new MyString(content);
@@ -295,7 +283,7 @@
             return new MyString(content);
         }
 
-        public MyString Replace(string oldString, string newString)
+        public MyString Replace(MyString oldString, MyString newString)
         {
             int[] indexes = new int[this.Length];
             int j = 0, i = 0, count = -1;

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using FigureLibrary;
 
 namespace Task02_07
