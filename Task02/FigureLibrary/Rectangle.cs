@@ -10,7 +10,7 @@ namespace FigureLibrary
         {
             this.Point = upperLeftCorner;
             this.Width = width;
-            this.Heigth = height;
+            this.Height = height;
         }
 
         public double Width
@@ -28,7 +28,7 @@ namespace FigureLibrary
             }
         }
 
-        public double Heigth
+        public double Height
         {
             get => this.height;
 
@@ -43,8 +43,8 @@ namespace FigureLibrary
             }
         }
 
-        public double Area => this.Width * this.Heigth;
+        public double Area => this.Width * this.Height;
 
-        public double Perimeter => (this.Width + this.Heigth) * 2;
+        public double Perimeter => (this.Width + this.Height) * 2;
     }
 }

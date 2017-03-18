@@ -8,22 +8,22 @@ namespace Task02_08
 {
     internal class Game
     {
-        private int width, heigth;
+        private int width, height;
         private Hero hero;
         private LinkedList<Monster> monsters;
         private LinkedList<Obstacle> obstacles;
         private LinkedList<Bonus> bonuses;
 
-        public Game(int width, int heigth)
+        public Game(int width, int height)
         {
             this.Width = width;
-            this.Heigth = heigth;
+            this.Height = height;
         }
 
-        public Game(int width, int heigth, Hero hero, LinkedList<Monster> monsters, LinkedList<Obstacle> obstacles, LinkedList<Bonus> bonuses)
+        public Game(int width, int height, Hero hero, LinkedList<Monster> monsters, LinkedList<Obstacle> obstacles, LinkedList<Bonus> bonuses)
         {
             this.Width = width;
-            this.Heigth = heigth;
+            this.Height = height;
             this.hero = hero;
             this.monsters = monsters;
             this.obstacles = obstacles;
@@ -45,9 +45,9 @@ namespace Task02_08
             }
         }
 
-        public int Heigth
+        public int Height
         {
-            get => this.heigth;
+            get => this.height;
 
             set
             {
@@ -56,7 +56,7 @@ namespace Task02_08
                     throw new ArgumentException("Ширина поля не может быть отрицательной");
                 }
 
-                this.heigth = value;
+                this.height = value;
             }
         }
 
@@ -170,7 +170,7 @@ namespace Task02_08
                 {
                     movable.InteractWithObstacle(obs);
                 }
-                else if (row + 1 >= this.Heigth)
+                else if (row + 1 >= this.Height)
                 {
                     throw new ArgumentException("Невозможно двигаться в данном направлении");
                 }
