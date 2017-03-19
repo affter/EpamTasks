@@ -12,6 +12,7 @@ namespace Task02_05
             Console.WriteLine($"Фамилия: {user.Surname}");
             Console.WriteLine($"Отчество: {user.Patronymic}");
             Console.WriteLine($"Дата рождения: {user.Birthdate.ToShortDateString()}");
+            Console.WriteLine($"Дата приёма на работу: {user.EmploymentDay.ToShortDateString()}");
             Console.WriteLine($"Возраст: {user.Age.ToString()}");
             Console.WriteLine($"Стаж: {user.Experience.ToString()}");
             Console.WriteLine($"Должность: {user.Position.ToString()}");

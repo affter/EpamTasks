@@ -47,10 +47,7 @@ namespace FigureLibrary
             }
         }
 
-        public double Area
-        {
-            get => Math.PI * ((this.Radius * this.Radius) - (this.InnerRadius * this.InnerRadius));
-        }
+        public double Area => Math.PI * ((this.Radius * this.Radius) - (this.InnerRadius * this.InnerRadius));
 
         public override double Circumference => (2 * Math.PI) * (this.InnerRadius + this.Radius);
     }

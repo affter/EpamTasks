@@ -48,7 +48,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="MovableObjects\Hero.cs" />
-    <Compile Include="MovableObject.cs" />
+    <Compile Include="MovableObjects\MovableObject.cs" />
     <Compile Include="MovableObjects\Monster.cs" />
     <Compile Include="ImmovableObjects\Obstacle.cs" />
     <Compile Include="Position.cs" />
