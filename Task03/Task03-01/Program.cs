@@ -7,13 +7,32 @@ namespace Task03_01
     {
         private static void Main(string[] args)
         {
-            var people = new LinkedList<int>();
             int n = 0;
             n = GetNumber(n);
+            var people = new List<int>(n);
+            FillList(n, people);
+            RemoveEverySecond(people);
+            Console.WriteLine($"Останется человек под номером {people[0].ToString()}");
+        }
 
+        private static void RemoveEverySecond(List<int> people)
+        {
+            int removeIndex = 0;
+            while (people.Count != 1)
+            {
+                for (int i = 0; i < people.Count; i++)
+                {
+                    removeIndex = (removeIndex + 1) % people.Count;
+                    people.RemoveAt(removeIndex);
+                }
+            }
+        }
+
+        private static void FillList(int n, List<int> people)
+        {
             for (int i = 1; i <= n; i++)
             {
-                people.AddLast(i);
+                people.Add(i);
             }
         }
 
@@ -23,7 +42,7 @@ namespace Task03_01
             {
                 try
                 {
-                    Console.WriteLine("Введите N: ");
+                    Console.Write("Введите N: ");
                     n = int.Parse(Console.ReadLine());
                     if (n <= 0)
                     {
