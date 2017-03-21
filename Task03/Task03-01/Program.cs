@@ -20,11 +20,8 @@ namespace Task03_01
             int removeIndex = 0;
             while (people.Count != 1)
             {
-                for (int i = 0; i < people.Count; i++)
-                {
                     removeIndex = (removeIndex + 1) % people.Count;
                     people.RemoveAt(removeIndex);
-                }
             }
         }
 
