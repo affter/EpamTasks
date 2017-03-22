@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Task03_01
 {
@@ -9,27 +10,28 @@ namespace Task03_01
         {
             int n = 0;
             n = GetNumber(n);
-            var people = new List<int>(n);
+            var people = new LinkedList<int>();
             FillList(n, people);
-            RemoveEverySecond(people);
-            Console.WriteLine($"Останется человек под номером {people[0].ToString()}");
+            CountOut(people, n);
+            Console.WriteLine($"Останется человек под номером {people.First.Value.ToString()}");
         }
 
-        private static void RemoveEverySecond(List<int> people)
+        private static void CountOut(LinkedList<int> people, int n)
         {
-            int removeIndex = 0;
+            var currentNode = people.First;
             while (people.Count != 1)
             {
-                    removeIndex = (removeIndex + 1) % people.Count;
-                    people.RemoveAt(removeIndex);
+                var nodeForRemove = currentNode.Next ?? people.First;
+                people.Remove(nodeForRemove);
+                currentNode = currentNode.Next ?? people.First;
             }
         }
 
-        private static void FillList(int n, List<int> people)
+        private static void FillList(int n, LinkedList<int> people)
         {
             for (int i = 1; i <= n; i++)
             {
-                people.Add(i);
+                people.AddLast(i);
             }
         }
 
