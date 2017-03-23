@@ -185,6 +185,13 @@ namespace Task03_03
                 throw new ArgumentOutOfRangeException();
             }
         }
+
+        public T[] ToArray()
+        {
+            T[] outArray = (T[])this.array.Clone();
+            Array.Resize(ref outArray, this.Length);
+            return outArray;
+        }
         
         private void ResizeArrayIfNeeded()
         {
