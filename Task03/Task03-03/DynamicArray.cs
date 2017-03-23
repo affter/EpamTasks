@@ -37,11 +37,17 @@ namespace Task03_03
         
         public T this[int index]
         {
+            
             get
             {
-                if (index >= this.Length)
+                if (index >= this.Length || index < -this.Length)
                 {
                     throw new ArgumentOutOfRangeException();
+                }
+
+                if (index < 0)
+                {
+                    return this.array[this.Length + index];
                 }
 
                 return this.array[index];
@@ -49,9 +55,14 @@ namespace Task03_03
 
             set
             {
-                if (index >= this.Length)
+                if (index >= this.Length || index < -this.Length)
                 {
                     throw new ArgumentOutOfRangeException();
+                }
+
+                if (index < 0)
+                {
+                    this.array[this.Length + index] = value;
                 }
 
                 this.array[index] = value;

@@ -12,10 +12,12 @@ namespace Task03_03
         {
             var temp = new DynamicArray<int>(new[] { 1, 2, 3, 4 });
             temp.AddRange(new[] { 1, 2, 3, 4 });
-            for (int i = 0; i < temp.Length; i++)
+            foreach (var item in temp)
             {
-                Console.WriteLine(temp[i]);
+                Console.WriteLine(item);
             }
+            Console.WriteLine(temp[-temp.Length - 1]);
+            Console.WriteLine(temp[-2]);
         }
     }
 }
