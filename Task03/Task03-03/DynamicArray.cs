@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Task03_03
 {
-    internal class DynamicArray<T> : ICloneable, IEnumerable<T>, IList<T>, ICollection<T>
+    public class DynamicArray<T> : ICloneable, IEnumerable<T>, IList<T>, ICollection<T>
     {
         private T[] array;
         private int capacityMultiplier = 2;
@@ -110,7 +110,7 @@ namespace Task03_03
             this.Length += collectionLength;
         }
 
-        public IEnumerator<T> GetEnumerator() => new DynamicArrayEnumerator<T>(this.array, this.Length);
+        public virtual IEnumerator<T> GetEnumerator() => new DynamicArrayEnumerator<T>(this.array, this.Length);
 
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 

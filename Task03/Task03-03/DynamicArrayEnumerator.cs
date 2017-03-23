@@ -7,20 +7,22 @@ using System.Threading.Tasks;
 
 namespace Task03_03
 {
-    internal class DynamicArrayEnumerator<T> : IEnumerator<T>
+    public class DynamicArrayEnumerator<T> : IEnumerator<T>
     {
         private T[] array;
-        private int current;
         private int length;
 
         public DynamicArrayEnumerator(T[] array, int length)
         {
             this.array = array;
             this.length = length;
-            this.current = -1;
+            this.CurrentPosition = -1;
         }
 
-        public T Current => this.array[this.current];
+        public T Current => this.array[this.CurrentPosition];
+
+        public int CurrentPosition { get; protected set; }
+        public int Length => this.length;
 
         object IEnumerator.Current => this.Current;
 
@@ -28,15 +30,15 @@ namespace Task03_03
         {
         }
 
-        public bool MoveNext()
+        public virtual bool MoveNext()
         {
-            ++this.current;
-            return this.current != this.length;
+            ++this.CurrentPosition;
+            return this.CurrentPosition != this.Length;
         }
 
         public void Reset()
         {
-            this.current = -1;
+            this.CurrentPosition = -1;
         }
     }
 }
