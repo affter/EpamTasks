@@ -22,6 +22,7 @@ namespace Task03_03
         public T Current => this.array[this.CurrentPosition];
 
         public int CurrentPosition { get; protected set; }
+
         public int Length => this.length;
 
         object IEnumerator.Current => this.Current;

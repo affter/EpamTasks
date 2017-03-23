@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Task03_04
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
         }
     }

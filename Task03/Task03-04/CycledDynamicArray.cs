@@ -7,7 +7,7 @@ using Task03_03;
 
 namespace Task03_04
 {
-    class CycledDynamicArray<T> : DynamicArray<T>
+    internal class CycledDynamicArray<T> : DynamicArray<T>
     {
         public CycledDynamicArray() : base()
         {

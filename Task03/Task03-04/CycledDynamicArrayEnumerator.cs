@@ -7,7 +7,7 @@ using Task03_03;
 
 namespace Task03_04
 {
-    class CycledDynamicArrayEnumerator<T> : DynamicArrayEnumerator<T>
+    internal class CycledDynamicArrayEnumerator<T> : DynamicArrayEnumerator<T>
     {
         public CycledDynamicArrayEnumerator(T[] array, int length) : base(array, length)
         {
@@ -20,6 +20,7 @@ namespace Task03_04
             {
                 this.CurrentPosition = 0;
             }
+
             return true;
         }
     }

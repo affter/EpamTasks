@@ -55,7 +55,6 @@ namespace Task03_03
         
         public T this[int index]
         {
-            
             get
             {
                 if (index >= this.Length || index < -this.Length)
