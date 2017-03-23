@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Task03_03
 {
-    internal class DynamicArray<T> : IEnumerable, IEnumerable<T>
+    internal class DynamicArray<T> : ICloneable, IEnumerable<T>
     {
         private T[] array;
 
@@ -74,12 +74,11 @@ namespace Task03_03
             this.Length += collectionLength;
         }
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        public IEnumerator<T> GetEnumerator() => new DynamicArrayEnumerator<T>(this.array);
 
-        IEnumerator IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
+
+        public object Clone()
         {
             throw new NotImplementedException();
         }
