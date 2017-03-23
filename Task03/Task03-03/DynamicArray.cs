@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Task03_03
 {
-    internal class DynamicArray<T> : ICloneable, IEnumerable<T>
+    internal class DynamicArray<T> : ICloneable, IEnumerable<T>, IList<T>, ICollection<T>
     {
         private T[] array;
         private int capacityMultiplier = 2;
@@ -31,22 +31,36 @@ namespace Task03_03
 
         public int Length { get; private set; }
 
-        public T this[int i]
+        public int Count => this.Length;
+
+        public bool IsReadOnly => false;
+        
+        public T this[int index]
         {
             get
             {
-                if (i >= this.Length)
+                if (index >= this.Length)
                 {
                     throw new ArgumentOutOfRangeException();
                 }
 
-                return this.array[i];
+                return this.array[index];
+            }
+
+            set
+            {
+                if (index >= this.Length)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+
+                this.array[index] = value;
             }
         }
 
         public void Add(T element)
         {
-            ResizeArrayIfNeeded();
+            this.ResizeArrayIfNeeded();
 
             this.Length++;
             this.array[this.Length] = element;
@@ -83,31 +97,66 @@ namespace Task03_03
             {
                 return false;
             }
+
             if (startIndex == this.Length - 1)
             {
                 this.Length--;
                 return true;
             }
-            LeftShift(startIndex);
+
+            this.LeftShift(startIndex);
             this.Length--;
             return true;
         }
 
-        public bool Insert(T element, int position)
+        public bool Insert(int position, T element)
         {
             if (position > this.Length || position < 0)
             {
                 throw new ArgumentOutOfRangeException();
             }
 
-            ResizeArrayIfNeeded();
+           this.ResizeArrayIfNeeded();
 
-            RightShift(position);
+            this.RightShift(position);
             this.array[position] = element;
             this.Length++;
             return true;
         }
 
+        public void Clear()
+        {
+            Array.Clear(this.array, 0, this.Length);
+        }
+
+        void IList<T>.Insert(int index, T item)
+        {
+            this.Insert(index, item);
+        }
+
+        public bool Contains(T item)
+        {
+            return this.IndexOf(item) > -1;
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            Array.Copy(this.array, array, arrayIndex);
+        }
+
+        public int IndexOf(T item)
+        {
+            return Array.IndexOf(this.array, item);
+        }
+
+        public void RemoveAt(int index)
+        {
+            if (index >= this.Length || index < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+        }
+        
         private void ResizeArrayIfNeeded()
         {
             if (this.Length == this.Capacity)
