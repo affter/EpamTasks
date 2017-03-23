@@ -11,11 +11,13 @@ namespace Task03_03
     {
         private T[] array;
         private int current;
+        private int length;
         public T Current => array[this.current];
 
-        public DynamicArrayEnumerator(T[] array)
+        public DynamicArrayEnumerator(T[] array, int length)
         {
             this.array = array;
+            this.length = length;
             this.current = -1;
         }
 
@@ -28,7 +30,7 @@ namespace Task03_03
         public bool MoveNext()
         {
             ++this.current;
-            return current != array.Length;
+            return current != this.length;
         }
 
         public void Reset()

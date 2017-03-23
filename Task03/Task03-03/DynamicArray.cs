@@ -7,6 +7,7 @@ namespace Task03_03
     internal class DynamicArray<T> : ICloneable, IEnumerable<T>
     {
         private T[] array;
+        private int capacityMultiplier = 2;
 
         public DynamicArray()
         {
@@ -25,8 +26,8 @@ namespace Task03_03
             this.array = newArray as T[];
             this.Length = this.array.Length;
         }
-        
-        public int Capacity { get; private set; }
+
+        public int Capacity => this.array.Length;
 
         public int Length { get; private set; }
 
@@ -47,10 +48,7 @@ namespace Task03_03
         {
             if (this.Length == this.Capacity)
             {
-                this.Capacity *= 2;
-                T[] newArray = new T[this.Capacity];
-                this.array.CopyTo(newArray, 0);
-                this.array = newArray;
+                Array.Resize(ref this.array, this.Capacity * capacityMultiplier);
             }
 
             this.Length++;
@@ -64,23 +62,21 @@ namespace Task03_03
             int newLength = collectionLength + this.Length;
             if (newLength > this.Capacity)
             {
-                this.Capacity += newLength;
-                T[] newArray = new T[this.Capacity];
-                this.array.CopyTo(newArray, 0);
-                this.array = newArray;
+                int multiplierCount = (int)Math.Ceiling((double)newLength / this.Capacity) - 1;
+                Array.Resize(ref this.array, this.Capacity * capacityMultiplier * multiplierCount);
             }
 
             col.CopyTo(this.array, this.Length);
             this.Length += collectionLength;
         }
 
-        public IEnumerator<T> GetEnumerator() => new DynamicArrayEnumerator<T>(this.array);
+        public IEnumerator<T> GetEnumerator() => new DynamicArrayEnumerator<T>(this.array, this.Length);
 
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         public object Clone()
         {
-            throw new NotImplementedException();
+            return new DynamicArray<T>(this.array)
         }
     }
 }

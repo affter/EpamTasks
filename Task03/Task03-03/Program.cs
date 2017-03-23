@@ -10,6 +10,12 @@ namespace Task03_03
     {
         private static void Main(string[] args)
         {
+            var temp = new DynamicArray<int>(new[] { 1, 2, 3, 4, 5 });
+            temp.AddRange(new[] { 1, 2, 3, 4, 5, 6, 7, 8 });
+            foreach (var item in temp)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }
