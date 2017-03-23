@@ -16,8 +16,15 @@ namespace Task03_03
             {
                 Console.WriteLine(item);
             }
-            Console.WriteLine(temp[-temp.Length - 1]);
+            Console.WriteLine(temp[-temp.Length]);
             Console.WriteLine(temp[-2]);
+
+            temp.Capacity = 0;
+
+            foreach (var item in temp)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }

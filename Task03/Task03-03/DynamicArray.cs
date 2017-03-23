@@ -27,7 +27,25 @@ namespace Task03_03
             this.Length = this.array.Length;
         }
 
-        public int Capacity => this.array.Length;
+        public int Capacity
+        {
+            get => this.array.Length;
+
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentOutOfRangeException();
+                }
+
+                if (value < this.Length)
+                {
+                    this.Length = value;
+                }
+
+                Array.Resize(ref this.array, value);
+            }
+        }
 
         public int Length { get; private set; }
 
