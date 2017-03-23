@@ -154,7 +154,7 @@ namespace Task03_03
 
         public void Clear()
         {
-            Array.Clear(this.array, 0, this.Length);
+            this.Length = 0;
         }
 
         void IList<T>.Insert(int index, T item)
