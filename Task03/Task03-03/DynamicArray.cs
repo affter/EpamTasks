@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Task03_03
 {
@@ -23,8 +24,12 @@ namespace Task03_03
 
         public DynamicArray(IEnumerable<T> newArray)
         {
-            this.array = newArray as T[];
-            this.Length = this.array.Length;
+            this.array = new T[newArray.Count()];
+            foreach (var item in newArray)
+            {
+                this.array[this.Length] = item;
+                this.Length++;
+            }
         }
 
         public int Capacity
@@ -96,17 +101,24 @@ namespace Task03_03
 
         public void AddRange(IEnumerable<T> collection)
         {
-            T[] col = collection as T[];
-            int collectionLength = col.Length;
+            int collectionLength = collection.Count();
             int newLength = collectionLength + this.Length;
             if (newLength > this.Capacity)
             {
-                int multiplierCount = (int)Math.Ceiling((double)collectionLength / this.Capacity);
+                int multiplierCount = collectionLength / this.Capacity;
+                if (collectionLength % this.Capacity != 0)
+                {
+                    multiplierCount++;
+                }
+
                 Array.Resize(ref this.array, this.Capacity * this.capacityMultiplier * multiplierCount);
             }
 
-            col.CopyTo(this.array, this.Length);
-            this.Length += collectionLength;
+            foreach (var item in collection)
+            {
+                this.array[this.Length] = item;
+                this.Length++;
+            }
         }
 
         public virtual IEnumerator<T> GetEnumerator() => new DynamicArrayEnumerator<T>(this.array, this.Length);
