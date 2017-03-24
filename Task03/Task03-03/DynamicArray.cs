@@ -94,9 +94,8 @@ namespace Task03_03
         public void Add(T element)
         {
             this.ResizeArrayIfNeeded();
-
-            this.Length++;
             this.array[this.Length] = element;
+            this.Length++;
         }
 
         public void AddRange(IEnumerable<T> collection)
@@ -195,6 +194,8 @@ namespace Task03_03
             {
                 throw new ArgumentOutOfRangeException();
             }
+
+            LeftShift(index);
         }
 
         public T[] ToArray()
