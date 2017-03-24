@@ -23,7 +23,7 @@ namespace Task03_04
 
         public override IEnumerator<T> GetEnumerator()
         {
-            return new CycledDynamicArrayEnumerator<T>(this.ToArray(), this.Length);
+            return new CycledDynamicArrayEnumerator<T>(this.Arr, this.Length);
         }
     }
 }

@@ -24,12 +24,8 @@ namespace Task03_03
 
         public DynamicArray(IEnumerable<T> newArray)
         {
-            this.array = new T[newArray.Count()];
-            foreach (var item in newArray)
-            {
-                this.array[this.Length] = item;
-                this.Length++;
-            }
+            this.array = newArray.ToArray();
+            this.Length = newArray.Count();
         }
 
         public int Capacity
@@ -54,10 +50,12 @@ namespace Task03_03
 
         public int Length { get; private set; }
 
-        public int Count => this.Length;
+        protected T[] Arr => this.array;
 
-        public bool IsReadOnly => false;
-        
+        int ICollection<T>.Count => this.Length;
+
+        bool ICollection<T>.IsReadOnly => false;
+
         public T this[int index]
         {
             get
@@ -93,7 +91,11 @@ namespace Task03_03
 
         public void Add(T element)
         {
-            this.ResizeArrayIfNeeded();
+            if (this.Length == this.Capacity)
+            {
+                Array.Resize(ref this.array, this.Capacity * this.capacityMultiplier);
+            }
+
             this.array[this.Length] = element;
             this.Length++;
         }
@@ -104,20 +106,12 @@ namespace Task03_03
             int newLength = collectionLength + this.Length;
             if (newLength > this.Capacity)
             {
-                int multiplierCount = collectionLength / this.Capacity;
-                if (collectionLength % this.Capacity != 0)
-                {
-                    multiplierCount++;
-                }
+                int multiplierCount = (int)Math.Ceiling(Math.Log(newLength, this.Capacity));
 
-                Array.Resize(ref this.array, this.Capacity * this.capacityMultiplier * multiplierCount);
+                Array.Resize(ref this.array, this.Capacity * (int)Math.Pow(2, multiplierCount));
             }
 
-            foreach (var item in collection)
-            {
-                this.array[this.Length] = item;
-                this.Length++;
-            }
+            collection.ToArray().CopyTo(this.array, this.Length);
         }
 
         public virtual IEnumerator<T> GetEnumerator() => new DynamicArrayEnumerator<T>(this.array, this.Length);
@@ -155,7 +149,10 @@ namespace Task03_03
                 throw new ArgumentOutOfRangeException();
             }
 
-           this.ResizeArrayIfNeeded();
+            if (this.Length == this.Capacity)
+            {
+                Array.Resize(ref this.array, this.Capacity * this.capacityMultiplier);
+            }
 
             this.RightShift(position);
             this.array[position] = element;
@@ -185,7 +182,14 @@ namespace Task03_03
 
         public int IndexOf(T item)
         {
-            return Array.IndexOf(this.array, item);
+            int index = Array.IndexOf(this.array, item);
+
+            if (index < this.Length)
+            {
+                return index;
+            }
+
+            return -1;
         }
 
         public void RemoveAt(int index)
@@ -195,22 +199,14 @@ namespace Task03_03
                 throw new ArgumentOutOfRangeException();
             }
 
-            LeftShift(index);
+            this.LeftShift(index);
         }
 
         public T[] ToArray()
         {
-            T[] outArray = (T[])this.array.Clone();
-            Array.Resize(ref outArray, this.Length);
+            T[] outArray = new T[this.Length];
+            this.array.CopyTo(outArray, 0);
             return outArray;
-        }
-        
-        private void ResizeArrayIfNeeded()
-        {
-            if (this.Length == this.Capacity)
-            {
-                Array.Resize(ref this.array, this.Capacity * this.capacityMultiplier);
-            }
         }
 
         private void LeftShift(int startIndex)

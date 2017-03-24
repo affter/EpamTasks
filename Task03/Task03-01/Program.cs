@@ -9,7 +9,7 @@ namespace Task03_01
         private static void Main(string[] args)
         {
             int n = 0;
-            n = GetNumber(n);
+            n = GetPeopleCount(n);
             var people = new LinkedList<int>();
             FillList(n, people);
             CountOut(people, n);
@@ -21,8 +21,7 @@ namespace Task03_01
             var currentNode = people.First;
             while (people.Count != 1)
             {
-                var nodeForRemove = currentNode.Next ?? people.First;
-                people.Remove(nodeForRemove);
+                people.Remove(currentNode.Next ?? people.First);
                 currentNode = currentNode.Next ?? people.First;
             }
         }
@@ -35,7 +34,7 @@ namespace Task03_01
             }
         }
 
-        private static int GetNumber(int n)
+        private static int GetPeopleCount(int n)
         {
             do
             {

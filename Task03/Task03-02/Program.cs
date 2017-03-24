@@ -9,33 +9,33 @@ namespace Task03_02
         {
             string text;
             char[] separators = { ' ', '.' };
-            var wordsFrequency = new Dictionary<string, double>();
+            var wordsFrequency = new Dictionary<string, int>(StringComparer.CurrentCultureIgnoreCase);
 
             Console.WriteLine("Введите текст:");
-            text = Console.ReadLine().ToLower();
+            text = Console.ReadLine();
             string[] words = text.Split(separators, StringSplitOptions.RemoveEmptyEntries);
             CalculateFrequency(wordsFrequency, words);
+            int wordsCount = wordsFrequency.Count;
 
             foreach (var word in wordsFrequency)
             {
-                Console.WriteLine($"Частота, с которой слово {word.Key} встречается в тексте: {word.Value.ToString()}");
+                Console.WriteLine($"Частота, с которой слово {word.Key} встречается в тексте: {((double)word.Value / wordsCount).ToString()}");
             }
         }
 
-        private static void CalculateFrequency(Dictionary<string, double> wordsFrequency, string[] words)
+        private static void CalculateFrequency(Dictionary<string, int> wordsFrequency, string[] words)
         {
             double length = words.Length;
             for (int i = 0; i < length; i++)
             {
-                double value = 0;
-                double increment = 1 / length;
+                int value = 0;
                 if (wordsFrequency.TryGetValue(words[i], out value))
                 {
-                    wordsFrequency[words[i]] = value + increment;
+                    wordsFrequency[words[i]] = value++;
                 }
                 else
                 {
-                    wordsFrequency.Add(words[i], increment);
+                    wordsFrequency.Add(words[i], 1);
                 }
             }
         }
