@@ -9,12 +9,11 @@ namespace Task03_02
         {
             string text;
             char[] separators = { ' ', '.' };
-            var wordsFrequency = new Dictionary<string, int>(StringComparer.CurrentCultureIgnoreCase);
 
             Console.WriteLine("Введите текст:");
             text = Console.ReadLine();
             string[] words = text.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-            CalculateFrequency(wordsFrequency, words);
+            var wordsFrequency = CalculateFrequency(words);
             int wordsCount = wordsFrequency.Count;
 
             foreach (var word in wordsFrequency)
@@ -23,8 +22,9 @@ namespace Task03_02
             }
         }
 
-        private static void CalculateFrequency(Dictionary<string, int> wordsFrequency, string[] words)
+        private static Dictionary<string, int> CalculateFrequency(string[] words)
         {
+            var wordsFrequency = new Dictionary<string, int>(StringComparer.CurrentCultureIgnoreCase);
             double length = words.Length;
             for (int i = 0; i < length; i++)
             {
@@ -38,6 +38,8 @@ namespace Task03_02
                     wordsFrequency.Add(words[i], 1);
                 }
             }
+
+            return wordsFrequency;
         }
     }
 }

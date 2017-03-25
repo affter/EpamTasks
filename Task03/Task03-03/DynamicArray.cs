@@ -49,12 +49,12 @@ namespace Task03_03
         }
 
         public int Length { get; private set; }
-
-        protected T[] Arr => this.array;
-
+        
         int ICollection<T>.Count => this.Length;
 
         bool ICollection<T>.IsReadOnly => false;
+
+        protected T[] Arr => this.array;
 
         public T this[int index]
         {

@@ -10,8 +10,7 @@ namespace Task03_01
         {
             int n = 0;
             n = GetPeopleCount(n);
-            var people = new LinkedList<int>();
-            FillList(n, people);
+            var people = FillList(n);
             CountOut(people, n);
             Console.WriteLine($"Останется человек под номером {people.First.Value.ToString()}");
         }
@@ -26,12 +25,15 @@ namespace Task03_01
             }
         }
 
-        private static void FillList(int n, LinkedList<int> people)
+        private static LinkedList<int> FillList(int n)
         {
+            LinkedList<int> people = new LinkedList<int>();
             for (int i = 1; i <= n; i++)
             {
                 people.AddLast(i);
             }
+
+            return people;
         }
 
         private static int GetPeopleCount(int n)
