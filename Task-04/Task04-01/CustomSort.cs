@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task04_01
 {
-    public class Program
+    public class CustomSort
     {
         public static void QSort<T>(T[] array, Func<T, T, bool> comparisonMethod) => QSort(array, 0, array.Length - 1, comparisonMethod);
 
@@ -48,9 +48,9 @@ namespace Task04_01
                 QSort(array, first, j, comparisonMethod);
             }
         }
-
-        private static void Main(string[] args)
+        private static void Main()
         {
+
         }
     }
 }
