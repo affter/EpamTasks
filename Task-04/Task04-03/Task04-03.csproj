@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8FA6C85F-9172-48EE-8C7B-89DC5793E61B}</ProjectGuid>
+    <ProjectGuid>{16F3B223-753A-4EF8-9C67-A9FE4C6C9450}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Task04_01</RootNamespace>
-    <AssemblyName>Task04-01</AssemblyName>
+    <RootNamespace>Task04_03</RootNamespace>
+    <AssemblyName>Task04-03</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,12 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomSort.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SortingUnit.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Task04-01\Task04-01.csproj">
+      <Project>{8fa6c85f-9172-48ee-8c7b-89dc5793e61b}</Project>
+      <Name>Task04-01</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

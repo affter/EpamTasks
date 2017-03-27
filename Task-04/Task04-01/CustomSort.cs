@@ -12,6 +12,11 @@ namespace Task04_01
 
         public static void QSort<T>(T[] array, int first, int last, Func<T, T, bool> comparisonMethod)
         {
+            if (comparisonMethod == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             T temp;
             T x = array[first + ((last - first) / 2)];
             int i = first;
@@ -47,10 +52,6 @@ namespace Task04_01
             {
                 QSort(array, first, j, comparisonMethod);
             }
-        }
-        private static void Main()
-        {
-
         }
     }
 }
