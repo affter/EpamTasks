@@ -177,7 +177,10 @@ namespace Task03_03
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            Array.Copy(this.array, array, arrayIndex);
+            for (int i = 0; i < this.Length; i++)
+            {
+                array[i] = this.array[i];
+            }
         }
 
         public int IndexOf(T item)
