@@ -6,20 +6,25 @@ namespace Task04_03
 {
     internal class SortingUnit
     {
-        public event Action SortComplete;
+        public event EventHandler SortComplete;
 
-        public void QSort<T>(T[] array, Func<T, T, bool> comparisonMethod) => CustomSort.QSort(array, comparisonMethod);
+        public void QSort<T>(T[] array, Func<T, T, int> comparisonMethod) => CustomSort.QSort(array, comparisonMethod);
 
-        public void ThreadedSort<T>(T[] array, Func<T, T, bool> comparisonMethod)
+        public void ThreadedSort<T>(T[] array, Func<T, T, int> comparisonMethod)
         {
             ThreadStart ts = () =>
             {
                 QSort(array, comparisonMethod);
-                SortComplete?.Invoke();
+                OnSortComplete();
             };
 
             Thread work = new Thread(ts);
             work.Start();
+        }
+
+        public void OnSortComplete()
+        {
+            this.SortComplete(this, EventArgs.Empty);
         }
     }
 }

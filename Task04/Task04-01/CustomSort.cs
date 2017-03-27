@@ -8,9 +8,9 @@ namespace Task04_01
 {
     public class CustomSort
     {
-        public static void QSort<T>(T[] array, Func<T, T, bool> comparisonMethod) => QSort(array, 0, array.Length - 1, comparisonMethod);
+        public static void QSort<T>(T[] array, Func<T, T, int> comparisonMethod) => QSort(array, 0, array.Length - 1, comparisonMethod);
 
-        public static void QSort<T>(T[] array, int first, int last, Func<T, T, bool> comparisonMethod)
+        private static void QSort<T>(T[] array, int first, int last, Func<T, T, int> comparisonMethod)
         {
             if (comparisonMethod == null)
             {
@@ -23,12 +23,12 @@ namespace Task04_01
             int j = last;
             while (i <= j)
             {
-                while (comparisonMethod(array[j], x))
+                while (comparisonMethod(array[j], x) > 0)
                 {
                     j--;
                 }
 
-                while (comparisonMethod(x, array[i]))
+                while (comparisonMethod(x, array[i]) > 0)
                 {
                     i++;
                 }

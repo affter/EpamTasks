@@ -8,14 +8,9 @@ namespace Task04_03
 {
     internal class Program
     {
-        private static bool ComparisonMethod(int x1, int x2)
+        private static int ComparisonMethod(int x1, int x2)
         {
-            if (x1 > x2)
-            {
-                return true;
-            }
-
-            return false;
+            return x1 - x2;
         }
         
         private static void PrintArray(int[] array)
@@ -40,16 +35,16 @@ namespace Task04_03
                 array[i] = rnd.Next(-arrayLength, arrayLength);
             }
 
-            Console.WriteLine("Массив: ");
+            Console.WriteLine("Массив:");
             PrintArray(array);
             Console.WriteLine("Сортировка начата");
-            sortingUnit.SortComplete += () =>
+            sortingUnit.SortComplete += (object sender, EventArgs e) =>
             {
-                Console.WriteLine("Закончена сортировка в отдельном потоке");
+                Console.WriteLine("Отсортированный массив:");
                 PrintArray(array);
             };
 
-            sortingUnit.ThreadedSort(array, comparisonMethod);
+            sortingUnit.ThreadedSort(array, ComparisonMethod);
         }
     }
 }

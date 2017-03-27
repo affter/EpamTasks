@@ -9,24 +9,17 @@ namespace Task04_02
 {
     internal class Program
     {
-        public static bool StringComparisonMethod(string string1, string string2)
+        public static int StringComparisonMethod(string string1, string string2)
         {
             int string1Length = string1.Length;
             int string2Length = string2.Length;
-
-            if (string1Length > string2Length)
+            
+            if (string1Length == string2Length)
             {
-                return true;
-            }
-            else if (string1Length == string2Length)
-            {
-                if (string.Compare(string1, string2, true) > 0)
-                {
-                    return true;
-                }
+                return string.Compare(string1, string2);
             }
 
-            return false;
+            return string1Length - string2Length;
         }
 
         private static void Main(string[] args)
