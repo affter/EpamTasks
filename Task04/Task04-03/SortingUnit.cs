@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using System.Linq;
 using Task04_01;
 
 namespace Task04_03

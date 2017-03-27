@@ -8,7 +8,7 @@ namespace Task04_03
 {
     internal class Program
     {
-        private static bool comparisonMethod(int x1, int x2)
+        private static bool ComparisonMethod(int x1, int x2)
         {
             if (x1 > x2)
             {
