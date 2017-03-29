@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FB0CD3EE-6A73-480B-8E45-D1BF013B9680}</ProjectGuid>
+    <ProjectGuid>{534891FD-ABD5-4DC2-8656-DC78D1BE8199}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Task04_05</RootNamespace>
-    <AssemblyName>Task04-05</AssemblyName>
+    <RootNamespace>Task04_06</RootNamespace>
+    <AssemblyName>Task04-06</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestedMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

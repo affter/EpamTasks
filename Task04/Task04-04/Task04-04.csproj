@@ -7,7 +7,7 @@
     <ProjectGuid>{6CAB35A3-E9BE-4EA1-B30E-76E039D165B4}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Task04_04</RootNamespace>
-    <AssemblyName>Task04_04</AssemblyName>
+    <AssemblyName>Task04-04</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NumericArrayExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
