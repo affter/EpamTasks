@@ -24,7 +24,7 @@ namespace Task04_03
 
         public void OnSortComplete()
         {
-            this.SortComplete(this, EventArgs.Empty);
+            this.SortComplete?.Invoke(this, EventArgs.Empty);
         }
     }
 }
