@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Task04_06
 {
-    internal static class TestedMethods
+    internal class TestedMethods
     {
-        public static IEnumerable<int> FindAllPositive(this int[] array)
+        public static IEnumerable<int> FindAllPositive(int[] array)
         {
             for (int i = 0; i < array.Length; i++)
             {
@@ -19,7 +19,7 @@ namespace Task04_06
             }
         }
 
-        public static IEnumerable<int> FindAll(this int[] array, Predicate<int> condition)
+        public static IEnumerable<int> FindAll( int[] array, Predicate<int> condition)
         {
             for (int i = 0; i < array.Length; i++)
             {
@@ -30,7 +30,7 @@ namespace Task04_06
             }
         }
 
-        public static IEnumerable<int> FindAllPositiveLinq(this int[] array)
+        public static IEnumerable<int> FindAllPositiveLinq(int[] array)
         {
             var a = array.Where(n => n > 0);
 
