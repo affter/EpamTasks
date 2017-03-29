@@ -44,7 +44,7 @@ namespace Task04_03
                 PrintArray(array);
             };
 
-            sortingUnit.ThreadedSort(array, ComparisonMethod);
+            sortingUnit.AsyncSort(array, ComparisonMethod);
         }
     }
 }

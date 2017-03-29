@@ -15,9 +15,21 @@ namespace Task04_05
                 return false;
             }
 
-            for (int i = 0; i < content.Length; i++)
+            int index = 0;
+
+            while (index < content.Length && content[index] == '0')
             {
-                if (!char.IsDigit(content[i]))
+                index++;
+
+                if (index == content.Length)
+                {
+                    return false;
+                }
+            }
+
+            for (int i = index; i < content.Length; i++)
+            {
+                if (content[i] >= '0' && content[i] >= '9')
                 {
                     return false;
                 }
@@ -28,6 +40,9 @@ namespace Task04_05
 
         private static void Main(string[] args)
         {
+            string temp = "0000000";
+
+            Console.WriteLine(temp.IsPositiveInt());
         }
     }
 }

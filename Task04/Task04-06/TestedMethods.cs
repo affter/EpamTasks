@@ -19,7 +19,7 @@ namespace Task04_06
             }
         }
 
-        public static IEnumerable<int> FindAll( int[] array, Predicate<int> condition)
+        public static IEnumerable<int> FindAll(int[] array, Predicate<int> condition)
         {
             for (int i = 0; i < array.Length; i++)
             {
@@ -32,9 +32,7 @@ namespace Task04_06
 
         public static IEnumerable<int> FindAllPositiveLinq(int[] array)
         {
-            var a = array.Where(n => n > 0);
-
-            return a;
+            return array.Where(n => n > 0);
         }
     }
 }

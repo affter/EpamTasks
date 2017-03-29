@@ -8,9 +8,9 @@ namespace Task04_04
 {
     internal static class NumericArrayExtensions
     {
-        public static long Sum(this int[] array)
+        public static int Sum(this int[] array)
         {
-            long sum = 0;
+            int sum = 0;
 
             for (int i = 0; i < array.Length; i++)
             {
@@ -32,9 +32,9 @@ namespace Task04_04
             return sum;
         }
 
-        public static long Sum(this short[] array)
+        public static short Sum(this short[] array)
         {
-            long sum = 0;
+            short sum = 0;
 
             for (int i = 0; i < array.Length; i++)
             {
@@ -44,9 +44,9 @@ namespace Task04_04
             return sum;
         }
 
-        public static long Sum(this sbyte[] array)
+        public static sbyte Sum(this sbyte[] array)
         {
-            long sum = 0;
+            sbyte sum = 0;
 
             for (int i = 0; i < array.Length; i++)
             {
@@ -56,9 +56,21 @@ namespace Task04_04
             return sum;
         }
 
-        public static long Sum(this byte[] array)
+        public static byte Sum(this byte[] array)
         {
-            long sum = 0;
+            byte sum = 0;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                sum += array[i];
+            }
+
+            return sum;
+        }
+        
+        public static ushort Sum(this ushort[] array)
+        {
+            ushort sum = 0;
 
             for (int i = 0; i < array.Length; i++)
             {
@@ -68,33 +80,9 @@ namespace Task04_04
             return sum;
         }
 
-        public static long Sum(this char[] array)
+        public static uint Sum(this uint[] array)
         {
-            long sum = 0;
-
-            for (int i = 0; i < array.Length; i++)
-            {
-                sum += array[i];
-            }
-
-            return sum;
-        }
-
-        public static long Sum(this ushort[] array)
-        {
-            long sum = 0;
-
-            for (int i = 0; i < array.Length; i++)
-            {
-                sum += array[i];
-            }
-
-            return sum;
-        }
-
-        public static long Sum(this uint[] array)
-        {
-            long sum = 0;
+            uint sum = 0;
 
             for (int i = 0; i < array.Length; i++)
             {
