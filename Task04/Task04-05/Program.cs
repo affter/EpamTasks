@@ -20,11 +20,11 @@ namespace Task04_05
             while (index < content.Length && content[index] == '0')
             {
                 index++;
+            }
 
-                if (index == content.Length)
-                {
-                    return false;
-                }
+            if (index == content.Length)
+            {
+                return false;
             }
 
             for (int i = index; i < content.Length; i++)
