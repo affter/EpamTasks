@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Task04_06
 {
-    public class Program
+    internal class Program
     {
         private static Random rnd = new Random();
 
@@ -75,7 +75,7 @@ namespace Task04_06
             }
         }
 
-        public static void Main(string[] args)
+        private static void Main(string[] args)
         {
             int[] array = new int[2000000];
             int arrayLength = array.Length;

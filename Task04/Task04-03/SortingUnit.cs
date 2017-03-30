@@ -18,8 +18,8 @@ namespace Task04_03
                 OnSortComplete();
             };
 
-            Thread work = new Thread(ts);
-            work.Start();
+            Thread sort = new Thread(ts);
+            sort.Start();
         }
 
         public void OnSortComplete()
