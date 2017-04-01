@@ -12,14 +12,13 @@ namespace Task05_01
         static void Main(string[] args)
         {
             Backuper backuper = new Backuper(Configuration.WorkingDirectory);
-            
-            FileSystemWatcher watcher = new FileSystemWatcher(Configuration.WorkingDirectory);
-            watcher.Changed += (object sender, FileSystemEventArgs e) => Console.WriteLine("changed " + e.Name);
-            watcher.Deleted += (object sender, FileSystemEventArgs e) => Console.WriteLine("deleted " + e.Name);
-            watcher.Renamed += (object sender, RenamedEventArgs e) => Console.WriteLine(e.OldName + " " + e.Name);
-            watcher.EnableRaisingEvents = true;
-            watcher.IncludeSubdirectories = true;
-
+            backuper.StartSupervising();
+            Console.ReadKey();
+            backuper.StopSupervising();
+            backuper.Rollback(DateTime.Now.AddMinutes(-1));
+            Console.ReadKey();
+            backuper.Rollback(DateTime.Now);
+            backuper.StartSupervising();
             Console.ReadKey();
         }
     }

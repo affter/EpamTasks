@@ -45,7 +45,6 @@
   <ItemGroup>
     <Compile Include="Backuper.cs" />
     <Compile Include="BackupInfo.cs" />
-    <Compile Include="ChangeType.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
