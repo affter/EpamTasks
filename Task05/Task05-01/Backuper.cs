@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
+using System.Linq;
 using System.Text;
 
 namespace Task05_01
@@ -22,99 +21,62 @@ namespace Task05_01
             }
 
             this.watcher = new FileSystemWatcher(path);
-            watcher.IncludeSubdirectories = true;
-            watcher.Created += new FileSystemEventHandler(this.OnChange);
-            watcher.Deleted += new FileSystemEventHandler(this.OnChange);
-            watcher.Changed += new FileSystemEventHandler(this.OnChange);
-            watcher.Renamed += new RenamedEventHandler(this.OnRenamed);
+            this.watcher.IncludeSubdirectories = true;
+            this.watcher.Created += new FileSystemEventHandler(this.OnChange);
+            this.watcher.Deleted += new FileSystemEventHandler(this.OnChange);
+            this.watcher.Changed += new FileSystemEventHandler(this.OnChange);
+            this.watcher.Renamed += new RenamedEventHandler(this.OnRenamed);
         }
 
         public void StartSupervising()
         {
+            string workingDirectory = Configuration.WorkingDirectory;
+            FileInfo backupHistory = new FileInfo(Path.Combine(workingDirectory, "history.info"));
             if (this.startTime == DateTime.MinValue)
             {
-                startTime = DateTime.Now;
+                this.startTime = DateTime.Now;
             }
+
+            if (backupHistory.Exists && !this.backupTable.Any())
+            {
+                using (StreamReader sr = new StreamReader(backupHistory.FullName))
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        string[] backupInfo = sr.ReadLine().Split(';');
+                        WatcherChangeTypes type = (WatcherChangeTypes)Enum.Parse(typeof(WatcherChangeTypes), backupInfo[1]);
+                        BackupInfo info = new BackupInfo(DateTime.Parse(backupInfo[0]), type, bool.Parse(backupInfo[2]));
+                        info.FullPath = backupInfo[3];
+                        info.Content = backupInfo[4];
+                        this.backupTable.AddLast(info);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var directory in Directory.GetDirectories(workingDirectory, "*", SearchOption.AllDirectories))
+                {
+                    BackupInfo backupInfo = new BackupInfo(this.startTime, WatcherChangeTypes.Created, true);
+                    backupInfo.FullPath = directory;
+                    this.backupTable.AddLast(backupInfo);
+                }
+
+                foreach (var file in Directory.GetFiles(workingDirectory, "*.txt", SearchOption.AllDirectories))
+                {
+                    BackupInfo backupInfo = new BackupInfo(this.startTime, WatcherChangeTypes.Created, true);
+                    backupInfo.FullPath = file;
+                    backupInfo.Content = File.ReadAllText(file);
+                    this.backupTable.AddLast(backupInfo);
+                }
+            }
+
             this.watcher.EnableRaisingEvents = true;
         }
 
         public void StopSupervising()
         {
-            stopTime = DateTime.Now;
+            this.stopTime = DateTime.Now;
             this.watcher.EnableRaisingEvents = false;
-        }
-
-        private void OnChange(object sender, FileSystemEventArgs eventArgs)
-        {
-            string fullPath = eventArgs.FullPath;
-            string extention = Path.GetExtension(fullPath);
-
-            if (extention == ".txt" || extention == "")
-            {
-                var info = new BackupInfo(DateTime.Now, eventArgs.ChangeType);
-                if (extention == "")
-                {
-                    info.IsDirectory = true;
-                }
-                else
-                {
-                    info.IsDirectory = false;
-                }
-
-                info.FullPath = fullPath;
-                if (!info.IsDirectory && eventArgs.ChangeType != WatcherChangeTypes.Deleted)
-                {
-                    while (true)
-                    {
-                        try
-                        {
-                            StreamReader sr = new StreamReader(fullPath, Encoding.Default);
-                            info.Content = sr.ReadToEnd(); // что делать если lock
-                            sr.Close();
-                            break;
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
-
-                backupTable.AddLast(info);
-                Console.WriteLine(info.FullPath);
-                Console.WriteLine(info.IsDirectory);
-                Console.WriteLine(info.BackupChangeType);
-                Console.WriteLine(info.BackupDateTime);
-                Console.WriteLine(info.Content);
-            }
-        }
-
-        private void OnRenamed(object sender, RenamedEventArgs eventArgs)
-        {
-            string fullPath = eventArgs.FullPath;
-            string extention = Path.GetExtension(fullPath);
-
-            if (extention == ".txt" || extention == "")
-            {
-                var info = new BackupInfo(DateTime.Now, eventArgs.ChangeType);
-                if (extention == "")
-                {
-                    info.IsDirectory = true;
-                }
-                else
-                {
-                    info.IsDirectory = false;
-                }
-
-                info.FullPath = eventArgs.OldFullPath;
-                info.Content = fullPath;
-
-                backupTable.AddLast(info);
-                Console.WriteLine(info.FullPath);
-                Console.WriteLine(info.IsDirectory);
-                Console.WriteLine(info.BackupChangeType);
-                Console.WriteLine(info.BackupDateTime);
-                Console.WriteLine(info.Content);
-            }
         }
 
         public void Rollback(DateTime dateTime)
@@ -126,6 +88,7 @@ namespace Task05_01
             {
                 item.Delete(true);
             }
+
             foreach (var item in workDir.GetFiles())
             {
                 item.Delete();
@@ -141,7 +104,7 @@ namespace Task05_01
                 dateTime = this.stopTime;
             }
 
-            foreach (BackupInfo backupInfo in backupTable)
+            foreach (BackupInfo backupInfo in this.backupTable)
             {
                 string fullPath = backupInfo.FullPath;
                 string content = backupInfo.Content;
@@ -158,17 +121,12 @@ namespace Task05_01
                     {
                         while (true)
                         {
-                            try
+                            using (StreamWriter sw = new StreamWriter(fullPath, false, Encoding.Default))
                             {
-                                using (StreamWriter sw = new StreamWriter(fullPath, false, Encoding.Default))
-                                {
-                                    sw.WriteLine(content);
-                                }
-                                break;
+                                sw.Write(content);
                             }
-                            catch
-                            {
-                            }
+
+                            break;
                         }
                     }
                 }
@@ -205,7 +163,7 @@ namespace Task05_01
                     {
                         using (StreamWriter sw = new StreamWriter(fullPath, false, Encoding.Default))
                         {
-                            sw.WriteLine(content);
+                            sw.Write(content);
                         }
                     }
                 }
@@ -221,6 +179,69 @@ namespace Task05_01
                         File.Delete(fullPath);
                     }
                 }
+            }
+        }
+
+        private void OnChange(object sender, FileSystemEventArgs eventArgs)
+        {
+            string fullPath = eventArgs.FullPath;
+            string extention = Path.GetExtension(fullPath);
+
+            if (extention == ".txt" || extention == string.Empty)
+            {
+                var info = new BackupInfo(DateTime.Now, eventArgs.ChangeType);
+                if (extention == string.Empty)
+                {
+                    info.IsDirectory = true;
+                }
+                else
+                {
+                    info.IsDirectory = false;
+                }
+
+                info.FullPath = fullPath;
+                if (!info.IsDirectory && eventArgs.ChangeType != WatcherChangeTypes.Deleted)
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            StreamReader sr = new StreamReader(fullPath, Encoding.Default);
+                            info.Content = sr.ReadToEnd(); // что делать если lock
+                            sr.Close();
+                            break;
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+
+                this.backupTable.AddLast(info);
+            }
+        }
+
+        private void OnRenamed(object sender, RenamedEventArgs eventArgs)
+        {
+            string fullPath = eventArgs.FullPath;
+            string extention = Path.GetExtension(fullPath);
+
+            if (extention == ".txt" || extention == string.Empty)
+            {
+                var info = new BackupInfo(DateTime.Now, eventArgs.ChangeType);
+                if (extention == string.Empty)
+                {
+                    info.IsDirectory = true;
+                }
+                else
+                {
+                    info.IsDirectory = false;
+                }
+
+                info.FullPath = eventArgs.OldFullPath;
+                info.Content = fullPath;
+
+                this.backupTable.AddLast(info);
             }
         }
     }
