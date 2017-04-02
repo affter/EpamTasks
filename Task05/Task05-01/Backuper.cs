@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Task05_01
 {
-    internal class Backuper
+    internal class Backuper : IDisposable
     {
         private FileSystemWatcher watcher;
         private LinkedList<BackupInfo> backupTable = new LinkedList<BackupInfo>();
@@ -20,18 +20,7 @@ namespace Task05_01
                 Directory.CreateDirectory(path);
             }
 
-            this.watcher = new FileSystemWatcher(path);
-            this.watcher.IncludeSubdirectories = true;
-            this.watcher.Created += new FileSystemEventHandler(this.OnChange);
-            this.watcher.Deleted += new FileSystemEventHandler(this.OnChange);
-            this.watcher.Changed += new FileSystemEventHandler(this.OnChange);
-            this.watcher.Renamed += new RenamedEventHandler(this.OnRenamed);
-        }
-
-        public void StartSupervising()
-        {
-            string workingDirectory = Configuration.WorkingDirectory;
-            FileInfo backupHistory = new FileInfo(Path.Combine(workingDirectory, "history.info"));
+            FileInfo backupHistory = new FileInfo(Path.Combine(path, "history.info"));
             if (this.startTime == DateTime.MinValue)
             {
                 this.startTime = DateTime.Now;
@@ -45,7 +34,13 @@ namespace Task05_01
                     {
                         string[] backupInfo = sr.ReadLine().Split(';');
                         WatcherChangeTypes type = (WatcherChangeTypes)Enum.Parse(typeof(WatcherChangeTypes), backupInfo[1]);
-                        BackupInfo info = new BackupInfo(DateTime.Parse(backupInfo[0]), type, bool.Parse(backupInfo[2]));
+                        DateTime date = DateTime.Parse(backupInfo[0]);
+                        if (this.startTime > date)
+                        {
+                            this.startTime = date;
+                        }
+
+                        BackupInfo info = new BackupInfo(date, type, bool.Parse(backupInfo[2]));
                         info.FullPath = backupInfo[3];
                         info.Content = backupInfo[4];
                         this.backupTable.AddLast(info);
@@ -54,22 +49,32 @@ namespace Task05_01
             }
             else
             {
-                foreach (var directory in Directory.GetDirectories(workingDirectory, "*", SearchOption.AllDirectories))
+                foreach (var directory in Directory.GetDirectories(path, "*", SearchOption.AllDirectories))
                 {
                     BackupInfo backupInfo = new BackupInfo(this.startTime, WatcherChangeTypes.Created, true);
                     backupInfo.FullPath = directory;
                     this.backupTable.AddLast(backupInfo);
                 }
 
-                foreach (var file in Directory.GetFiles(workingDirectory, "*.txt", SearchOption.AllDirectories))
+                foreach (var file in Directory.GetFiles(path, "*.txt", SearchOption.AllDirectories))
                 {
-                    BackupInfo backupInfo = new BackupInfo(this.startTime, WatcherChangeTypes.Created, true);
+                    BackupInfo backupInfo = new BackupInfo(this.startTime, WatcherChangeTypes.Created, false);
                     backupInfo.FullPath = file;
                     backupInfo.Content = File.ReadAllText(file);
                     this.backupTable.AddLast(backupInfo);
                 }
             }
 
+            this.watcher = new FileSystemWatcher(path);
+            this.watcher.IncludeSubdirectories = true;
+            this.watcher.Created += new FileSystemEventHandler(this.OnChange);
+            this.watcher.Deleted += new FileSystemEventHandler(this.OnChange);
+            this.watcher.Changed += new FileSystemEventHandler(this.OnChange);
+            this.watcher.Renamed += new RenamedEventHandler(this.OnRenamed);
+        }
+
+        public void StartSupervising()
+        {
             this.watcher.EnableRaisingEvents = true;
         }
 
@@ -84,15 +89,7 @@ namespace Task05_01
             string workingDirectory = Configuration.WorkingDirectory;
 
             DirectoryInfo workDir = new DirectoryInfo(workingDirectory);
-            foreach (var item in workDir.GetDirectories())
-            {
-                item.Delete(true);
-            }
-
-            foreach (var item in workDir.GetFiles())
-            {
-                item.Delete();
-            }
+            ClearWorkingDirectory(workDir);
 
             if (dateTime < this.startTime)
             {
@@ -182,6 +179,19 @@ namespace Task05_01
             }
         }
 
+        private static void ClearWorkingDirectory(DirectoryInfo workDir)
+        {
+            foreach (var item in workDir.GetDirectories())
+            {
+                item.Delete(true);
+            }
+
+            foreach (var item in workDir.GetFiles())
+            {
+                item.Delete();
+            }
+        }
+
         private void OnChange(object sender, FileSystemEventArgs eventArgs)
         {
             string fullPath = eventArgs.FullPath;
@@ -243,6 +253,39 @@ namespace Task05_01
 
                 this.backupTable.AddLast(info);
             }
+        }
+
+        public void Dispose()
+        {
+            string path = Path.Combine(this.watcher.Path, "history.info");
+            if (!File.Exists(path))
+            {
+                using (File.Create(path))
+                {
+                }
+            }
+
+            using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
+            {
+                foreach (BackupInfo info in backupTable)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append(info.BackupDateTime.ToString());
+                    sb.Append(';');
+                    sb.Append(info.BackupChangeType.ToString());
+                    sb.Append(';');
+                    sb.Append(info.IsDirectory.ToString());
+                    sb.Append(';');
+                    sb.Append(info.FullPath);
+                    sb.Append(';');
+                    sb.Append(info.Content);
+                    sb.Append(';');
+                    sw.WriteLine(sb.ToString());
+                }
+            }
+            File.SetAttributes(path, FileAttributes.Hidden);
+            this.watcher = null;
+            this.backupTable = null;
         }
     }
 }

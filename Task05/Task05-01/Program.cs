@@ -11,67 +11,68 @@ namespace Task05_01
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine(WatcherChangeTypes.Changed);
-            Backuper backuper = new Backuper(Configuration.WorkingDirectory);
             ConsoleKeyInfo input = new ConsoleKeyInfo();
             DateTime date = DateTime.Now;
-            while (true)
+            using (Backuper backuper = new Backuper(Configuration.WorkingDirectory))
             {
-                Console.WriteLine("Выберите режим работы программы:");
-                Console.WriteLine("\t1. Наблюдение");
-                Console.WriteLine("\t2. Откат изменений");
-                Console.WriteLine("\t0. Выход");
-
-                input = Console.ReadKey();
-                Console.WriteLine();
-                if (input.KeyChar == '0')
+                while (true)
                 {
-                    break;
-                }
+                    Console.WriteLine("Выберите режим работы программы:");
+                    Console.WriteLine("\t1. Наблюдение");
+                    Console.WriteLine("\t2. Откат изменений");
+                    Console.WriteLine("\t0. Выход");
 
-                switch (input.KeyChar)
-                {
-                    case '1':
-                        {
-                            backuper.StartSupervising();
-                            Console.WriteLine("Для выхода из режима наблюдения нажмите Esc");
-                            while (Console.ReadKey().Key != ConsoleKey.Escape)
+                    input = Console.ReadKey();
+                    Console.WriteLine();
+                    if (input.KeyChar == '0')
+                    {
+                        break;
+                    }
+
+                    switch (input.KeyChar)
+                    {
+                        case '1':
                             {
-                                Console.WriteLine();
-                            }
-
-                            backuper.StopSupervising();
-                            break;
-                        }
-
-                    case '2':
-                        {
-                            try
-                            {
-                                Console.WriteLine("Введите дату и время, на которую нужно откатиться, в формате DD.MM.YYYY hh:mm:ss");
-                                DateTime rollbackDateTime = DateTime.Parse(Console.ReadLine());
-                                backuper.Rollback(rollbackDateTime);
-                                Console.WriteLine(
-                                    "Скопируйте необходимые файлы. После нажатия клавиши Esc," + 
-                                    "содержимое директории откатится на момент последнего изменения.");
+                                backuper.StartSupervising();
+                                Console.WriteLine("Для выхода из режима наблюдения нажмите Esc");
                                 while (Console.ReadKey().Key != ConsoleKey.Escape)
                                 {
                                     Console.WriteLine();
                                 }
 
-                                backuper.Rollback(DateTime.Now);
+                                backuper.StopSupervising();
+                                break;
                             }
-                            catch (FormatException)
+
+                        case '2':
                             {
-                                Console.WriteLine("Дата введена некорректно!");
+                                try
+                                {
+                                    Console.WriteLine("Введите дату и время, на которую нужно откатиться, в формате DD.MM.YYYY hh:mm:ss");
+                                    DateTime rollbackDateTime = DateTime.Parse(Console.ReadLine());
+                                    backuper.Rollback(rollbackDateTime);
+                                    Console.WriteLine(
+                                        "Скопируйте необходимые файлы. После нажатия клавиши Esc," +
+                                        "содержимое директории откатится на момент последнего изменения.");
+                                    while (Console.ReadKey().Key != ConsoleKey.Escape)
+                                    {
+                                        Console.WriteLine();
+                                    }
+
+                                    backuper.Rollback(DateTime.Now);
+                                }
+                                catch (FormatException)
+                                {
+                                    Console.WriteLine("Дата введена некорректно!");
+                                }
+
+                                break;
                             }
 
+                        default:
+                            Console.WriteLine("Некорректный ввод!");
                             break;
-                        }
-
-                    default:
-                        Console.WriteLine("Некорректный ввод!");
-                        break;
+                    }
                 }
             }
         }
