@@ -264,6 +264,13 @@ namespace Task05_01
                 {
                 }
             }
+            else
+            {
+                File.Delete(path);
+                using (File.Create(path))
+                {
+                }
+            }
 
             using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
             {
