@@ -10,7 +10,6 @@ namespace Task05_01
     {
         private FileSystemWatcher watcher;
         private LinkedList<BackupInfo> backupTable = new LinkedList<BackupInfo>();
-        private DateTime startTime;
 
         public Backuper(string path)
         {
@@ -58,12 +57,7 @@ namespace Task05_01
 
             DirectoryInfo workDir = new DirectoryInfo(workingDirectory);
             ClearWorkingDirectory(workDir);
-
-            if (dateTime < this.startTime)
-            {
-                dateTime = this.startTime;
-            }
-
+            
             foreach (BackupInfo backupInfo in this.backupTable)
             {
                 string fullPath = backupInfo.FullPath;
@@ -260,16 +254,17 @@ namespace Task05_01
 
         private void GetBackupTable(string path)
         {
+            DateTime startTime = DateTime.Now;
             foreach (var directory in Directory.GetDirectories(path, "*", SearchOption.AllDirectories))
             {
-                BackupInfo backupInfo = new BackupInfo(this.startTime, WatcherChangeTypes.Created, true);
+                BackupInfo backupInfo = new BackupInfo(startTime, WatcherChangeTypes.Created, true);
                 backupInfo.FullPath = directory;
                 this.backupTable.AddLast(backupInfo);
             }
 
             foreach (var file in Directory.GetFiles(path, "*.txt", SearchOption.AllDirectories))
             {
-                BackupInfo backupInfo = new BackupInfo(this.startTime, WatcherChangeTypes.Created, false);
+                BackupInfo backupInfo = new BackupInfo(startTime, WatcherChangeTypes.Created, false);
                 backupInfo.FullPath = file;
                 backupInfo.Content = File.ReadAllText(file);
                 this.backupTable.AddLast(backupInfo);
@@ -285,10 +280,6 @@ namespace Task05_01
                     string[] backupInfo = sr.ReadLine().Split(';');
                     WatcherChangeTypes type = (WatcherChangeTypes)Enum.Parse(typeof(WatcherChangeTypes), backupInfo[1]);
                     DateTime date = DateTime.Parse(backupInfo[0]);
-                    if (this.startTime > date)
-                    {
-                        this.startTime = date;
-                    }
 
                     BackupInfo info = new BackupInfo(date, type, bool.Parse(backupInfo[2]));
                     info.FullPath = backupInfo[3];
