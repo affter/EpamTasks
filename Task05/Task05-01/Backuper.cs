@@ -11,7 +11,6 @@ namespace Task05_01
         private FileSystemWatcher watcher;
         private LinkedList<BackupInfo> backupTable = new LinkedList<BackupInfo>();
         private DateTime startTime;
-        private DateTime stopTime;
 
         public Backuper(string path)
         {
@@ -28,41 +27,11 @@ namespace Task05_01
 
             if (backupHistory.Exists && !this.backupTable.Any())
             {
-                using (StreamReader sr = new StreamReader(backupHistory.FullName))
-                {
-                    while (!sr.EndOfStream)
-                    {
-                        string[] backupInfo = sr.ReadLine().Split(';');
-                        WatcherChangeTypes type = (WatcherChangeTypes)Enum.Parse(typeof(WatcherChangeTypes), backupInfo[1]);
-                        DateTime date = DateTime.Parse(backupInfo[0]);
-                        if (this.startTime > date)
-                        {
-                            this.startTime = date;
-                        }
-
-                        BackupInfo info = new BackupInfo(date, type, bool.Parse(backupInfo[2]));
-                        info.FullPath = backupInfo[3];
-                        info.Content = backupInfo[4];
-                        this.backupTable.AddLast(info);
-                    }
-                }
+                GetBackupTableFromHistory(backupHistory);
             }
             else
             {
-                foreach (var directory in Directory.GetDirectories(path, "*", SearchOption.AllDirectories))
-                {
-                    BackupInfo backupInfo = new BackupInfo(this.startTime, WatcherChangeTypes.Created, true);
-                    backupInfo.FullPath = directory;
-                    this.backupTable.AddLast(backupInfo);
-                }
-
-                foreach (var file in Directory.GetFiles(path, "*.txt", SearchOption.AllDirectories))
-                {
-                    BackupInfo backupInfo = new BackupInfo(this.startTime, WatcherChangeTypes.Created, false);
-                    backupInfo.FullPath = file;
-                    backupInfo.Content = File.ReadAllText(file);
-                    this.backupTable.AddLast(backupInfo);
-                }
+                GetBackupTable(path);
             }
 
             this.watcher = new FileSystemWatcher(path);
@@ -80,7 +49,6 @@ namespace Task05_01
 
         public void StopSupervising()
         {
-            this.stopTime = DateTime.Now;
             this.watcher.EnableRaisingEvents = false;
         }
 
@@ -94,11 +62,6 @@ namespace Task05_01
             if (dateTime < this.startTime)
             {
                 dateTime = this.startTime;
-            }
-
-            if (dateTime > this.stopTime)
-            {
-                dateTime = this.stopTime;
             }
 
             foreach (BackupInfo backupInfo in this.backupTable)
@@ -293,6 +256,46 @@ namespace Task05_01
             File.SetAttributes(path, FileAttributes.Hidden);
             this.watcher = null;
             this.backupTable = null;
+        }
+
+        private void GetBackupTable(string path)
+        {
+            foreach (var directory in Directory.GetDirectories(path, "*", SearchOption.AllDirectories))
+            {
+                BackupInfo backupInfo = new BackupInfo(this.startTime, WatcherChangeTypes.Created, true);
+                backupInfo.FullPath = directory;
+                this.backupTable.AddLast(backupInfo);
+            }
+
+            foreach (var file in Directory.GetFiles(path, "*.txt", SearchOption.AllDirectories))
+            {
+                BackupInfo backupInfo = new BackupInfo(this.startTime, WatcherChangeTypes.Created, false);
+                backupInfo.FullPath = file;
+                backupInfo.Content = File.ReadAllText(file);
+                this.backupTable.AddLast(backupInfo);
+            }
+        }
+
+        private void GetBackupTableFromHistory(FileInfo backupHistory)
+        {
+            using (StreamReader sr = new StreamReader(backupHistory.FullName))
+            {
+                while (!sr.EndOfStream)
+                {
+                    string[] backupInfo = sr.ReadLine().Split(';');
+                    WatcherChangeTypes type = (WatcherChangeTypes)Enum.Parse(typeof(WatcherChangeTypes), backupInfo[1]);
+                    DateTime date = DateTime.Parse(backupInfo[0]);
+                    if (this.startTime > date)
+                    {
+                        this.startTime = date;
+                    }
+
+                    BackupInfo info = new BackupInfo(date, type, bool.Parse(backupInfo[2]));
+                    info.FullPath = backupInfo[3];
+                    info.Content = backupInfo[4];
+                    this.backupTable.AddLast(info);
+                }
+            }
         }
     }
 }
