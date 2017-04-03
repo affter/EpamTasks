@@ -10,7 +10,7 @@ namespace Task04_03
 
         public void QSort<T>(T[] array, Func<T, T, int> comparisonMethod) => CustomSort.QSort(array, comparisonMethod);
 
-        public void ThreadedSort<T>(T[] array, Func<T, T, int> comparisonMethod)
+        public void AsyncSort<T>(T[] array, Func<T, T, int> comparisonMethod)
         {
             ThreadStart ts = () =>
             {
@@ -18,8 +18,8 @@ namespace Task04_03
                 OnSortComplete();
             };
 
-            Thread work = new Thread(ts);
-            work.Start();
+            Thread sort = new Thread(ts);
+            sort.Start();
         }
 
         public void OnSortComplete()

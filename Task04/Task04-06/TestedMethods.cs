@@ -32,9 +32,7 @@ namespace Task04_06
 
         public static IEnumerable<int> FindAllPositiveLinq(int[] array)
         {
-            var a = array.Where(n => n > 0);
-
-            return a.ToArray();
+            return array.Where(n => n > 0);
         }
     }
 }

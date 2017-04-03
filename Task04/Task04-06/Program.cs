@@ -13,9 +13,9 @@ namespace Task04_06
 
         private static double CalculateAverageTime(int[] array, Func<int[], IEnumerable<int>> func)
         {
-            double sumOfResults = 0;
-            int calculationCount = 10;
-            var stopWatch = new Stopwatch();
+            int calculationCount = 50;
+            double[] measures = new double[calculationCount];
+            Stopwatch stopWatch = new Stopwatch();
 
             for (int i = 0; i < calculationCount; i++)
             {
@@ -23,17 +23,18 @@ namespace Task04_06
                 var a = func(array);
                 a.Count();
                 stopWatch.Stop();
-                sumOfResults += stopWatch.Elapsed.TotalMilliseconds;
+                measures[i] = stopWatch.Elapsed.TotalMilliseconds;
                 stopWatch.Reset();
             }
 
-            return sumOfResults / calculationCount;
+            Array.Sort(measures);
+            return measures[measures.Length / 2];
         }
 
         private static double CalculateAverageTime(int[] array, Predicate<int> predicate, Func<int[], Predicate<int>, IEnumerable<int>> func)
         {
-            double sumOfResults = 0;
-            int calculationCount = 10;
+            int calculationCount = 50;
+            double[] measures = new double[calculationCount];
             var stopWatch = new Stopwatch();
 
             for (int i = 0; i < calculationCount; i++)
@@ -42,11 +43,12 @@ namespace Task04_06
                 var a = func(array, predicate);
                 a.Count();
                 stopWatch.Stop();
-                sumOfResults += stopWatch.Elapsed.TotalMilliseconds;
+                measures[i] = stopWatch.Elapsed.TotalMilliseconds;
                 stopWatch.Reset();
             }
 
-            return sumOfResults / calculationCount;
+            Array.Sort(measures);
+            return measures[measures.Length / 2];
         }
 
         private static bool ComparisonMethod(int x)
@@ -78,30 +80,35 @@ namespace Task04_06
             int[] array = new int[2000000];
             int arrayLength = array.Length;
             int numberOfTests = 5;
-            double sumOfFirstMethodResults = 0;
-            double sumOfSecondMethodResults = 0;
-            double sumOfThirdMethodResults = 0;
-            double sumOfFourthMethodResults = 0;
-            double sumOfFifthMethodResults = 0;
-            Predicate<int> predicate1 = delegate (int x) { return x > 0; };
+            double[] firstMethodResults = new double[numberOfTests];
+            double[] secondMethodResults = new double[numberOfTests];
+            double[] thirdMethodResults = new double[numberOfTests];
+            double[] fourthMethodResults = new double[numberOfTests];
+            double[] fifthMethodResults = new double[numberOfTests];
+            Predicate<int> predicate1 = delegate(int x) { return x > 0; };
             Predicate<int> predicate2 = (x) => x > 0;
 
             for (int i = 0; i < numberOfTests; i++)
             {
                 FillArray(array);
-                sumOfFirstMethodResults += CalculateAverageTime(array, TestedMethods.FindAllPositive);
-                sumOfSecondMethodResults += CalculateAverageTime(array, ComparisonMethod, TestedMethods.FindAll);
-                sumOfThirdMethodResults += CalculateAverageTime(array, predicate1, TestedMethods.FindAll);
-                sumOfFourthMethodResults += CalculateAverageTime(array, predicate2, TestedMethods.FindAll);
-                sumOfFifthMethodResults += CalculateAverageTime(array, TestedMethods.FindAllPositiveLinq);
+                firstMethodResults[i] = CalculateAverageTime(array, TestedMethods.FindAllPositive);
+                secondMethodResults[i] = CalculateAverageTime(array, ComparisonMethod, TestedMethods.FindAll);
+                thirdMethodResults[i] = CalculateAverageTime(array, predicate1, TestedMethods.FindAll);
+                fourthMethodResults[i] = CalculateAverageTime(array, predicate2, TestedMethods.FindAll);
+                fifthMethodResults[i] = CalculateAverageTime(array, TestedMethods.FindAllPositiveLinq);
             }
 
+            Array.Sort(firstMethodResults);
+            Array.Sort(secondMethodResults);
+            Array.Sort(thirdMethodResults);
+            Array.Sort(fourthMethodResults);
+            Array.Sort(fifthMethodResults);
 
-            Console.WriteLine($"Среднее время работы метода, непосредственно реализующего поиск: {(sumOfFirstMethodResults / numberOfTests).ToString()} мс.");
-            Console.WriteLine($"Среднее время работы метода, которому условие поиска передаётся через экземпляр делегата: {(sumOfSecondMethodResults / numberOfTests).ToString()} мс.");
-            Console.WriteLine($"Среднее время работы метода, которому условие поиска передаётся через делегат в виде анонимного метода: {(sumOfThirdMethodResults / numberOfTests).ToString()} мс.");
-            Console.WriteLine($"Среднее время работы метода, которому условие поиска передаётся через делегат в виде лямбда-выражения: {(sumOfFourthMethodResults / numberOfTests).ToString()} мс.");
-            Console.WriteLine($"Среднее время работы LINQ выражения: {(sumOfFifthMethodResults / numberOfTests).ToString()} мс.");
+            Console.WriteLine($"Среднее время работы метода, непосредственно реализующего поиск: {firstMethodResults[firstMethodResults.Length / 2].ToString()} мс.");
+            Console.WriteLine($"Среднее время работы метода, которому условие поиска передаётся через экземпляр делегата: {secondMethodResults[secondMethodResults.Length / 2].ToString()} мс.");
+            Console.WriteLine($"Среднее время работы метода, которому условие поиска передаётся через делегат в виде анонимного метода: {thirdMethodResults[thirdMethodResults.Length / 2].ToString()} мс.");
+            Console.WriteLine($"Среднее время работы метода, которому условие поиска передаётся через делегат в виде лямбда-выражения: {fourthMethodResults[fourthMethodResults.Length / 2].ToString()} мс.");
+            Console.WriteLine($"Среднее время работы LINQ выражения: {fifthMethodResults[fifthMethodResults.Length / 2].ToString()} мс.");
         }
     }
 }
