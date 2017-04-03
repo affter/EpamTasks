@@ -29,12 +29,7 @@ namespace Task05_01
                 this.GetBackupTable(path);
             }
 
-            this.watcher = new FileSystemWatcher(path);
-            this.watcher.IncludeSubdirectories = true;
-            this.watcher.Created += new FileSystemEventHandler(this.OnChange);
-            this.watcher.Deleted += new FileSystemEventHandler(this.OnChange);
-            this.watcher.Changed += new FileSystemEventHandler(this.OnChange);
-            this.watcher.Renamed += new RenamedEventHandler(this.OnRenamed);
+            InitWatcher(path);
         }
 
         public void StartSupervising()
@@ -132,20 +127,16 @@ namespace Task05_01
         public void Dispose()
         {
             string path = Path.Combine(this.watcher.Path, "history.info");
-            if (!File.Exists(path))
-            {
-                using (File.Create(path))
-                {
-                }
-            }
-            else
-            {
-                File.Delete(path);
-                using (File.Create(path))
-                {
-                }
-            }
+            CreateHistory(path);
+            WriteHistory(path);
 
+            File.SetAttributes(path, FileAttributes.Hidden);
+            this.watcher = null;
+            this.backupTable = null;
+        }
+
+        private void WriteHistory(string path)
+        {
             using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
             {
                 foreach (BackupInfo info in this.backupTable)
@@ -164,10 +155,33 @@ namespace Task05_01
                     sw.WriteLine(sb.ToString());
                 }
             }
+        }
 
-            File.SetAttributes(path, FileAttributes.Hidden);
-            this.watcher = null;
-            this.backupTable = null;
+        private static void CreateHistory(string path)
+        {
+            if (!File.Exists(path))
+            {
+                using (File.Create(path))
+                {
+                }
+            }
+            else
+            {
+                File.Delete(path);
+                using (File.Create(path))
+                {
+                }
+            }
+        }
+
+        private void InitWatcher(string path)
+        {
+            this.watcher = new FileSystemWatcher(path);
+            this.watcher.IncludeSubdirectories = true;
+            this.watcher.Created += new FileSystemEventHandler(this.OnChange);
+            this.watcher.Deleted += new FileSystemEventHandler(this.OnChange);
+            this.watcher.Changed += new FileSystemEventHandler(this.OnChange);
+            this.watcher.Renamed += new RenamedEventHandler(this.OnRenamed);
         }
 
         private static void ClearWorkingDirectory(DirectoryInfo workDir)
