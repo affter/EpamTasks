@@ -19,18 +19,14 @@ namespace Task05_01
             }
 
             FileInfo backupHistory = new FileInfo(Path.Combine(path, "history.info"));
-            if (this.startTime == DateTime.MinValue)
-            {
-                this.startTime = DateTime.Now;
-            }
 
             if (backupHistory.Exists && !this.backupTable.Any())
             {
-                GetBackupTableFromHistory(backupHistory);
+                this.GetBackupTableFromHistory(backupHistory);
             }
             else
             {
-                GetBackupTable(path);
+                this.GetBackupTable(path);
             }
 
             this.watcher = new FileSystemWatcher(path);
@@ -84,8 +80,7 @@ namespace Task05_01
                         }
                     }
                 }
-
-                if (backupInfo.BackupChangeType == WatcherChangeTypes.Renamed)
+                else if (backupInfo.BackupChangeType == WatcherChangeTypes.Renamed)
                 {
                     if (backupInfo.IsDirectory)
                     {
@@ -106,8 +101,7 @@ namespace Task05_01
                         }
                     }
                 }
-
-                if (backupInfo.BackupChangeType == WatcherChangeTypes.Created)
+                else if (backupInfo.BackupChangeType == WatcherChangeTypes.Created)
                 {
                     if (backupInfo.IsDirectory)
                     {
@@ -121,8 +115,7 @@ namespace Task05_01
                         }
                     }
                 }
-
-                if (backupInfo.BackupChangeType == WatcherChangeTypes.Deleted)
+                else if (backupInfo.BackupChangeType == WatcherChangeTypes.Deleted)
                 {
                     if (backupInfo.IsDirectory)
                     {
@@ -134,6 +127,47 @@ namespace Task05_01
                     }
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            string path = Path.Combine(this.watcher.Path, "history.info");
+            if (!File.Exists(path))
+            {
+                using (File.Create(path))
+                {
+                }
+            }
+            else
+            {
+                File.Delete(path);
+                using (File.Create(path))
+                {
+                }
+            }
+
+            using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
+            {
+                foreach (BackupInfo info in this.backupTable)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append(info.BackupDateTime.ToString());
+                    sb.Append(';');
+                    sb.Append(info.BackupChangeType.ToString());
+                    sb.Append(';');
+                    sb.Append(info.IsDirectory.ToString());
+                    sb.Append(';');
+                    sb.Append(info.FullPath);
+                    sb.Append(';');
+                    sb.Append(info.Content);
+                    sb.Append(';');
+                    sw.WriteLine(sb.ToString());
+                }
+            }
+
+            File.SetAttributes(path, FileAttributes.Hidden);
+            this.watcher = null;
+            this.backupTable = null;
         }
 
         private static void ClearWorkingDirectory(DirectoryInfo workDir)
@@ -210,46 +244,6 @@ namespace Task05_01
 
                 this.backupTable.AddLast(info);
             }
-        }
-
-        public void Dispose()
-        {
-            string path = Path.Combine(this.watcher.Path, "history.info");
-            if (!File.Exists(path))
-            {
-                using (File.Create(path))
-                {
-                }
-            }
-            else
-            {
-                File.Delete(path);
-                using (File.Create(path))
-                {
-                }
-            }
-
-            using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
-            {
-                foreach (BackupInfo info in backupTable)
-                {
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append(info.BackupDateTime.ToString());
-                    sb.Append(';');
-                    sb.Append(info.BackupChangeType.ToString());
-                    sb.Append(';');
-                    sb.Append(info.IsDirectory.ToString());
-                    sb.Append(';');
-                    sb.Append(info.FullPath);
-                    sb.Append(';');
-                    sb.Append(info.Content);
-                    sb.Append(';');
-                    sw.WriteLine(sb.ToString());
-                }
-            }
-            File.SetAttributes(path, FileAttributes.Hidden);
-            this.watcher = null;
-            this.backupTable = null;
         }
 
         private void GetBackupTable(string path)
