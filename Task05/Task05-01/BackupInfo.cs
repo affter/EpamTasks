@@ -33,5 +33,33 @@ namespace Task05_01
         public string FullPath { get; set; }
 
         public bool IsDirectory { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is BackupInfo))
+            {
+                return false;
+            }
+
+            BackupInfo info = (BackupInfo)obj;
+
+            if (info.BackupChangeType == WatcherChangeTypes.Deleted)
+            {
+                return false;
+            }
+
+            return
+                info.FullPath == this.FullPath &&
+                info.Content == this.Content &&
+                ((info.BackupChangeType == WatcherChangeTypes.Created &&
+                this.BackupChangeType != WatcherChangeTypes.Deleted) ||
+                (this.BackupChangeType == WatcherChangeTypes.Created &&
+                info.BackupChangeType != WatcherChangeTypes.Deleted));
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

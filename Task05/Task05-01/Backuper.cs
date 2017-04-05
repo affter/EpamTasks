@@ -233,6 +233,11 @@ namespace Task05_01
                     }
                 }
 
+                if (backupTable.Last.Value.Equals(info))
+                {
+                    return;
+                }
+
                 this.backupTable.AddLast(info);
             }
         }
