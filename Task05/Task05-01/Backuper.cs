@@ -141,18 +141,21 @@ namespace Task05_01
             {
                 foreach (BackupInfo info in this.backupTable)
                 {
+                    char separator = '†';
+                    char lineSeparator = '‡';
                     StringBuilder sb = new StringBuilder();
                     sb.Append(info.BackupDateTime.ToString());
-                    sb.Append(';');
+                    sb.Append(separator);
                     sb.Append(info.BackupChangeType.ToString());
-                    sb.Append(';');
+                    sb.Append(separator);
                     sb.Append(info.IsDirectory.ToString());
-                    sb.Append(';');
+                    sb.Append(separator);
                     sb.Append(info.FullPath);
-                    sb.Append(';');
+                    sb.Append(separator);
                     sb.Append(info.Content);
-                    sb.Append(';');
-                    sw.WriteLine(sb.ToString());
+                    sb.Append(separator);
+                    sb.Append(lineSeparator);
+                    sw.Write(sb.ToString());
                 }
             }
         }
@@ -222,7 +225,7 @@ namespace Task05_01
                         try
                         {
                             StreamReader sr = new StreamReader(fullPath, Encoding.Default);
-                            info.Content = sr.ReadToEnd(); // что делать если lock
+                            info.Content = sr.ReadToEnd(); 
                             sr.Close();
                             break;
                         }
@@ -281,18 +284,24 @@ namespace Task05_01
 
         private void GetBackupTableFromHistory(FileInfo backupHistory)
         {
-            using (StreamReader sr = new StreamReader(backupHistory.FullName))
+            char[] separator = new char[]{ '†' };
+            char[] lineSeparator = new char[] { '‡' };
+            using (StreamReader sr = new StreamReader(backupHistory.FullName, Encoding.Default))
             {
                 while (!sr.EndOfStream)
                 {
-                    string[] backupInfo = sr.ReadLine().Split(';');
-                    WatcherChangeTypes type = (WatcherChangeTypes)Enum.Parse(typeof(WatcherChangeTypes), backupInfo[1]);
-                    DateTime date = DateTime.Parse(backupInfo[0]);
+                    string[] history = sr.ReadToEnd().Split(lineSeparator, StringSplitOptions.RemoveEmptyEntries);
+                    for (int i = 0; i < history.Length; i++)
+                    {
+                        string[] backupInfo = history[i].Split(separator);
+                        WatcherChangeTypes type = (WatcherChangeTypes)Enum.Parse(typeof(WatcherChangeTypes), backupInfo[1]);
+                        DateTime date = DateTime.Parse(backupInfo[0]);
 
-                    BackupInfo info = new BackupInfo(date, type, bool.Parse(backupInfo[2]));
-                    info.FullPath = backupInfo[3];
-                    info.Content = backupInfo[4];
-                    this.backupTable.AddLast(info);
+                        BackupInfo info = new BackupInfo(date, type, bool.Parse(backupInfo[2]));
+                        info.FullPath = backupInfo[3];
+                        info.Content = backupInfo[4];
+                        this.backupTable.AddLast(info);
+                    }
                 }
             }
         }
