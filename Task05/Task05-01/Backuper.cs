@@ -208,16 +208,14 @@ namespace Task05_01
             if (extention == ".txt" || extention == string.Empty)
             {
                 var info = new BackupInfo(DateTime.Now, eventArgs.ChangeType);
-                if (extention == string.Empty)
-                {
-                    info.IsDirectory = true;
-                }
-                else
-                {
-                    info.IsDirectory = false;
-                }
+                info.IsDirectory = Directory.Exists(fullPath);
 
                 info.FullPath = fullPath;
+                if (info.IsDirectory && eventArgs.ChangeType == WatcherChangeTypes.Changed)
+                {
+                    return;
+                }
+
                 if (!info.IsDirectory && eventArgs.ChangeType != WatcherChangeTypes.Deleted)
                 {
                     while (true)
