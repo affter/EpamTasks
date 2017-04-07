@@ -137,7 +137,7 @@ namespace Task05_01
         {
             if (backupInfo.IsDirectory)
             {
-                Directory.Move(fullPath, content);
+                Directory.Move(content, fullPath);
             }
             else
             {
@@ -145,7 +145,7 @@ namespace Task05_01
                 {
                     try
                     {
-                        File.Move(fullPath, content);
+                        File.Move(content, fullPath);
                         break;
                     }
                     catch
@@ -228,9 +228,37 @@ namespace Task05_01
             if (extention == ".txt" || extention == string.Empty)
             {
                 var info = new BackupInfo(DateTime.Now, eventArgs.ChangeType);
-                info.IsDirectory = Directory.Exists(fullPath);
 
                 info.FullPath = fullPath;
+
+                try
+                {
+                    var last = this.backupTable.Last(n => n.FullPath == info.FullPath);
+
+                    if (last.IsDirectory)
+                    {
+                        if (last.BackupChangeType != WatcherChangeTypes.Deleted)
+                        {
+                            info.IsDirectory = true;
+                        }
+                        else
+                        {
+                            info.IsDirectory = Directory.Exists(fullPath);
+                        }
+                    }
+                    else
+                    {
+                        if (last.BackupChangeType == WatcherChangeTypes.Deleted)
+                        {
+                            info.IsDirectory = Directory.Exists(fullPath);
+                        }
+                    }
+                }
+                catch
+                {
+                    info.IsDirectory = Directory.Exists(fullPath);
+                }
+
                 if (info.IsDirectory && eventArgs.ChangeType == WatcherChangeTypes.Changed)
                 {
                     return;
@@ -257,17 +285,17 @@ namespace Task05_01
                 {
                     var last = this.backupTable.Last(n => n.FullPath == info.FullPath);
 
-                    if ((last.BackupChangeType == WatcherChangeTypes.Created || last.BackupChangeType == WatcherChangeTypes.Changed) &&
-                     info.Content == last.Content)
+                    if (last.Content == info.Content && last.BackupChangeType != WatcherChangeTypes.Deleted && !last.IsDirectory)
                     {
                         return;
                     }
+
                 }
                 catch
                 {
                 }
 
-                this.backupTable.AddLast(info);
+                    this.backupTable.AddLast(info);
             }
         }
 
@@ -279,17 +307,11 @@ namespace Task05_01
             if (extention == ".txt" || extention == string.Empty)
             {
                 var info = new BackupInfo(DateTime.Now, eventArgs.ChangeType);
-                if (extention == string.Empty)
-                {
-                    info.IsDirectory = true;
-                }
-                else
-                {
-                    info.IsDirectory = false;
-                }
 
-                info.FullPath = eventArgs.OldFullPath;
-                info.Content = fullPath;
+                info.IsDirectory = Directory.Exists(fullPath);
+
+                info.FullPath = fullPath;
+                info.Content = eventArgs.OldFullPath;
 
                 this.backupTable.AddLast(info);
             }
