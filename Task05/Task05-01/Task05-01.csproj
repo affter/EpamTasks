@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Backuper.cs" />
+    <Compile Include="Backuper.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="BackupInfo.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Program.cs" />

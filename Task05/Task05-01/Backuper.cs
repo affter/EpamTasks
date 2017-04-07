@@ -201,10 +201,10 @@ namespace Task05_01
         {
             this.watcher = new FileSystemWatcher(path);
             this.watcher.IncludeSubdirectories = true;
-            this.watcher.Created += new FileSystemEventHandler(this.OnChange);
-            this.watcher.Deleted += new FileSystemEventHandler(this.OnChange);
+            this.watcher.Created += new FileSystemEventHandler(this.OnCreate);
+            this.watcher.Deleted += new FileSystemEventHandler(this.OnDelete);
             this.watcher.Changed += new FileSystemEventHandler(this.OnChange);
-            this.watcher.Renamed += new RenamedEventHandler(this.OnRenamed);
+            this.watcher.Renamed += new RenamedEventHandler(this.OnRename);
         }
 
         private void ClearWorkingDirectory(DirectoryInfo workDir)
@@ -220,67 +220,72 @@ namespace Task05_01
             }
         }
 
+        private void OnCreate(object sender, FileSystemEventArgs eventArgs)
+        {
+            string fullPath = eventArgs.FullPath;
+            string extention = Path.GetExtension(fullPath);
+            var info = new BackupInfo(DateTime.Now, WatcherChangeTypes.Created);
+            info.FullPath = fullPath;
+            DetermineIsDirectory(fullPath, info);
+
+            if (extention == ".txt")
+            {
+                if (!info.IsDirectory)
+                {
+                    ReadFileContent(fullPath, info);
+                    backupTable.AddLast(info);
+                }
+            }
+            else
+            {
+                if (info.IsDirectory)
+                {
+                    backupTable.AddLast(info);
+                }
+            }
+        }
+
+        private void OnDelete(object sender, FileSystemEventArgs eventArgs)
+        {
+            string fullPath = eventArgs.FullPath;
+            string extention = Path.GetExtension(fullPath);
+            var info = new BackupInfo(DateTime.Now, WatcherChangeTypes.Created);
+            info.FullPath = fullPath;
+            DetermineIsDirectory(fullPath, info);
+
+            if (extention == ".txt")
+            {
+                if (!info.IsDirectory)
+                {
+                    backupTable.AddLast(info);
+                }
+            }
+            else
+            {
+                if (info.IsDirectory)
+                {
+                    backupTable.AddLast(info);
+                }
+            }
+        }
+
         private void OnChange(object sender, FileSystemEventArgs eventArgs)
         {
             string fullPath = eventArgs.FullPath;
             string extention = Path.GetExtension(fullPath);
+            var info = new BackupInfo(DateTime.Now, eventArgs.ChangeType);
 
-            if (extention == ".txt" || extention == string.Empty)
+            info.FullPath = fullPath;
+            DetermineIsDirectory(fullPath, info);
+
+            if (info.IsDirectory)
             {
-                var info = new BackupInfo(DateTime.Now, eventArgs.ChangeType);
+                return;
+            }
 
-                info.FullPath = fullPath;
-
-                try
-                {
-                    var last = this.backupTable.Last(n => n.FullPath == info.FullPath);
-
-                    if (last.IsDirectory)
-                    {
-                        if (last.BackupChangeType != WatcherChangeTypes.Deleted)
-                        {
-                            info.IsDirectory = true;
-                        }
-                        else
-                        {
-                            info.IsDirectory = Directory.Exists(fullPath);
-                        }
-                    }
-                    else
-                    {
-                        if (last.BackupChangeType == WatcherChangeTypes.Deleted)
-                        {
-                            info.IsDirectory = Directory.Exists(fullPath);
-                        }
-                    }
-                }
-                catch
-                {
-                    info.IsDirectory = Directory.Exists(fullPath);
-                }
-
-                if (info.IsDirectory && eventArgs.ChangeType == WatcherChangeTypes.Changed)
-                {
-                    return;
-                }
-
-                if (!info.IsDirectory && eventArgs.ChangeType != WatcherChangeTypes.Deleted)
-                {
-                    while (true)
-                    {
-                        try
-                        {
-                            StreamReader sr = new StreamReader(fullPath, Encoding.Default);
-                            info.Content = sr.ReadToEnd();
-                            sr.Close();
-                            break;
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
-
+            if (extention == ".txt")
+            {
+                ReadFileContent(fullPath, info);
                 try
                 {
                     var last = this.backupTable.Last(n => n.FullPath == info.FullPath);
@@ -289,31 +294,119 @@ namespace Task05_01
                     {
                         return;
                     }
-
                 }
                 catch
                 {
                 }
 
-                    this.backupTable.AddLast(info);
+                this.backupTable.AddLast(info);
+            }
+
+        }
+
+        private static void ReadFileContent(string fullPath, BackupInfo info)
+        {
+            while (true)
+            {
+                try
+                {
+                    StreamReader sr = new StreamReader(fullPath, Encoding.Default);
+                    info.Content = sr.ReadToEnd();
+                    sr.Close();
+                    break;
+                }
+                catch
+                {
+                }
             }
         }
 
-        private void OnRenamed(object sender, RenamedEventArgs eventArgs)
+        private void DetermineIsDirectory(string fullPath, BackupInfo info)
+        {
+            try
+            {
+                var last = this.backupTable.Last(n => n.FullPath == info.FullPath);
+
+                if (last.IsDirectory)
+                {
+                    if (last.BackupChangeType != WatcherChangeTypes.Deleted)
+                    {
+                        info.IsDirectory = true;
+                    }
+                    else
+                    {
+                        info.IsDirectory = Directory.Exists(fullPath);
+                    }
+                }
+                else
+                {
+                    if (last.BackupChangeType == WatcherChangeTypes.Deleted)
+                    {
+                        info.IsDirectory = Directory.Exists(fullPath);
+                    }
+                }
+            }
+            catch
+            {
+                info.IsDirectory = Directory.Exists(fullPath);
+            }
+        }
+
+        private void OnRename(object sender, RenamedEventArgs eventArgs)
         {
             string fullPath = eventArgs.FullPath;
+            string oldFullPath = eventArgs.OldFullPath;
             string extention = Path.GetExtension(fullPath);
+            string oldExtention = Path.GetExtension(oldFullPath);
+            var info = new BackupInfo(DateTime.Now, eventArgs.ChangeType);
+            info.IsDirectory = Directory.Exists(fullPath);
 
-            if (extention == ".txt" || extention == string.Empty)
+            if (extention == ".txt")
             {
-                var info = new BackupInfo(DateTime.Now, eventArgs.ChangeType);
+                if (oldExtention == ".txt")
+                {
+                    info.FullPath = fullPath;
+                    info.Content = oldFullPath;
+                }
+                else
+                {
+                    if (info.IsDirectory)
+                    {
+                        info.FullPath = fullPath;
+                        info.Content = oldFullPath;
+                        this.backupTable.AddLast(info);
+                    }
+                    else
+                    {
+                        info.BackupChangeType = WatcherChangeTypes.Created;
+                        info.FullPath = fullPath;
+                        while (true)
+                        {
+                            using (StreamReader sr = new StreamReader(fullPath))
+                            {
+                                info.Content = sr.ReadToEnd();
+                                break;
+                            }
+                        }
 
-                info.IsDirectory = Directory.Exists(fullPath);
-
-                info.FullPath = fullPath;
-                info.Content = eventArgs.OldFullPath;
-
-                this.backupTable.AddLast(info);
+                        this.backupTable.AddLast(info);
+                    }
+                }
+            }
+            else
+            {
+                if (info.IsDirectory)
+                {
+                    info.FullPath = fullPath;
+                    info.Content = oldFullPath;
+                    this.backupTable.AddLast(info);
+                }
+                else if (oldExtention == ".txt")
+                {
+                    info.FullPath = oldFullPath;
+                    info.BackupChangeType = WatcherChangeTypes.Deleted;
+                    this.backupTable.AddLast(info);
+                }
             }
         }
 
