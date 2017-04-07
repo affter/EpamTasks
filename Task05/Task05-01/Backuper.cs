@@ -29,7 +29,7 @@ namespace Task05_01
                 this.GetBackupTable(path);
             }
 
-            InitWatcher(path);
+            this.InitWatcher(path);
         }
 
         public void StartSupervising()
@@ -47,8 +47,8 @@ namespace Task05_01
             string workingDirectory = Configuration.WorkingDirectory;
 
             DirectoryInfo workDir = new DirectoryInfo(workingDirectory);
-            ClearWorkingDirectory(workDir);
-            
+            this.ClearWorkingDirectory(workDir);
+
             foreach (BackupInfo backupInfo in this.backupTable)
             {
                 string fullPath = backupInfo.FullPath;
@@ -77,6 +77,17 @@ namespace Task05_01
                     RollbackDelete(backupInfo, fullPath);
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            string path = Path.Combine(this.watcher.Path, "history.info");
+            this.CreateHistory(path);
+            this.WriteHistory(path);
+
+            File.SetAttributes(path, FileAttributes.Hidden);
+            this.watcher = null;
+            this.backupTable = null;
         }
 
         private static void RollbackDelete(BackupInfo backupInfo, string fullPath)
@@ -144,17 +155,6 @@ namespace Task05_01
             }
         }
 
-        public void Dispose()
-        {
-            string path = Path.Combine(this.watcher.Path, "history.info");
-            CreateHistory(path);
-            WriteHistory(path);
-
-            File.SetAttributes(path, FileAttributes.Hidden);
-            this.watcher = null;
-            this.backupTable = null;
-        }
-
         private void WriteHistory(string path)
         {
             using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
@@ -180,7 +180,7 @@ namespace Task05_01
             }
         }
 
-        private static void CreateHistory(string path)
+        private void CreateHistory(string path)
         {
             if (!File.Exists(path))
             {
@@ -207,7 +207,7 @@ namespace Task05_01
             this.watcher.Renamed += new RenamedEventHandler(this.OnRenamed);
         }
 
-        private static void ClearWorkingDirectory(DirectoryInfo workDir)
+        private void ClearWorkingDirectory(DirectoryInfo workDir)
         {
             foreach (var item in workDir.GetDirectories())
             {
@@ -243,7 +243,7 @@ namespace Task05_01
                         try
                         {
                             StreamReader sr = new StreamReader(fullPath, Encoding.Default);
-                            info.Content = sr.ReadToEnd(); 
+                            info.Content = sr.ReadToEnd();
                             sr.Close();
                             break;
                         }
@@ -253,9 +253,18 @@ namespace Task05_01
                     }
                 }
 
-                if (this.backupTable.Any() && this.backupTable.Last.Value.Content == info.Content && this.backupTable.Last.Value.FullPath == info.FullPath)
+                try
                 {
-                    return;
+                    var last = this.backupTable.Last(n => n.FullPath == info.FullPath);
+
+                    if ((last.BackupChangeType == WatcherChangeTypes.Created || last.BackupChangeType == WatcherChangeTypes.Changed) &&
+                     info.Content == last.Content)
+                    {
+                        return;
+                    }
+                }
+                catch
+                {
                 }
 
                 this.backupTable.AddLast(info);
@@ -307,7 +316,7 @@ namespace Task05_01
 
         private void GetBackupTableFromHistory(FileInfo backupHistory)
         {
-            char[] separator = new char[]{ '†' };
+            char[] separator = new char[] { '†' };
             char[] lineSeparator = new char[] { '‡' };
             using (StreamReader sr = new StreamReader(backupHistory.FullName, Encoding.Default))
             {
