@@ -17,10 +17,7 @@ namespace Task05_01
             {
                 while (true)
                 {
-                    Console.WriteLine("Выберите режим работы программы:");
-                    Console.WriteLine("\t1. Наблюдение");
-                    Console.WriteLine("\t2. Откат изменений");
-                    Console.WriteLine("\t0. Выход");
+                    ShowMenu();
 
                     input = Console.ReadKey();
                     Console.WriteLine();
@@ -33,39 +30,13 @@ namespace Task05_01
                     {
                         case '1':
                             {
-                                backuper.StartSupervising();
-                                Console.WriteLine("Для выхода из режима наблюдения нажмите Esc");
-                                while (Console.ReadKey().Key != ConsoleKey.Escape)
-                                {
-                                    Console.WriteLine();
-                                }
-
-                                backuper.StopSupervising();
+                                CaseSupervise(backuper);
                                 break;
                             }
 
                         case '2':
                             {
-                                try
-                                {
-                                    Console.WriteLine("Введите дату и время, на которую нужно откатиться, в формате DD.MM.YYYY hh:mm:ss");
-                                    DateTime rollbackDateTime = DateTime.Parse(Console.ReadLine());
-                                    backuper.Rollback(rollbackDateTime);
-                                    Console.WriteLine(
-                                        "Скопируйте необходимые файлы. После нажатия клавиши Esc," +
-                                        "содержимое директории откатится на момент последнего изменения.");
-                                    while (Console.ReadKey().Key != ConsoleKey.Escape)
-                                    {
-                                        Console.WriteLine();
-                                    }
-
-                                    backuper.Rollback(DateTime.Now);
-                                }
-                                catch (FormatException)
-                                {
-                                    Console.WriteLine("Дата введена некорректно!");
-                                }
-
+                                CaseRollback(backuper);
                                 break;
                             }
 
@@ -75,6 +46,49 @@ namespace Task05_01
                     }
                 }
             }
+        }
+
+        private static void CaseRollback(Backuper backuper)
+        {
+            try
+            {
+                Console.WriteLine("Введите дату и время, на которую нужно откатиться, в формате DD.MM.YYYY hh:mm:ss");
+                DateTime rollbackDateTime = DateTime.Parse(Console.ReadLine());
+                backuper.Rollback(rollbackDateTime);
+                Console.WriteLine(
+                    "Скопируйте необходимые файлы. После нажатия клавиши Esc," +
+                    "содержимое директории откатится на момент последнего изменения.");
+                while (Console.ReadKey().Key != ConsoleKey.Escape)
+                {
+                    Console.WriteLine();
+                }
+
+                backuper.Rollback(DateTime.Now);
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Дата введена некорректно!");
+            }
+        }
+
+        private static void CaseSupervise(Backuper backuper)
+        {
+            backuper.StartSupervising();
+            Console.WriteLine("Для выхода из режима наблюдения нажмите Esc");
+            while (Console.ReadKey().Key != ConsoleKey.Escape)
+            {
+                Console.WriteLine();
+            }
+
+            backuper.StopSupervising();
+        }
+
+        private static void ShowMenu()
+        {
+            Console.WriteLine("Выберите режим работы программы:");
+            Console.WriteLine("\t1. Наблюдение");
+            Console.WriteLine("\t2. Откат изменений");
+            Console.WriteLine("\t0. Выход");
         }
     }
 }

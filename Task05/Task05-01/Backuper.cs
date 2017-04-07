@@ -62,63 +62,83 @@ namespace Task05_01
 
                 if (backupInfo.BackupChangeType == WatcherChangeTypes.Changed)
                 {
-                    if (!backupInfo.IsDirectory)
-                    {
-                        while (true)
-                        {
-                            using (StreamWriter sw = new StreamWriter(fullPath, false, Encoding.Default))
-                            {
-                                sw.Write(content);
-                            }
-
-                            break;
-                        }
-                    }
+                    RollbackChange(backupInfo, fullPath, content);
                 }
                 else if (backupInfo.BackupChangeType == WatcherChangeTypes.Renamed)
                 {
-                    if (backupInfo.IsDirectory)
-                    {
-                        Directory.Move(fullPath, content);
-                    }
-                    else
-                    {
-                        while (true)
-                        {
-                            try
-                            {
-                                File.Move(fullPath, content);
-                                break;
-                            }
-                            catch
-                            {
-                            }
-                        }
-                    }
+                    RollbackRename(backupInfo, fullPath, content);
                 }
                 else if (backupInfo.BackupChangeType == WatcherChangeTypes.Created)
                 {
-                    if (backupInfo.IsDirectory)
-                    {
-                        Directory.CreateDirectory(fullPath);
-                    }
-                    else
-                    {
-                        using (StreamWriter sw = new StreamWriter(fullPath, false, Encoding.Default))
-                        {
-                            sw.Write(content);
-                        }
-                    }
+                    RollbackCreate(backupInfo, fullPath, content);
                 }
                 else if (backupInfo.BackupChangeType == WatcherChangeTypes.Deleted)
                 {
-                    if (backupInfo.IsDirectory)
+                    RollbackDelete(backupInfo, fullPath);
+                }
+            }
+        }
+
+        private static void RollbackDelete(BackupInfo backupInfo, string fullPath)
+        {
+            if (backupInfo.IsDirectory)
+            {
+                Directory.Delete(fullPath);
+            }
+            else
+            {
+                File.Delete(fullPath);
+            }
+        }
+
+        private static void RollbackCreate(BackupInfo backupInfo, string fullPath, string content)
+        {
+            if (backupInfo.IsDirectory)
+            {
+                Directory.CreateDirectory(fullPath);
+            }
+            else
+            {
+                using (StreamWriter sw = new StreamWriter(fullPath, false, Encoding.Default))
+                {
+                    sw.Write(content);
+                }
+            }
+        }
+
+        private static void RollbackChange(BackupInfo backupInfo, string fullPath, string content)
+        {
+            if (!backupInfo.IsDirectory)
+            {
+                while (true)
+                {
+                    using (StreamWriter sw = new StreamWriter(fullPath, false, Encoding.Default))
                     {
-                        Directory.Delete(fullPath);
+                        sw.Write(content);
                     }
-                    else
+
+                    break;
+                }
+            }
+        }
+
+        private static void RollbackRename(BackupInfo backupInfo, string fullPath, string content)
+        {
+            if (backupInfo.IsDirectory)
+            {
+                Directory.Move(fullPath, content);
+            }
+            else
+            {
+                while (true)
+                {
+                    try
                     {
-                        File.Delete(fullPath);
+                        File.Move(fullPath, content);
+                        break;
+                    }
+                    catch
+                    {
                     }
                 }
             }
@@ -233,7 +253,7 @@ namespace Task05_01
                     }
                 }
 
-                if (backupTable.Last.Value.Equals(info))
+                if (this.backupTable.Any() && this.backupTable.Last.Value.Content == info.Content && this.backupTable.Last.Value.FullPath == info.FullPath)
                 {
                     return;
                 }
