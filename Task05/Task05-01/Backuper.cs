@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Task05_01
 {
@@ -82,9 +83,8 @@ namespace Task05_01
         public void Dispose()
         {
             string path = Path.Combine(this.watcher.Path, "history.info");
-            this.CreateHistory(path);
+            CreateHistory(path);
             this.WriteHistory(path);
-
             File.SetAttributes(path, FileAttributes.Hidden);
             this.watcher = null;
             this.backupTable = null;
@@ -94,7 +94,7 @@ namespace Task05_01
         {
             if (backupInfo.IsDirectory)
             {
-                Directory.Delete(fullPath);
+                Directory.Delete(fullPath, true);
             }
             else
             {
@@ -180,7 +180,7 @@ namespace Task05_01
             }
         }
 
-        private void CreateHistory(string path)
+        private static void CreateHistory(string path)
         {
             if (!File.Exists(path))
             {
@@ -235,12 +235,28 @@ namespace Task05_01
                     ReadFileContent(fullPath, info);
                     backupTable.AddLast(info);
                 }
+                else
+                {
+                    backupTable.AddLast(info);
+                    foreach (string file in Directory.GetFiles(fullPath))
+                    {
+                        info.FullPath = Path.Combine(fullPath, file);
+                        ReadFileContent(info.FullPath, info);
+                        backupTable.AddLast(info);
+                    }
+                }
             }
             else
             {
                 if (info.IsDirectory)
                 {
                     backupTable.AddLast(info);
+                    foreach (string file in Directory.GetFiles(fullPath))
+                    {
+                        info.FullPath = Path.Combine(fullPath, file);
+                        ReadFileContent(info.FullPath, info);
+                        backupTable.AddLast(info);
+                    }
                 }
             }
         }
@@ -249,16 +265,13 @@ namespace Task05_01
         {
             string fullPath = eventArgs.FullPath;
             string extention = Path.GetExtension(fullPath);
-            var info = new BackupInfo(DateTime.Now, WatcherChangeTypes.Created);
+            var info = new BackupInfo(DateTime.Now, WatcherChangeTypes.Deleted);
             info.FullPath = fullPath;
             DetermineIsDirectory(fullPath, info);
 
             if (extention == ".txt")
             {
-                if (!info.IsDirectory)
-                {
-                    backupTable.AddLast(info);
-                }
+                backupTable.AddLast(info);
             }
             else
             {
@@ -273,7 +286,7 @@ namespace Task05_01
         {
             string fullPath = eventArgs.FullPath;
             string extention = Path.GetExtension(fullPath);
-            var info = new BackupInfo(DateTime.Now, eventArgs.ChangeType);
+            var info = new BackupInfo(DateTime.Now, WatcherChangeTypes.Changed);
 
             info.FullPath = fullPath;
             DetermineIsDirectory(fullPath, info);
@@ -317,6 +330,7 @@ namespace Task05_01
                 }
                 catch
                 {
+                    Thread.Yield();
                 }
             }
         }
@@ -325,30 +339,13 @@ namespace Task05_01
         {
             try
             {
-                var last = this.backupTable.Last(n => n.FullPath == info.FullPath);
-
-                if (last.IsDirectory)
-                {
-                    if (last.BackupChangeType != WatcherChangeTypes.Deleted)
-                    {
-                        info.IsDirectory = true;
-                    }
-                    else
-                    {
-                        info.IsDirectory = Directory.Exists(fullPath);
-                    }
-                }
-                else
-                {
-                    if (last.BackupChangeType == WatcherChangeTypes.Deleted)
-                    {
-                        info.IsDirectory = Directory.Exists(fullPath);
-                    }
-                }
+                info.IsDirectory = File.GetAttributes(fullPath).HasFlag(FileAttributes.Directory);
             }
             catch
             {
-                info.IsDirectory = Directory.Exists(fullPath);
+                var last = this.backupTable.Last(n => n.FullPath == info.FullPath);
+
+                info.IsDirectory = last.IsDirectory;
             }
         }
 
@@ -367,6 +364,7 @@ namespace Task05_01
                 {
                     info.FullPath = fullPath;
                     info.Content = oldFullPath;
+                    this.backupTable.AddLast(info);
                 }
                 else
                 {
@@ -380,15 +378,7 @@ namespace Task05_01
                     {
                         info.BackupChangeType = WatcherChangeTypes.Created;
                         info.FullPath = fullPath;
-                        while (true)
-                        {
-                            using (StreamReader sr = new StreamReader(fullPath))
-                            {
-                                info.Content = sr.ReadToEnd();
-                                break;
-                            }
-                        }
-
+                        ReadFileContent(fullPath, info);
                         this.backupTable.AddLast(info);
                     }
                 }
