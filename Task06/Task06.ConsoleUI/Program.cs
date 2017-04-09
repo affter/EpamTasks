@@ -11,7 +11,7 @@ namespace Task06.ConsoleUI
 {
     internal class Program
     {
-        private static readonly IUserLogic userLogic = new UserLogic();
+        private static IUserLogic userLogic = new UserLogic();
 
         private static void Main(string[] args)
         {
@@ -32,16 +32,19 @@ namespace Task06.ConsoleUI
                             AddUser();
                             break;
                         }
+
                     case '2':
                         {
                             RemoveUser();
                             break;
                         }
+
                     case '3':
                         {
                             ShowAllUsers();
                             break;
                         }
+
                     default:
                         {
                             break;
@@ -81,7 +84,6 @@ namespace Task06.ConsoleUI
                 Console.WriteLine("Дата введена некорректно.");
                 PressAnyKey();
             }
-            
         }
 
         private static void RemoveUser()
@@ -105,7 +107,6 @@ namespace Task06.ConsoleUI
                 Console.WriteLine("Идентификатор введен некорректно");
                 PressAnyKey();
             }
-            
         }
 
         private static void ShowAllUsers()
@@ -115,6 +116,7 @@ namespace Task06.ConsoleUI
             {
                 ShowUser(user);
             }
+
             PressAnyKey();
         }
 

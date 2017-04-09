@@ -4,41 +4,42 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task06.Config;
 using Task06.DalContracts;
 using Task06.Entities;
-using Task06.Config;
 
 namespace Task06.FileAndCacheDal
 {
     public class UserDao : IUserDao
     {
+        private static readonly string UsersFilePath = Configuration.UsersFileName;
         private ICollection<User> userCollection;
         private int maxId = 0;
-        private static readonly string usersFilePath = Configuration.UserFileName;
 
         public UserDao()
         {
-            userCollection = new HashSet<User>();
-            if (File.Exists(usersFilePath))
+            this.userCollection = new HashSet<User>();
+            if (File.Exists(UsersFilePath))
             {
-                string[] users = File.ReadAllLines(usersFilePath);
+                string[] users = File.ReadAllLines(UsersFilePath);
                 for (int i = 0; i < users.Length; i++)
                 {
                     string[] userFields = users[i].Split(';');
                     User user = new User(userFields[1], DateTime.Parse(userFields[2]));
                     user.Id = int.Parse(userFields[0]);
-                    userCollection.Add(user);
+                    this.userCollection.Add(user);
                 }
-                this.maxId = userCollection.Count;
+
+                this.maxId = this.userCollection.Count;
             }
         }
 
         public void Add(User user)
         {
-            user.Id = ++maxId;
+            user.Id = ++this.maxId;
             this.userCollection.Add(user);
 
-            using (StreamWriter sw = new StreamWriter(usersFilePath, true))
+            using (StreamWriter sw = new StreamWriter(UsersFilePath, true))
             {
                 sw.WriteLine(SerializeUser(user));
             }
@@ -51,13 +52,13 @@ namespace Task06.FileAndCacheDal
 
         public void Remove(int id)
         {
-            User userForRemoving = userCollection.FirstOrDefault(n => n.Id == id);
-            if (!userCollection.Remove(userForRemoving))
+            User userForRemoving = this.userCollection.FirstOrDefault(n => n.Id == id);
+            if (!this.userCollection.Remove(userForRemoving))
             {
                 throw new ArgumentException("Пользователь с таким идентификатором не существует");
             }
 
-            File.WriteAllLines(usersFilePath, userCollection.Select(SerializeUser));
+            File.WriteAllLines(UsersFilePath, this.userCollection.Select(SerializeUser));
         }
 
         private static string SerializeUser(User user)

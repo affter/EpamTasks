@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task06.LogicContracts;
-using Task06.Entities;
 using Task06.DalContracts;
+using Task06.Entities;
 using Task06.FileAndCacheDal;
+using Task06.LogicContracts;
 
 namespace Task06.Logic
 {
     public class UserLogic : IUserLogic
     {
-        private readonly IUserDao userDao;
+        private static IUserDao userDao;
 
         public UserLogic()
         {

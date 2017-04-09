@@ -20,7 +20,7 @@ namespace Task06.Entities
 
         public DateTime DateOfBirth { get; set; }
 
-        public int Age => this.CalculateYears(DateOfBirth, DateTime.Now);
+        public int Age => this.CalculateYears(this.DateOfBirth, DateTime.Now);
 
         private int CalculateYears(DateTime start, DateTime end)
         {

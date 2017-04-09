@@ -9,6 +9,6 @@ namespace Task06.Config
 {
     public class Configuration
     {
-        public static string UserFileName => ConfigurationManager.AppSettings.Get("UserFileName");
+        public static string UsersFileName => ConfigurationManager.AppSettings.Get("UsersFileName");
     }
 }
