@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5969CE61-6DDA-4C32-831A-9F95E49FFF8C}</ProjectGuid>
+    <ProjectGuid>{609FAE36-3CEA-497B-B6E2-0817BD35420E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Task06.Logic</RootNamespace>
-    <AssemblyName>Task06.Logic</AssemblyName>
+    <RootNamespace>Task06.FileAndCacheDal</RootNamespace>
+    <AssemblyName>Task06.FileAndCacheDal</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,25 +40,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserLogic.cs" />
+    <Compile Include="UserDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Task06.Configuration\Task06.Config.csproj">
+      <Project>{5d4ec413-69dc-467f-9e49-0dce787f48e2}</Project>
+      <Name>Task06.Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Task06.DalContracts\Task06.DalContracts.csproj">
       <Project>{2f4d9e9d-5ca7-4451-98dd-f81fa740f2b6}</Project>
       <Name>Task06.DalContracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Task06.Entities\Task06.Entities.csproj">
-      <Project>{F8A4A9E1-37A7-4735-A251-6C2A318E579D}</Project>
+      <Project>{f8a4a9e1-37a7-4735-a251-6c2a318e579d}</Project>
       <Name>Task06.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Task06.FileAndCacheDal\Task06.FileAndCacheDal.csproj">
-      <Project>{609fae36-3cea-497b-b6e2-0817bd35420e}</Project>
-      <Name>Task06.FileAndCacheDal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Task06.LogicContracts\Task06.LogicContracts.csproj">
-      <Project>{d2cb38e4-0c21-4409-adbe-deb1339b1627}</Project>
-      <Name>Task06.LogicContracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

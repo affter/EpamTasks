@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("Task06.InMemoryDal")]
+[assembly: AssemblyTitle("Task06.Configuration")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Task06.InMemoryDal")]
+[assembly: AssemblyProduct("Task06.Configuration")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("abaa9806-2ec5-429f-a915-80ed937d6b83")]
+[assembly: Guid("5d4ec413-69dc-467f-9e49-0dce787f48e2")]
 
 // Сведения о версии сборки состоят из следующих четырех значений:
 //

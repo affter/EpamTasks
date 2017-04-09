@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Task06.LogicContracts;
 using Task06.Entities;
 using Task06.DalContracts;
-using Task06.InMemoryDal;
+using Task06.FileAndCacheDal;
 
 namespace Task06.Logic
 {
@@ -21,20 +21,26 @@ namespace Task06.Logic
 
         public bool Add(string name, DateTime dateOfBirth)
         {
-            User user = new User();
-            try
+            if (string.IsNullOrEmpty(name))
             {
-                user.Name = name;
-                user.DateOfBirth = dateOfBirth;
+                throw new ArgumentException("Имя пользователя не может быть пустым");
             }
-            catch (ArgumentException ex)
+
+            int difference = this.CalculateYears(dateOfBirth, DateTime.Now);
+
+            if (difference >= 150)
             {
-                throw ex; 
+                throw new ArgumentException("Возраст не должен превышать 150 лет");
+            }
+
+            if (dateOfBirth > DateTime.Now)
+            {
+                throw new ArgumentException("Невозможно создать пользователя с датой рождения позже сегодняшней");
             }
 
             try
             {
-                userDao.Add(user);
+                userDao.Add(new User(name, dateOfBirth));
                 return true;
             }
             catch
@@ -60,8 +66,7 @@ namespace Task06.Logic
                 return false;
             }
         }
-
-
+        
         private int CalculateYears(DateTime start, DateTime end)
         {
             var today = DateTime.Now;

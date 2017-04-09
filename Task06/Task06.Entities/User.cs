@@ -8,50 +8,19 @@ namespace Task06.Entities
 {
     public class User
     {
-
-        private string name;
-        private DateTime dateOfBirth;
+        public User(string name, DateTime dateOfBirth)
+        {
+            this.Name = name;
+            this.DateOfBirth = dateOfBirth;
+        }
 
         public int Id { get; set; }
 
-        public string Name
-        {
-            get => this.name;
+        public string Name { get; set; }
 
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                {
-                    throw new ArgumentException("Имя пользователя не может быть пустым");
-                }
+        public DateTime DateOfBirth { get; set; }
 
-                this.name = value;
-            }
-        }
-
-        public DateTime DateOfBirth
-        {
-            get => this.dateOfBirth;
-
-            set
-            {
-                int difference = this.CalculateYears(value, DateTime.Now);
-
-                if (difference >= 150)
-                {
-                    throw new ArgumentException("Возраст не должен превышать 150 лет");
-                }
-
-                if (value > DateTime.Now)
-                {
-                    throw new ArgumentException("Невозможно создать пользователя с датой рождения позже сегодняшней");
-                }
-
-                this.dateOfBirth = value;
-            }
-        }
-
-        public int Age => this.CalculateYears(this.DateOfBirth, DateTime.Now);
+        public int Age => this.CalculateYears(DateOfBirth, DateTime.Now);
 
         private int CalculateYears(DateTime start, DateTime end)
         {

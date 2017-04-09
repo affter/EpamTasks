@@ -49,7 +49,7 @@ namespace Task06.ConsoleUI
                 }
             }
         }
-
+        
         private static void AddUser()
         {
             Console.Write("Введите имя пользователя: ");
@@ -133,10 +133,7 @@ namespace Task06.ConsoleUI
             Console.WriteLine("\tEsc для выхода из приложения");
         }
 
-        private static ConsoleKeyInfo GetUserChoise()
-        {
-            return Console.ReadKey();
-        }
+        private static ConsoleKeyInfo GetUserChoise() => Console.ReadKey();
 
         private static void PressAnyKey()
         {
