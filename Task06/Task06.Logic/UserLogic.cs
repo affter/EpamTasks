@@ -51,7 +51,13 @@ namespace Task06.Logic
 
         public IEnumerable<User> GetAll()
         {
-            return userDao.GetAll();
+            IEnumerable<User> users = userDao.GetAll();
+            foreach (User user in users)
+            {
+                user.Age = CalculateYears(user.DateOfBirth, DateTime.Now);
+            }
+
+            return users;
         }
 
         public bool Remove(int id)
