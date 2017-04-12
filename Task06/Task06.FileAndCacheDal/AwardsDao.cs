@@ -31,7 +31,7 @@ namespace Task06.FileAndCacheDal
                     this.awardsCollection.Add(award);
                 }
 
-                this.maxId = this.awardsCollection.Count;
+                this.maxId = this.awardsCollection.Max(n => n.Id);
             }
         }
 

@@ -65,6 +65,8 @@ namespace Task06.Logic
             try
             {
                 usersDao.Remove(id);
+                var awardingDao = AwardingDao.GetInstance();
+                awardingDao.RemoveUserAwardsList(id);
                 return true;
             }
             catch

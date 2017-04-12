@@ -32,7 +32,7 @@ namespace Task06.FileAndCacheDal
                     this.usersCollection.Add(user);
                 }
 
-                this.maxId = this.usersCollection.Count;
+                this.maxId = this.usersCollection.Max(n => n.Id);
             }
         }
 

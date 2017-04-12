@@ -10,5 +10,6 @@ namespace Task06.LogicContracts
     {
         bool RemoveAwardFromUser(int userID, int awardID);
         bool AwardUser(int userID, int awardID);
+        IEnumerable<int> GetUserAwards(int userID);
     }
 }

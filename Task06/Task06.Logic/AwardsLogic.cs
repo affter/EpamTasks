@@ -48,6 +48,14 @@ namespace Task06.Logic
             try
             {
                 awardsDao.Remove(id);
+                var awardingDao = AwardingDao.GetInstance();
+                foreach (var user in UsersDao.GetInstance().GetAll())
+                {
+                    if (awardingDao.GetUserAwards(user.Id).Contains(id))
+                    {
+                        awardingDao.RemoveAwardFromUser(user.Id, id);
+                    }
+                }
                 return true;
             }
             catch

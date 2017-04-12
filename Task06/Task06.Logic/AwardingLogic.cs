@@ -19,7 +19,7 @@ namespace Task06.Logic
         {
             awardsDao = AwardsDao.GetInstance();
             usersDao = UsersDao.GetInstance();
-            awardingDao = new AwardingDao();
+            awardingDao = AwardingDao.GetInstance();
         }
 
         public bool AwardUser(int userID, int awardID)
@@ -40,6 +40,11 @@ namespace Task06.Logic
             {
                 return false;
             }
+        }
+
+        public IEnumerable<int> GetUserAwards(int userID)
+        {
+            return awardingDao.GetUserAwards(userID);
         }
 
         public bool RemoveAwardFromUser(int userID, int awardID)

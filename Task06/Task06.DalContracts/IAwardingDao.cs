@@ -11,6 +11,7 @@ namespace Task06.DalContracts
     {
         void AwardUser(int userID, int awardID);
         void RemoveAwardFromUser(int userID, int awardID);
-        HashSet<int> GetUserAwards(int id);
+        IEnumerable<int> GetUserAwards(int id);
+        void RemoveUserAwardsList(int userID);
     }
 }

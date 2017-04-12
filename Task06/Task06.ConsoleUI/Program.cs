@@ -251,9 +251,24 @@ namespace Task06.ConsoleUI
         private static void ShowAllUsers()
         {
             IEnumerable<User> users = usersLogic.GetAll();
+            IEnumerable<Award> awards = awardsLogic.GetAll();
             foreach (User user in users)
             {
+                var userAwards = awardingLogic.GetUserAwards(user.Id);
                 ShowUser(user);
+                if (!userAwards.Any())
+                {
+                    Console.WriteLine("Не получено ни одной награды");
+                }
+                else
+                {
+                    Console.WriteLine("Список наград:");
+                    foreach (var award in awards.Where(n => userAwards.Contains(n.Id)))
+                    {
+                        ShowAward(award);
+                    }
+                }
+                
             }
 
             PressAnyKey();
