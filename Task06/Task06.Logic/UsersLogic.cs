@@ -10,13 +10,13 @@ using Task06.LogicContracts;
 
 namespace Task06.Logic
 {
-    public class UserLogic : IUserLogic
+    public class UsersLogic : IUsersLogic
     {
-        private static IUserDao userDao;
+        private static IUsersDao usersDao;
 
-        public UserLogic()
+        public UsersLogic()
         {
-            userDao = new UserDao();
+            usersDao = UsersDao.GetInstance();
         }
 
         public bool Add(string name, DateTime dateOfBirth)
@@ -40,7 +40,7 @@ namespace Task06.Logic
 
             try
             {
-                userDao.Add(new User(name, dateOfBirth));
+                usersDao.Add(new User(name, dateOfBirth));
                 return true;
             }
             catch
@@ -51,7 +51,7 @@ namespace Task06.Logic
 
         public IEnumerable<User> GetAll()
         {
-            IEnumerable<User> users = userDao.GetAll();
+            IEnumerable<User> users = usersDao.GetAll();
             foreach (User user in users)
             {
                 user.Age = CalculateYears(user.DateOfBirth, DateTime.Now);
@@ -64,7 +64,7 @@ namespace Task06.Logic
         {
             try
             {
-                userDao.Remove(id);
+                usersDao.Remove(id);
                 return true;
             }
             catch

@@ -7,7 +7,7 @@ using Task06.Entities;
 
 namespace Task06.LogicContracts
 {
-    public interface IUserLogic
+    public interface IUsersLogic
     {
         bool Add(string name, DateTime dateOfBirth);
 

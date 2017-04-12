@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserDao.cs" />
+    <Compile Include="AwardingDao.cs" />
+    <Compile Include="AwardsDao.cs" />
+    <Compile Include="UsersDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

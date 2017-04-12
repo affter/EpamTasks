@@ -7,8 +7,8 @@
     <ProjectGuid>{2F4D9E9D-5CA7-4451-98DD-F81FA740F2B6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DalContracts</RootNamespace>
-    <AssemblyName>DalContracts</AssemblyName>
+    <RootNamespace>Task06.DalContracts</RootNamespace>
+    <AssemblyName>Task06.DalContracts</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IUserDao.cs" />
+    <Compile Include="IAwardingDao.cs" />
+    <Compile Include="IAwardsDao.cs" />
+    <Compile Include="IUsersDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

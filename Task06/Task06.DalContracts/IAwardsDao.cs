@@ -7,12 +7,12 @@ using Task06.Entities;
 
 namespace Task06.DalContracts
 {
-    public interface IUserDao
+    public interface IAwardsDao
     {
-        void Add(User user);
+        void Add(Award award);
 
         void Remove(int id);
 
-        IEnumerable<User> GetAll();
+        IEnumerable<Award> GetAll();
     }
 }
