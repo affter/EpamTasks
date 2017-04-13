@@ -90,7 +90,9 @@ namespace Task06.ConsoleUI
 
             try
             {
-                var users = FindUsers();
+                Console.Write("Введите имя или часть имени пользователя: ");
+                string searchString = Console.ReadLine();
+                var users = usersLogic.GetByNameLike(searchString);
                 if (!users.Any())
                 {
                     Console.WriteLine("Не найдено ни одного пользователя");
@@ -135,21 +137,15 @@ namespace Task06.ConsoleUI
                 PressAnyKey();
             }
         }
-
-        private static IEnumerable<User> FindUsers()
-        {
-            Console.Write("Введите имя или часть имени пользователя: ");
-            string searchString = Console.ReadLine();
-            return usersLogic.GetByNameLike(searchString);
-        }
-
         private static void AwardUser()
         {
             int userID, awardID;
 
             try
             {
-                var users = FindUsers();
+                Console.Write("Введите имя или часть имени пользователя: ");
+                string searchString = Console.ReadLine();
+                var users = usersLogic.GetByNameLike(searchString);
                 if (!users.Any())
                 {
                     Console.WriteLine("Не найдено ни одного пользователя");
