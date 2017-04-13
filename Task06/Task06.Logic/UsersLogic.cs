@@ -99,7 +99,7 @@ namespace Task06.Logic
             }
         }
 
-        public IEnumerable<int> GetUserAwards(int userID)
+        public IEnumerable<int> GetAwards(int userID)
         {
             return awardingDao.GetUserAwards(userID);
         }

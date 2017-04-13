@@ -109,6 +109,13 @@ namespace Task06.ConsoleUI
 
                 Console.Write("Введите идентификатор пользователя, которого нужно лишить награды: ");
                 userID = int.Parse(Console.ReadLine());
+                if (!users.Any(n => n.Id == userID))
+                {
+                    Console.WriteLine("Идентификатор введен некорректно");
+                    PressAnyKey();
+                    return;
+                }
+
                 if (!TryShowUserAwards(usersLogic.GetAll().First(n => n.Id == userID)))
                 {
                     Console.WriteLine("Не получено ни одной награды");
@@ -162,8 +169,15 @@ namespace Task06.ConsoleUI
 
                 Console.Write("Введите идентификатор пользователя, которого нужно наградить: ");
                 userID = int.Parse(Console.ReadLine());
+                if (!users.Any(n => n.Id == userID))
+                {
+                    Console.WriteLine("Идентификатор введен некорректно");
+                    PressAnyKey();
+                    return;
+                }
+
                 Console.Write("Введите название или часть названия награды: ");
-                string searchString = Console.ReadLine();
+                searchString = Console.ReadLine();
                 var awards = awardsLogic.GetByTitleLike(searchString);
                 if (!awards.Any())
                 {
@@ -323,7 +337,7 @@ namespace Task06.ConsoleUI
         private static bool TryShowUserAwards(User user)
         {
             IEnumerable<Award> awards = awardsLogic.GetAll();
-            var userAwards = usersLogic.GetUserAwards(user.Id);
+            var userAwards = usersLogic.GetAwards(user.Id);
             if (userAwards.Any())
             {
                 Console.WriteLine("Список наград:");
