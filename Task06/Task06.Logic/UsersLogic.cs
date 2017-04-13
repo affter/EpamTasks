@@ -124,6 +124,17 @@ namespace Task06.Logic
             }
         }
 
+        public IEnumerable<User> GetByNameLike(string searchString)
+        {
+            IEnumerable<User> users = usersDao.GetByNameLike(searchString);
+            foreach (User user in users)
+            {
+                user.Age = CalculateYears(user.DateOfBirth, DateTime.Now);
+            }
+
+            return users;
+        }
+
         private int CalculateYears(DateTime start, DateTime end)
         {
             var today = DateTime.Now;

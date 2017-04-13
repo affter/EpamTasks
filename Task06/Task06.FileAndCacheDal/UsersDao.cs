@@ -70,6 +70,11 @@ namespace Task06.FileAndCacheDal
             File.WriteAllLines(UsersFileName, instance.usersCollection.Select(Serialize));
         }
 
+        public IEnumerable<User> GetByNameLike(string searchString)
+        {
+            return usersCollection.Where(n => n.Name.Contains(searchString));
+        }
+
         private static string Serialize(User user)
         {
             return $"{user.Id.ToString()}{separator}{user.Name}{separator}{user.DateOfBirth.ToString("dd.MM.yyyy")}";

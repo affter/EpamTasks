@@ -69,6 +69,11 @@ namespace Task06.FileAndCacheDal
             File.WriteAllLines(AwardsFileName, instance.awardsCollection.Select(Serialize));
         }
 
+        public IEnumerable<Award> GetByTitleLike(string searchString)
+        {
+            return awardsCollection.Where(n => n.Title.Contains(searchString));
+        }
+
         private static string Serialize(Award award)
         {
             return $"{award.Id.ToString()}{separator}{award.Title}";

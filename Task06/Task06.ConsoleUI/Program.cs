@@ -90,9 +90,31 @@ namespace Task06.ConsoleUI
 
             try
             {
-                Console.Write("Введите идентификатор пользователя: ");
+                var users = FindUsers();
+                if (!users.Any())
+                {
+                    Console.WriteLine("Не найдено ни одного пользователя");
+                    PressAnyKey();
+                    return;
+                }
+                else
+                {
+                    foreach (User user in users)
+                    {
+                        ShowUser(user);
+                    }
+                }
+
+                Console.Write("Введите идентификатор пользователя, которого нужно лишить награды: ");
                 userID = int.Parse(Console.ReadLine());
-                Console.Write("Введите идентификатор награды: ");
+                if (!TryShowUserAwards(usersLogic.GetAll().First(n => n.Id == userID)))
+                {
+                    Console.WriteLine("Не получено ни одной награды");
+                    PressAnyKey();
+                    return;
+                }
+
+                Console.Write("Введите идентификатор награды, которую нужно забрать у пользователя: ");
                 awardID = int.Parse(Console.ReadLine());
             }
             catch
@@ -114,18 +136,58 @@ namespace Task06.ConsoleUI
             }
         }
 
+        private static IEnumerable<User> FindUsers()
+        {
+            Console.Write("Введите имя или часть имени пользователя: ");
+            string searchString = Console.ReadLine();
+            return usersLogic.GetByNameLike(searchString);
+        }
+
         private static void AwardUser()
         {
             int userID, awardID;
 
             try
             {
-                Console.Write("Введите идентификатор пользователя: ");
+                var users = FindUsers();
+                if (!users.Any())
+                {
+                    Console.WriteLine("Не найдено ни одного пользователя");
+                    PressAnyKey();
+                    return;
+                }
+                else
+                {
+                    foreach (User user in users)
+                    {
+                        ShowUser(user);
+                    }
+                }
+
+                Console.Write("Введите идентификатор пользователя, которого нужно наградить: ");
                 userID = int.Parse(Console.ReadLine());
-                Console.Write("Введите идентификатор награды: ");
+                Console.Write("Введите название или часть названия награды: ");
+                string searchString = Console.ReadLine();
+                var awards = awardsLogic.GetByTitleLike(searchString);
+                if (!awards.Any())
+                {
+                    Console.WriteLine("Не найдено ни одной награды");
+                    PressAnyKey();
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("Найденные награды:");
+                    foreach (Award award in awards)
+                    {
+                        ShowAward(award);
+                    }
+                }
+
+                Console.Write("Введите идентификатор награды, которой нужно наградить пользователя: ");
                 awardID = int.Parse(Console.ReadLine());
             }
-            catch 
+            catch
             {
                 Console.WriteLine("Идентификатор введен некорректно");
                 PressAnyKey();
@@ -250,27 +312,33 @@ namespace Task06.ConsoleUI
         private static void ShowAllUsers()
         {
             IEnumerable<User> users = usersLogic.GetAll();
-            IEnumerable<Award> awards = awardsLogic.GetAll();
             foreach (User user in users)
             {
-                var userAwards = usersLogic.GetUserAwards(user.Id);
                 ShowUser(user);
-                if (!userAwards.Any())
+                if (!TryShowUserAwards(user))
                 {
                     Console.WriteLine("Не получено ни одной награды");
                 }
-                else
-                {
-                    Console.WriteLine("Список наград:");
-                    foreach (var award in awards.Where(n => userAwards.Contains(n.Id)))
-                    {
-                        ShowAward(award);
-                    }
-                }
-                
             }
 
             PressAnyKey();
+        }
+
+        private static bool TryShowUserAwards(User user)
+        {
+            IEnumerable<Award> awards = awardsLogic.GetAll();
+            var userAwards = usersLogic.GetUserAwards(user.Id);
+            if (userAwards.Any())
+            {
+                Console.WriteLine("Список наград:");
+                foreach (var award in awards.Where(n => userAwards.Contains(n.Id)))
+                {
+                    ShowAward(award);
+                }
+                return true;
+            }
+
+            return false;
         }
 
         private static void ShowAllAwards()

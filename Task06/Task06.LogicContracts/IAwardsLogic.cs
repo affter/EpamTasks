@@ -14,5 +14,7 @@ namespace Task06.LogicContracts
         bool Remove(int id);
 
         IEnumerable<Award> GetAll();
+
+        IEnumerable<Award> GetByTitleLike(string searchString);
     }
 }

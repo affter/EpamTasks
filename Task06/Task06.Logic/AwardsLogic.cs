@@ -43,6 +43,11 @@ namespace Task06.Logic
             return awardsDao.GetAll();
         }
 
+        public IEnumerable<Award> GetByTitleLike(string searchString)
+        {
+            return awardsDao.GetByTitleLike(searchString);
+        }
+
         public bool Remove(int id)
         {
             try
