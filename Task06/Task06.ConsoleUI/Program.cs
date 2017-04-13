@@ -13,7 +13,6 @@ namespace Task06.ConsoleUI
     {
         private static IUsersLogic usersLogic = new UsersLogic();
         private static IAwardsLogic awardsLogic = new AwardsLogic();
-        private static IAwardingLogic awardingLogic = new AwardingLogic();
 
         private static void Main(string[] args)
         {
@@ -103,7 +102,7 @@ namespace Task06.ConsoleUI
                 return;
             }
 
-            if (awardingLogic.RemoveAwardFromUser(userID, awardID))
+            if (usersLogic.RemoveAward(userID, awardID))
             {
                 Console.WriteLine("Награда успешно отозвана");
                 PressAnyKey();
@@ -133,7 +132,7 @@ namespace Task06.ConsoleUI
                 return;
             }
 
-            if (awardingLogic.AwardUser(userID, awardID))
+            if (usersLogic.Award(userID, awardID))
             {
                 Console.WriteLine("Награждение пользователя прошло успешно");
                 PressAnyKey();
@@ -254,7 +253,7 @@ namespace Task06.ConsoleUI
             IEnumerable<Award> awards = awardsLogic.GetAll();
             foreach (User user in users)
             {
-                var userAwards = awardingLogic.GetUserAwards(user.Id);
+                var userAwards = usersLogic.GetUserAwards(user.Id);
                 ShowUser(user);
                 if (!userAwards.Any())
                 {

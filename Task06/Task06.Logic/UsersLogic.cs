@@ -13,10 +13,14 @@ namespace Task06.Logic
     public class UsersLogic : IUsersLogic
     {
         private static IUsersDao usersDao;
+        private static IAwardsDao awardsDao;
+        private static IAwardingDao awardingDao;
 
         public UsersLogic()
         {
             usersDao = UsersDao.GetInstance();
+            awardsDao = AwardsDao.GetInstance();
+            awardingDao = AwardingDao.GetInstance();
         }
 
         public bool Add(string name, DateTime dateOfBirth)
@@ -74,7 +78,52 @@ namespace Task06.Logic
                 return false;
             }
         }
-        
+
+        public bool Award(int userID, int awardID)
+        {
+            if (usersDao.GetAll().Any(n => n.Id == userID) && awardsDao.GetAll().Any(n => n.Id == awardID))
+            {
+                try
+                {
+                    awardingDao.AwardUser(userID, awardID);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public IEnumerable<int> GetUserAwards(int userID)
+        {
+            return awardingDao.GetUserAwards(userID);
+        }
+
+        public bool RemoveAward(int userID, int awardID)
+        {
+            if (usersDao.GetAll().Any(n => n.Id == userID) && awardsDao.GetAll().Any(n => n.Id == awardID))
+            {
+                try
+                {
+                    awardingDao.RemoveAwardFromUser(userID, awardID);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private int CalculateYears(DateTime start, DateTime end)
         {
             var today = DateTime.Now;

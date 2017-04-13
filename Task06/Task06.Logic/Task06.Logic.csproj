@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AwardingLogic.cs" />
     <Compile Include="AwardsLogic.cs" />
     <Compile Include="UsersLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
