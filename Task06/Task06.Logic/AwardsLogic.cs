@@ -61,6 +61,7 @@ namespace Task06.Logic
                         awardingDao.RemoveAwardFromUser(user.Id, id);
                     }
                 }
+
                 return true;
             }
             catch

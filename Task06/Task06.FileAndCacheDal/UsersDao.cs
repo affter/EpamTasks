@@ -13,10 +13,10 @@ namespace Task06.FileAndCacheDal
     public class UsersDao : IUsersDao
     {
         private static readonly string UsersFileName = Configuration.UsersFileName;
-        private ICollection<User> usersCollection;
-        private int maxId = 0;
         private static char separator = '†';
         private static UsersDao instance;
+        private ICollection<User> usersCollection;
+        private int maxId = 0;
 
         private UsersDao()
         {
@@ -39,7 +39,10 @@ namespace Task06.FileAndCacheDal
         public static UsersDao GetInstance()
         {
             if (instance == null)
+            {
                 instance = new UsersDao();
+            }
+
             return instance;
         }
 
@@ -72,7 +75,7 @@ namespace Task06.FileAndCacheDal
 
         public IEnumerable<User> GetByNameLike(string searchString)
         {
-            return usersCollection.Where(n => n.Name.Contains(searchString));
+            return instance.usersCollection.Where(n => n.Name.Contains(searchString));
         }
 
         private static string Serialize(User user)

@@ -58,7 +58,7 @@ namespace Task06.Logic
             IEnumerable<User> users = usersDao.GetAll();
             foreach (User user in users)
             {
-                user.Age = CalculateYears(user.DateOfBirth, DateTime.Now);
+                user.Age = this.CalculateYears(user.DateOfBirth, DateTime.Now);
             }
 
             return users;
@@ -129,7 +129,7 @@ namespace Task06.Logic
             IEnumerable<User> users = usersDao.GetByNameLike(searchString);
             foreach (User user in users)
             {
-                user.Age = CalculateYears(user.DateOfBirth, DateTime.Now);
+                user.Age = this.CalculateYears(user.DateOfBirth, DateTime.Now);
             }
 
             return users;

@@ -14,6 +14,7 @@ namespace Task06.DalContracts
         void Remove(int id);
 
         IEnumerable<Award> GetAll();
+
         IEnumerable<Award> GetByTitleLike(string searchString);
     }
 }

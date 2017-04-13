@@ -14,6 +14,7 @@ namespace Task06.DalContracts
         void Remove(int id);
 
         IEnumerable<User> GetAll();
+
         IEnumerable<User> GetByNameLike(string searchString);
     }
 }

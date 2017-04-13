@@ -13,10 +13,10 @@ namespace Task06.FileAndCacheDal
     public class AwardsDao : IAwardsDao
     {
         private static readonly string AwardsFileName = Configuration.AwardsFileName;
-        private ICollection<Award> awardsCollection;
-        private int maxId = 0;
         private static char separator = '†';
         private static AwardsDao instance;
+        private ICollection<Award> awardsCollection;
+        private int maxId = 0;
 
         private AwardsDao()
         {
@@ -35,6 +35,16 @@ namespace Task06.FileAndCacheDal
             }
         }
 
+        public static AwardsDao GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new AwardsDao();
+            }
+
+            return instance;
+        }
+
         public void Add(Award award)
         {
             award.Id = ++instance.maxId;
@@ -44,13 +54,6 @@ namespace Task06.FileAndCacheDal
             {
                 sw.WriteLine(Serialize(award));
             }
-        }
-
-        public static AwardsDao GetInstance()
-        {
-            if (instance == null)
-                instance = new AwardsDao();
-            return instance;
         }
 
         public IEnumerable<Award> GetAll()
@@ -71,7 +74,7 @@ namespace Task06.FileAndCacheDal
 
         public IEnumerable<Award> GetByTitleLike(string searchString)
         {
-            return awardsCollection.Where(n => n.Title.Contains(searchString));
+            return instance.awardsCollection.Where(n => n.Title.Contains(searchString));
         }
 
         private static string Serialize(Award award)

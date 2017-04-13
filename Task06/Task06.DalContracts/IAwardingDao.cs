@@ -10,8 +10,11 @@ namespace Task06.DalContracts
     public interface IAwardingDao
     {
         void AwardUser(int userID, int awardID);
+
         void RemoveAwardFromUser(int userID, int awardID);
+
         IEnumerable<int> GetUserAwards(int id);
+
         void RemoveUserAwardsList(int userID);
     }
 }

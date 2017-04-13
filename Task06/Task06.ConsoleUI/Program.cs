@@ -144,6 +144,7 @@ namespace Task06.ConsoleUI
                 PressAnyKey();
             }
         }
+
         private static void AwardUser()
         {
             int userID, awardID;
@@ -345,6 +346,7 @@ namespace Task06.ConsoleUI
                 {
                     ShowAward(award);
                 }
+
                 return true;
             }
 
