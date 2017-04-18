@@ -11,11 +11,12 @@ namespace Task07_03
     {
         static void Main(string[] args)
         {
+            // Иван: ivan@mail.ru Петр: p_ivanov@mail.rol.ru
             Console.Write("Введите строку: ");
             string input = Console.ReadLine();
-            Regex regex = new Regex("[0-9a-zA-Z](?:[\\w\\.-]*[0-9a-zA-Z])*@([0-9a-zA-Z-]*\\.)*[0-9a-zA-Z-]{2,6})");
+            Regex regex = new Regex(@"[^\W_](?:[\w\.-]*[^\W_])*@(?:(?:[^\W_]|-)*\.)*(?:[^\W_]|-){2,6}");
             var emails = regex.Matches(input);
-            Console.WriteLine("Найденные адреса электронной почты");
+            Console.WriteLine("Найденные адреса электронной почты:");
             for (int i = 0; i < emails.Count; i++)
             {
                 Console.WriteLine(emails[i]);
