@@ -11,7 +11,6 @@ namespace Task07_03
     {
         static void Main(string[] args)
         {
-            // Иван: ivan@mail.ru Петр: p_ivanov@mail.rol.ru
             Console.Write("Введите строку: ");
             string input = Console.ReadLine();
             Regex regex = new Regex(@"[^\W_](?:[\w\.-]*[^\W_])*@(?:(?:[^\W_]|-)*\.)*(?:[^\W_]|-){2,6}");
