@@ -1,0 +1,13 @@
+.menu {
+    width : 200px;
+    background-color: #f9e59f;
+    box-shadow: 5px 5px #890000;
+    border-radius: 6px;
+    border: 1px solid black;
+    color: #890000;
+    font-size: 15px;
+}
+
+.menu > li{
+    margin: 8px;
+}
