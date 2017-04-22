@@ -1,0 +1,63 @@
+body{
+    background-color: #2e3e4d;
+}
+
+.triple-offer{
+    background-color: white;
+    margin: auto;
+    font-family: 'Verdana';
+    margin-top: 20px;
+    width: 900px;
+    height: 180px;
+    border-radius: 10px;
+    box-shadow: 0 30px 60px #121313;
+}
+.triple-offer ul{
+    width: 32%;
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 8px;
+    float: left;
+    border-right: 1px solid #e4e4e4;
+}
+.triple-offer ul li:first-child {
+    padding-top: 0px;
+}
+.triple-offer ul li {
+    padding-top: 10px;
+}
+.triple-offer:first-child ul li:first-child{
+    height: 42px;
+    overflow: hidden;
+    display: block;
+    width: 50%;
+    margin: auto;
+}
+.triple-offer ul:nth-child(2) li:first-child img{
+    
+    margin-top: -42.5px;
+}
+.triple-offer ul:last-child li:first-child img{
+    margin-top: -84.5px;
+}
+.triple-offer ul li:nth-child(2) {
+    color: #f5632e;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.triple-offer ul li:nth-child(3) {
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.triple-offer ul li a:last-child{
+    display: block;
+    padding: 5px;
+    width: 35%;
+    text-decoration: none;
+    color: white;
+    margin: auto;
+    text-align: center;
+    background-color: #f5632e;
+}
