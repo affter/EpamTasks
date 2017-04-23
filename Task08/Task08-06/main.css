@@ -1,0 +1,50 @@
+
+body {
+    background: #333;
+}
+.equalizer{
+    width: 400px;
+    height:250px;
+    margin: 10px;
+}
+
+.equalizer div {
+ background: repeating-linear-gradient(to bottom, transparent, 
+ transparent 20px, #333 20px, #333 23px),
+ linear-gradient(to bottom, #ffd059, #ff8c00);
+ width: 40px;
+ display: inline-block;
+ margin-right: 5px;
+ border-radius: 5px 5px 0 0;
+ vertical-align: bottom;
+}
+.one-block {
+    height: 23px;
+}
+.two-blocks {
+    height: 45px;
+}
+.three-blocks {
+    height: 68px;
+}
+.four-blocks {
+    height: 90px;
+}
+.five-blocks {
+    height: 113px;
+}
+.six-blocks {
+    height: 135px;
+}
+.seven-blocks {
+    height: 158px;
+}
+.eight-blocks {
+    height: 180px;
+}
+.nine-blocks {
+    height: 203px;
+}
+.ten-blocks {
+    height: 225px;
+}
