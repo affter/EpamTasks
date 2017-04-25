@@ -1,0 +1,37 @@
+body{
+    background-color: black;
+    font-family: sans-serif;
+}
+
+header{
+    height: 20px;
+    color: #ffb163;
+    left: 10px;
+    background-color: black;
+    font-size: 24px;
+    padding: 15px;
+    font-weight: 600;
+    position: absolute;
+}
+header::after {
+    border: 20px solid transparent;
+    border-left: 15px solid black; 
+    border-top: 30px solid black; 
+	content:'';
+    left: 96px;
+    position: absolute;
+	top: 0px;
+}
+
+.content{
+    border: 1px solid white;
+    background: linear-gradient(to bottom, white, lightgray);
+    margin: 10px 10px;
+    height: 130px;
+    padding: 55px 15px 15px 10px;
+    border-radius: 0 0 10px 10px;
+    width: 300px;
+    font-size: 12px;
+    z-index: -1;
+    line-height: 1.2;
+}
