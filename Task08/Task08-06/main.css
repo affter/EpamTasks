@@ -18,33 +18,33 @@ body {
  border-radius: 5px 5px 0 0;
  vertical-align: bottom;
 }
-.one-block {
+.height-1 {
     height: 23px;
 }
-.two-blocks {
+.height-2 {
     height: 45px;
 }
-.three-blocks {
+.height-3 {
     height: 68px;
 }
-.four-blocks {
+.height-4 {
     height: 90px;
 }
-.five-blocks {
+.height-5 {
     height: 113px;
 }
-.six-blocks {
+.height-6 {
     height: 135px;
 }
-.seven-blocks {
+.height-7 {
     height: 158px;
 }
-.eight-blocks {
+.height-8 {
     height: 180px;
 }
-.nine-blocks {
+.height-9 {
     height: 203px;
 }
-.ten-blocks {
+.height-10 {
     height: 225px;
 }

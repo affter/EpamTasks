@@ -6,6 +6,7 @@ header{
     background-color: #008c66;
     font-size: 20px;
     padding: 15px;
+    min-width: 340px;
 }
 .content{
     border: 1px solid white;
@@ -16,4 +17,5 @@ header{
     margin-right: 10px;
     padding: 10px;
     font-size: 19px;
+    min-width: 310px;
 }
