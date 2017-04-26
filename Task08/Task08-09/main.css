@@ -1,5 +1,6 @@
 .step-counter {
     margin: 10px;
+    font-family: sans-serif;
 }
 input[type="radio"]:empty {
 	margin-left: -999px;
@@ -36,13 +37,26 @@ input[type="radio"]:empty ~ label {
     border-left: 5px solid white; 
     z-index: 1;
 }
-.element:not(:last-child) label:after {
+.element:not(:last-child) input[type="radio"]:empty ~ label:after {
 	content: '';
-    background: linear-gradient(to bottom, #dedede, #bfbfbf, #dedede);
-    transform: skewX(25deg);
+    background: linear-gradient(-50deg, #dedede, #bfbfbf, #dedede);
+    transform: rotate(20deg) skewY(53deg) ;
     position: absolute;
-    left: 80px;
-    height: 9px;
-    width: 9px;
+    top: 7px;
+    left: 75px;
+    height: 16px;
+    width: 10px;
+    z-index: 2;
+}
+
+.element:not(:last-child) input[type="radio"]:checked ~ label:after {
+	content: '';
+    background: linear-gradient(-50deg, #aee188, #64c51d, #aee188);
+    transform: rotate(20deg) skewY(53deg) ;
+    position: absolute;
+    top: 7px;
+    left: 75px;
+    height: 16px;
+    width: 10px;
     z-index: 2;
 }
