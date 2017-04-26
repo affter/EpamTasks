@@ -8,7 +8,7 @@ body {
     margin: 10px;
 }
 
-.equalizer div {
+.equalizer li {
  background: repeating-linear-gradient(to bottom, transparent, 
  transparent 20px, #333 20px, #333 23px),
  linear-gradient(to bottom, #ffd059, #ff8c00);
