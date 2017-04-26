@@ -1,0 +1,48 @@
+.step-counter {
+    margin: 10px;
+}
+input[type="radio"]:empty {
+	margin-left: -999px;
+}
+.element{
+    float: left
+}
+input[type="radio"]:empty ~ label {
+	position: relative;
+	display: block;
+    width: 80px;
+    height: 25px;
+    text-align: center;
+    padding-top: 5px;
+    margin: 1px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+    background: linear-gradient(to bottom, #dedede, #bfbfbf, #dedede);  
+}
+
+.step-counter input[type="radio"]:checked ~ label {
+    background: linear-gradient(to bottom, #aee188, #64c51d, #aee188);
+    color: white;
+}
+
+.element:not(:first-child) label:before {
+    content: '';
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    border: 15px solid transparent;
+    border-left: 5px solid white; 
+    z-index: 1;
+}
+.element:not(:last-child) label:after {
+	content: '';
+    background: linear-gradient(to bottom, #dedede, #bfbfbf, #dedede);
+    transform: skewX(25deg);
+    position: absolute;
+    left: 80px;
+    height: 9px;
+    width: 9px;
+    z-index: 2;
+}
