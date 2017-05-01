@@ -1,0 +1,19 @@
+.select{
+    float: left;
+    width: 100px;
+    height: 200px;
+}
+
+.buttons{
+    width: 50px;
+    padding: 5px;
+    float: left;
+    margin: 5px;
+}
+
+.button{
+    height: 30px;
+    width: 40px;
+    float: left;
+    margin: 5px;
+}

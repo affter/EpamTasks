@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Task09-03</title>
+        <script src="main.js"></script>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <select class="select" multiple id="leftSelect1">
+            <option>Option 1</option>
+            <option>Option 2</option>
+            <option>Option 3</option>
+            <option>Option 4</option>
+        </select>
+        <div class="buttons">
+        <button onclick="move(rightSelect1, leftSelect1)" class="button" type="button">&lt;</button>
+        <button onclick="move(leftSelect1, rightSelect1)" class="button" type="button">></button>
+        <button onclick="moveAll(rightSelect1, leftSelect1)" class="button" type="button">&lt;&lt;</button>
+        <button onclick="moveAll(leftSelect1, rightSelect1)" class="button" type="button">>></button>
+        </div>
+        <select class="select" multiple id="rightSelect1">
+            <option>Option 5</option>
+            <option>Option 6</option>
+            <option>Option 7</option>
+            <option>Option 8</option>
+        </select>
+    </body>
+</html>
