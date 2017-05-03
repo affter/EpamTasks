@@ -4,27 +4,49 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Task09-03</title>
-        <script src="main.js"></script>
         <link rel="stylesheet" href="main.css">
     </head>
     <body>
-        <select class="select" multiple id="leftSelect1">
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-            <option>Option 4</option>
-        </select>
-        <div class="buttons">
-        <button onclick="move(rightSelect1, leftSelect1)" class="button" type="button">&lt;</button>
-        <button onclick="move(leftSelect1, rightSelect1)" class="button" type="button">></button>
-        <button onclick="moveAll(rightSelect1, leftSelect1)" class="button" type="button">&lt;&lt;</button>
-        <button onclick="moveAll(leftSelect1, rightSelect1)" class="button" type="button">>></button>
+        <div class="container">
+            <select class="select left-select" multiple>
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+                <option>Option 4</option>
+            </select>
+            <div class="buttons">
+            <button class="button move-left" type="button">&lt;</button>
+            <button class="button move-right" type="button">></button>
+            <button class="button move-all-left" class="button" type="button">&lt;&lt;</button>
+            <button class="button move-all-right" type="button">>></button>
+            </div>
+            <select class=" select right-select" multiple>
+                <option>Option 5</option>
+                <option>Option 6</option>
+                <option>Option 7</option>
+                <option>Option 8</option>
+            </select>
         </div>
-        <select class="select" multiple id="rightSelect1">
-            <option>Option 5</option>
-            <option>Option 6</option>
-            <option>Option 7</option>
-            <option>Option 8</option>
-        </select>
+        <div class="container">
+            <select class="select left-select" multiple>
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+                <option>Option 4</option>
+            </select>
+            <div class="buttons">
+            <button class="button move-left" type="button">&lt;</button>
+            <button class="button move-right" type="button">></button>
+            <button class="button move-all-left" class="button" type="button">&lt;&lt;</button>
+            <button class="button move-all-right" type="button">>></button>
+            </div>
+            <select class=" select right-select" multiple>
+                <option>Option 5</option>
+                <option>Option 6</option>
+                <option>Option 7</option>
+                <option>Option 8</option>
+            </select>
+        </div>
+        <script src="main.js"></script>
     </body>
 </html>

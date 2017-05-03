@@ -17,3 +17,7 @@
     float: left;
     margin: 5px;
 }
+.container{
+    padding: 10px;
+    clear: both;
+}
