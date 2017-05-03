@@ -21,3 +21,9 @@
     padding: 10px;
     clear: both;
 }
+
+.warning{
+    font-size: 26pt;
+    color: red;
+    margin: 10px;
+}
