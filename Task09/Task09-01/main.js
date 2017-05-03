@@ -1,5 +1,12 @@
 /*jslint plusplus: true */
 
+window.onload = function () {
+    document.querySelector(".removing-button").onclick = function () {
+        removeDuplicates();
+    }
+}
+
+
 function findDuplicateSymbols(splittedInputString) {
     "use strict";
     var i,
@@ -26,7 +33,7 @@ function removeDuplicates() {
         splittedInputString,
         duplicates,
         i;
-    inputString = window.data.value;
+    inputString = document.querySelector(".data").value;
     splittedInputString = inputString.split("");
     duplicates = findDuplicateSymbols(splittedInputString);
     for (i = 0; i < duplicates.length; i++) {
@@ -34,6 +41,6 @@ function removeDuplicates() {
             splittedInputString.splice(splittedInputString.indexOf(duplicates[i]), 1);
         }
     }
-    window.output.value = splittedInputString.join("");
+    document.querySelector(".output").value = splittedInputString.join("");
 }
 
