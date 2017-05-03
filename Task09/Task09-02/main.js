@@ -1,5 +1,9 @@
 /*jslint plusplus: true */
 
+document.querySelector(".calculate-button").onclick = function () {
+    calculate();
+}
+
 function calculateEqPart(eqPart) {
     "use strict";
     var eqPartValue,
@@ -40,16 +44,16 @@ function calculate() {
     var eq,
         eqPart,
         eqPartValue;
-    eq = window.equation.value;
+    eq = document.querySelector(".equation").value;
     if (!eq.match(/^-?\d+(?:\.\d+)?(?: ?[+*\/\-] ?-?\d+(?:\.\d+)?)* ?=$/)) {
-        window.result.value = "Calculation error";
+        document.querySelector(".result").value = "Calculation error";
     } else {
         while (eq.match(/^-?\d+(?:\.\d+)? ?[+*\/\-] ?-?\d+(?:\.\d+)?/)) {
             eqPart = eq.match(/^-?\d+(?:\.\d+)? ?[+*\/\-] ?-?\d+(?:\.\d+)?/);
             eqPartValue = calculateEqPart(eqPart);
             eq = eq.replace(eqPart, eqPartValue);
         }
-        window.result.value = parseFloat(eq.match(/-?\d+(?:\.\d+)?/)).toLocaleString("ru-RU",{minimumFractionDigits:0, maximumFractionDigits:3});
+        document.querySelector(".result").value = parseFloat(eq.match(/-?\d+(?:\.\d+)?/)).toLocaleString("ru-RU",{minimumFractionDigits:0, maximumFractionDigits:3});
     }
 }
 
